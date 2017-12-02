@@ -3,67 +3,108 @@ const router = express.Router();
 
 const db = require('../models');
 
+const Areas = db.Areas;
+const Artists = db.Artists;
+const Artworks = db.Artworks;
+const Authorizations = db.Authorizations;
+const Checkins = db.Checkins;
+const Likes = db.Likes;
+const Sites = db.Sites;
 const Users = db.Users;
-const Events = db.Events;
-const Photos = db.Photos;
 
-// events by user
 
-router.get('/user/:userid', (req, res) => {
-  let id = req.params.userid;
+router.get('/', (req, res) => {
 
-  return Events.findAll({where: {user_id: id}})
-  .then(events => {
-    if(!events || events.length === 0){console.log('no events found');}
-    // need some sort of a res.end();
-    res.json(events);
+  return Artists.findAll()
+  .then(artists => {
+    console.log('these are the artists coming back', artists);
+    res.json(artists);
   })
   .catch(error => {
-    console.log('an error occurred in get api/events/:username');
+    console.log('an error occurred on get api/artists/');
   });
 });
 
-router.get('/:eventid', (req, res) => {
-  let {eventid} = req.params;
 
-  return Events.findById(eventid)
-  .then(event => {
-    console.log('event cominb back from /:eventid', event);
-    // do something with the event data here before moving on to photos
+router.get('/:id', (req, res) => {
+  let {id} = req.params;
 
-    return Photos.findAll({where: {event_id: eventid}});
-    // res.json(event);
-  })
-  .then(photos => {
-    res.json(photos);
+  //eager loading to get artworks belongong to this artist
+
+  return Artists.findOne({where: {id: id}})
+  .then(artist => {
+    console.log('this is the artist coming back', artist);
+    res.json(artist);
   })
   .catch(error => {
-    console.log('an error occurred on get to api/events/:eventid');
+    console.log('an error occurred on get api/artists/:id');
   });
 });
+
 
 router.post('/', (req, res) => {
-  //replace with id & username derived from sessions
-  //tie in even id
+  let {name, bio, photourl, websiteurl, featured} = req.body;
 
-
-  let {title, description, date, userid} = req.body;
-
-  Events.create({
-    title: title,
-    description: description,
-    date: date,
-    user_id: userid
+  return Artists.create({
+    name: name,
+    bio: bio,
+    photourl: photourl,
+    websiteurl: websiteurl,
+    featured: featured
   })
-  .then(event => {
-    console.log('this is created event that comes back from post to events', event);
-    res.redirect(`/api/events/${userid}`);
+  .then(artist => {
+    console.log('comment coming back from post to api/artists', artist);
+    res.json(artist);
   })
   .catch(error => {
-    console.log('an error occurred on post to api/events');
+    console.log('an error occurred on post to api/artists');
   });
 });
 
+
+router.put('/:id', (req, res) => {
+  let {id} = req.params;
+  let {name, bio, photourl, websiteurl, featured} = req.body;
+
+  return Artists.findOne({where : {id: id}})
+  .then(artist => {
+    return artist.update({
+      name: name,
+      bio: bio,
+      photourl: photourl,
+      websiteurl: websiteurl,
+      featured: featured
+    });
+  })
+  .then(result => {
+    console.log('an update made to artist with id ', id,  result);
+    res.json(result);
+  })
+  .catch(error => {
+    console.log('an error occured on put to api/artists/:id', error);
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  let {id} = req.params;
+
+  return Artists.findOne({where: {id: id}})
+  .then(artist => {
+    if(!artist){
+      console.log('could not locate the record to delete');
+      res.json({error: 'could not locate the record to delete'});
+    }
+      return artist.destroy();
+  })
+  .then(result => {
+    console.log('this is what we get back from delete to api/artists/:id for id ', id, result);
+    res.json(result);
+    // returns an empty array if successful and undefined if record not found - it works
+  })
+  .catch(error => {
+    console.log('an error occurred on delete to api/artists/:id for id ', id);
+  });
+});
 
 
 module.exports = router;
