@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create New Event</title>
+</head>
+<body>
+  <form action="/api/events" method="POST" enctype ="application/x-www-form-urlencoded">
+    <label for="eventTitle">Event Name:</label>
+    <input type="text" name="title" placeholder="Name your event">
+    <br>
+    <label for="eventDate">Event Date:</label>
+    <input type="text" name="date" placeholder="Date of your event">
+    <br>
+    <button type="submit">Create</button>
+  </form>
+</body>
+</html>
+
+<!-- add description field -->
