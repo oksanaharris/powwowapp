@@ -1,30 +1,33 @@
 {
   "name": "powwowapp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
+    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
+    "connect-redis": "^3.3.2",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
-    "method-override": "^2.3.9",
-    "pg": "^7.1.0",
+    "express-session": "^1.15.6",
+    "method-override": "^2.3.10",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "pg": "^7.4.0",
+    "pg-hstore": "^2.3.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "sequelize": "^4.24.0"
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "sequelize": "^4.27.0"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/oksanaharris/powwowapp.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/oksanaharris/powwowapp/issues"
-  },
-  "homepage": "https://github.com/oksanaharris/powwowapp#readme"
+  "proxy": "http://localhost:9000"
 }
