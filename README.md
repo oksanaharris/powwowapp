@@ -1,5 +1,44 @@
 Powwow App README.md
 
+Run npm install - 
+
+Opening the Web-app from root:
+Terminal Window #1:
+cli: nodemon server/server.js - runs on localhost:9000
+Terminal Window #2:
+cli: npm start - react app runs on localhost:3000 - it will automaticall open the browser and load for you. proxy is set to 9000 to connect with the server.
+
+Boiler-Plate setup:
+Looking at Oxana's models/routes - I inserted the following to match:
+Actions - 1:1 for each route/model
+Reducers - 1:1 for each route/model/action
+
+App Entry - src/index.js
+App CSS Entry - src/index.css
+App '/' starting route - src/containers/App/index.js
+Reducer - src/reducers/index.js
+Actions - src/actions/*
+Server Entry - server/server.js port 9000
+
+
+Database config setup steps:
+1. pg-start
+2. psql
+3. CREATE DATABASE powwowdb;
+4.\c powwowdb - to confirm
+5.Change db.sync to true - add all the tables to DB
+
+
+```json
+{
+  "development": {
+    "database": "powwowdb",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
+```
+
 
 Setting up Facebook OAuth, please follow the following steps to get this working on your computer:
 
