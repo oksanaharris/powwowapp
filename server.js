@@ -69,4 +69,4 @@ app.listen(PORT, () => {
 
 
 // salt, bcrypt, passport - facebook auth
-// defaults for tables
+

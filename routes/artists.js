@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 
   //eager loading to get artworks belongong to this artist
 
-  return Artists.findOne({where: {id: id}})
+  return Artists.findOne({where: {id: id}, include: [Artworks]})
   .then(artist => {
     console.log('this is the artist coming back', artist);
     res.json(artist);

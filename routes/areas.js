@@ -14,7 +14,7 @@ const Users = db.Users;
 
 router.get('/', (req, res) => {
 
-  return Areas.findAll()
+  return Areas.findAll({include: [Authorizations]})
   .then(areas => {
     console.log('these are the areas coming back', areas);
     res.json(areas);
@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   let {id} = req.params;
 
-  return Areas.findOne({where: {id: id}})
+  return Areas.findOne({where: {id: id}, include: [Authorizations]})
   .then(area => {
     console.log('this is the area coming back', area);
     res.json(area);
