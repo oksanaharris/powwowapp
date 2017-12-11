@@ -33,6 +33,20 @@ const SearchTemp = () => {
     )
 }
 
+const FooterMenuTemp = () => {
+  return(
+      <div className="footer-menu-temp">
+        <img src="http://bit.ly/2kkOrDM" className="art-icon-temp"/>
+        <div className="vLine-temp">
+          <img src="http://bit.ly/2AN4KBb" alt="" className="camera-icon-temp"/>
+        </div>
+        <img src="http://bit.ly/2kdDrIk" className="community-icon-temp"/>
+        <p className="temp-art-header">Art</p>
+        <p className="temp-community-header">Community</p>
+      </div>
+    )
+}
+
 class MapView extends Component {
   render() {
     const center = [21.296594, -157.855613]
@@ -60,6 +74,7 @@ class MapView extends Component {
             </FeatureGroup>
           </Map>
         </div>
+        <FooterMenuTemp/>
       </div>
     )
   }
