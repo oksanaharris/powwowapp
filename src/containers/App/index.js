@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import OpenStreetMaps from '../OpenStreetMaps';
+import MapView from '../MapView';
 
 
 class App extends Component {
@@ -30,7 +30,7 @@ class App extends Component {
   render() {
     return (
       <div id="container">
-        <OpenStreetMaps/>
+        <MapView/>
       </div>
     );
   }
