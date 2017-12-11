@@ -13,8 +13,8 @@ import {
 } from 'react-leaflet'
 import './temp.css'
 import {data} from './tempData';
-const l = require('react-leaflet')
-console.log(l);
+import L from 'leaflet';
+var mymap = L.map('map');
 
 const HeaderTemp = () => {
   return(
@@ -66,6 +66,7 @@ class MapView extends Component {
       },
       zoom: 15,
       draggable: true,
+      geoLocation: undefined
    }
    this.eachMarker=this.eachMarker.bind(this);
   }
@@ -82,6 +83,7 @@ class MapView extends Component {
     })
   }
 
+
   eachMarker(art,i){
     const markerPosition = [art.lat, art.lng]
     return(<Marker
@@ -96,16 +98,23 @@ class MapView extends Component {
         </Marker>)
   }
 
+  componentDidMount(){
+    let res = mymap.locate({setView: true, watch: true}).on('locationfound', function(e){
+      res = L.marker([e.latitude, e.longitude]);
+      return res._latlng
+    });
+    this.setState({geoLocation: res})
+  }
+
   render() {
     const position = [this.state.center.lat, this.state.center.lng]
     const markerPosition = [this.state.marker.lat, this.state.marker.lng]
-    //console.log(Map.bounds)
-
+    console.log(this.state.geoLocation)
     return (
       <div className="temp-app-container">
         <HeaderTemp />
         <SearchTemp />
-        <div className="map-container">
+        <div className="map-container" id="mapid">
           <Map center={position} zoom={this.state.zoom}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>____"
