@@ -14,7 +14,7 @@ import {
 import './temp.css'
 import {data} from './tempData';
 import L from 'leaflet';
-var mymap = L.map('map');
+
 
 const HeaderTemp = () => {
   return(
@@ -50,7 +50,9 @@ const FooterMenuTemp = () => {
       </div>
     )
 }
-
+var myLatSet = new Set();
+var myLngSet = new Set();
+var mymap;
 class MapView extends Component {
   constructor(props){
     super(props);
@@ -62,13 +64,16 @@ class MapView extends Component {
       },
       marker: {
         lat: 21.296594,
-        lng: -157.855613,
+        lng: -157.865613,
       },
       zoom: 15,
       draggable: true,
-      geoLocation: undefined
+      myLat: 21.296594,
+      myLng: -157.865613
    }
    this.eachMarker=this.eachMarker.bind(this);
+   this.geoLocate=this.geoLocate.bind(this);
+   this.findMe=this.findMe.bind(this);
   }
 
   toggleDraggable = () => {
@@ -77,7 +82,6 @@ class MapView extends Component {
 
   updatePosition = () => {
     const { lat, lng } = this.refs.marker.leafletElement.getLatLng()
-    //console.log(lat,lng)
     this.setState({
       marker: { lat, lng },
     })
@@ -99,19 +103,43 @@ class MapView extends Component {
   }
 
   componentDidMount(){
-    let res = mymap.locate({setView: true, watch: true}).on('locationfound', function(e){
-      res = L.marker([e.latitude, e.longitude]);
-      return res._latlng
-    });
-    this.setState({geoLocation: res})
+    var map = document.getElementById('mapid')
+    mymap = L.map(map);
+  }
+
+  geoLocate(){   
+    let res = mymap.locate({watch: true}).on('locationfound', function(e){
+        var marker = L.marker([e.latitude, e.longitude]);
+    }).on('locationfound',function(marker){
+      myLatSet.add(marker.latitude);
+      myLngSet.add(marker.longitude);
+            var setLatIter = myLatSet[Symbol.iterator]();
+      var setLngIter = myLngSet[Symbol.iterator]();
+      let lat = setLatIter.next().value;
+      let lng = setLngIter.next().value;
+      localStorage.setItem('lat',lat);
+      localStorage.setItem('lng',lng);
+
+    })
+    this.checkLocal();
+  }
+  checkLocal(){
+    setTimeout(this.findMe, 5000);
+  }
+
+  findMe(){
+    this.setState({
+      myLat: localStorage.lat,
+      myLng: localStorage.lng
+    })
   }
 
   render() {
     const position = [this.state.center.lat, this.state.center.lng]
-    const markerPosition = [this.state.marker.lat, this.state.marker.lng]
-    console.log(this.state.geoLocation)
+    const markerPosition = [this.state.myLat, this.state.myLng]
     return (
       <div className="temp-app-container">
+        <button onClick={this.geoLocate}>hello</button>
         <HeaderTemp />
         <SearchTemp />
         <div className="map-container" id="mapid">
@@ -120,6 +148,15 @@ class MapView extends Component {
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>____"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <Marker
+              draggable={this.state.draggable}
+              onDragend={this.updatePosition}
+              position={markerPosition}
+              ref="marker">
+            <Tooltip hover>
+              <span>HOLLLLa</span>
+            </Tooltip>
+        </Marker>
         {data.map(this.eachMarker)}
       </Map>
         </div>
