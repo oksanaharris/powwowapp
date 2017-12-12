@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import MapView from '../MapView';
+
+
 class App extends Component {
 
   constructor(props){
@@ -26,8 +29,8 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="pageTitle navElement">POWWOW APP</div>
+      <div id="container">
+        <MapView/>
       </div>
     );
   }

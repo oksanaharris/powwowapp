@@ -16,3 +16,4 @@ module.exports = function(sequelize, DataTypes) {
 };
 
 // set defaults and constraints
+
