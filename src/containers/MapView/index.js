@@ -113,7 +113,7 @@ class MapView extends Component {
     }).on('locationfound',function(marker){
       myLatSet.add(marker.latitude);
       myLngSet.add(marker.longitude);
-            var setLatIter = myLatSet[Symbol.iterator]();
+      var setLatIter = myLatSet[Symbol.iterator]();
       var setLngIter = myLngSet[Symbol.iterator]();
       let lat = setLatIter.next().value;
       let lng = setLngIter.next().value;
