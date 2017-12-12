@@ -1,57 +1,18 @@
 
 import React, { Component } from 'react'
-import {
-  Circle,
-  FeatureGroup,
-  LayerGroup,
-  Map,
-  Popup,
-  Rectangle,
-  TileLayer,
-  Marker,
-  Tooltip
-} from 'react-leaflet'
+import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
+import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
 import './temp.css'
 import {data} from './tempData';
 import L from 'leaflet';
+import {loadSites} from '../../actions/sites';
+const myLatSet = new Set();
+const myLngSet = new Set();
 
 
-const HeaderTemp = () => {
-  return(
-      <div className="header-temp">
-        <img src="http://bit.ly/2AN2hqu" className="person-icon-temp"/>
-        <div className="app-title-temp">PowWow</div>
-        <img src="http://bit.ly/2At5KNM" alt="" className="header-menu-temp"/>
-      </div>
-    )
-}
 
-const SearchTemp = () => {
-  return(
-      <div className="search-temp">
-        <img src="http://bit.ly/2ygeReT" className="search-icon-temp"/>
-        <input type="text" placeholder="Search" className="search-input-temp"/>
-        <img src="http://bit.ly/2C1wORz" className="boxview-icon-temp"/>
-        <img src="http://bit.ly/2AKsAgF" className="directions-icon-temp"/>
-      </div>
-    )
-}
 
-const FooterMenuTemp = () => {
-  return(
-      <div className="footer-menu-temp">
-        <img src="http://bit.ly/2kkOrDM" className="art-icon-temp"/>
-        <div className="vLine-temp">
-          <img src="http://bit.ly/2AN4KBb" alt="" className="camera-icon-temp"/>
-        </div>
-        <img src="http://bit.ly/2kdDrIk" className="community-icon-temp"/>
-        <p className="temp-art-header">Art</p>
-        <p className="temp-community-header">Community</p>
-      </div>
-    )
-}
-var myLatSet = new Set();
-var myLngSet = new Set();
 class MapView extends Component {
   constructor(props){
     super(props);
@@ -68,7 +29,8 @@ class MapView extends Component {
       zoom: 15,
       draggable: true,
       myLat: 21.296594,
-      myLng: -157.865613
+      myLng: -157.865613,
+      artists: null
    }
    this.eachMarker=this.eachMarker.bind(this);
    this.findMe=this.findMe.bind(this);
@@ -87,7 +49,7 @@ class MapView extends Component {
 
 
   eachMarker(art,i){
-    const markerPosition = [art.lat, art.lng]
+    const markerPosition = [art.lat, art.long]
     return(<Marker
               key={i}
               draggable={this.state.draggable}
@@ -95,12 +57,17 @@ class MapView extends Component {
               position={markerPosition}
               ref="marker">
             <Tooltip hover>
-              <span>{art.title}</span>
+              <span>{art.id}</span>
             </Tooltip>
         </Marker>)
   }
 
+  componentWillMount(){
+    this.props.loadSites();  
+  }
+
   componentDidMount(){
+    
     var map = document.getElementById('mapid')
     let mymap = L.map(map);
     let res = mymap.locate({watch: true}).on('locationfound', function(e){
@@ -124,14 +91,17 @@ class MapView extends Component {
     });
   }
 
+
+
+
   render() {
-    const position = [this.state.center.lat, this.state.center.lng]
-    const markerPosition = [this.state.myLat, this.state.myLng]
+    const position = [this.state.center.lat, this.state.center.lng];
+    const markerPosition = [this.state.myLat, this.state.myLng];
+    const sites = this.props.sites !== [] ? this.props.sites : [];
+
     return (
       <div className="temp-app-container">
-        <HeaderTemp />
-        <SearchTemp />
-        <div className="map-container" id="mapid" onClick={this.findMe}>
+        <div className="map-container" id="mapid">
           <Map center={position} zoom={this.state.zoom}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>____"
@@ -146,14 +116,26 @@ class MapView extends Component {
               <span>HOLLLLa</span>
             </Tooltip>
         </Marker>
-        {data.map(this.eachMarker)}
+        {sites.map(this.eachMarker)}
       </Map>
         </div>
-        <FooterMenuTemp/>
       </div>
     )
   }
 }
 
 
-export default MapView;
+function mapStateToProps(state){
+  return{
+    sites: state.sites
+  }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({
+    loadSites: loadSites
+  },dispatch)
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(MapView);

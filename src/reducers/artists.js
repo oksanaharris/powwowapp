@@ -5,7 +5,8 @@ const artists = (state = [], action) => {
 
   switch(action.type){
     case LOAD_ARTISTS:
-      return state;
+
+      return [...action.artists];
     default:
       return state
   }

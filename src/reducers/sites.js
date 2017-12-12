@@ -5,7 +5,7 @@ const sites = (state = [], action) => {
 
   switch(action.type){
     case LOAD_SITES:
-      return state;
+      return action.sites;
     default:
       return state
   }

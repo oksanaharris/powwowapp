@@ -100,7 +100,7 @@
   }
 
   .leaflet-container{
-    height: 46em;
+    height: 48em;
     width: 32em;
   }
 
@@ -109,3 +109,9 @@
 
 
 }
+
+
+  .leaflet-container{
+    height: 600px;
+    width: 800px;
+  }
