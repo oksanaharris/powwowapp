@@ -52,7 +52,6 @@ const FooterMenuTemp = () => {
 }
 var myLatSet = new Set();
 var myLngSet = new Set();
-var mymap;
 class MapView extends Component {
   constructor(props){
     super(props);
@@ -72,7 +71,6 @@ class MapView extends Component {
       myLng: -157.865613
    }
    this.eachMarker=this.eachMarker.bind(this);
-   this.geoLocate=this.geoLocate.bind(this);
    this.findMe=this.findMe.bind(this);
   }
 
@@ -104,10 +102,7 @@ class MapView extends Component {
 
   componentDidMount(){
     var map = document.getElementById('mapid')
-    mymap = L.map(map);
-  }
-
-  geoLocate(){   
+    let mymap = L.map(map);
     let res = mymap.locate({watch: true}).on('locationfound', function(e){
         var marker = L.marker([e.latitude, e.longitude]);
     }).on('locationfound',function(marker){
@@ -119,19 +114,14 @@ class MapView extends Component {
       let lng = setLngIter.next().value;
       localStorage.setItem('lat',lat);
       localStorage.setItem('lng',lng);
-
     })
-    this.checkLocal();
-  }
-  checkLocal(){
-    setTimeout(this.findMe, 5000);
   }
 
   findMe(){
     this.setState({
       myLat: localStorage.lat,
       myLng: localStorage.lng
-    })
+    });
   }
 
   render() {
@@ -139,10 +129,9 @@ class MapView extends Component {
     const markerPosition = [this.state.myLat, this.state.myLng]
     return (
       <div className="temp-app-container">
-        <button onClick={this.geoLocate}>hello</button>
         <HeaderTemp />
         <SearchTemp />
-        <div className="map-container" id="mapid">
+        <div className="map-container" id="mapid" onClick={this.findMe}>
           <Map center={position} zoom={this.state.zoom}>
         <TileLayer
           attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>____"
