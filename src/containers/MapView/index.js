@@ -110,6 +110,7 @@ class MapView extends Component {
           url={url}
         />
         <Marker
+              onClick={this.findMe}
               draggable={this.state.draggable}
               onDragend={this.updatePosition}
               position={markerPosition}
