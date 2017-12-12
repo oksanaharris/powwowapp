@@ -2,7 +2,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
+import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
+import DivIcon from 'react-leaflet-div-icon';
 import './temp.css'
 import {data} from './tempData';
 import L from 'leaflet';
@@ -50,16 +51,9 @@ class MapView extends Component {
 
   eachMarker(art,i){
     const markerPosition = [art.lat, art.long]
-    return(<Marker
-              key={i}
-              draggable={this.state.draggable}
-              onDragend={this.updatePosition}
-              position={markerPosition}
-              ref="marker">
-            <Tooltip hover>
-              <span>{art.id}</span>
-            </Tooltip>
-        </Marker>)
+    return(<DivIcon className="div-icon-marker" position={markerPosition}>
+            <img className="markerImg" src="http://bit.ly/2z49Auq" alt=""/>
+        </DivIcon>)
   }
 
   componentWillMount(){

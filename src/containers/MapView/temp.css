@@ -111,6 +111,12 @@
 }
 
 
+  .markerImg{
+    height: 30px;
+    widows: 30px;
+    border-radius: 100%;
+  }
+
   .leaflet-container{
     height: 600px;
     width: 800px;
