@@ -59,7 +59,7 @@ class MapView extends Component {
               position={markerPosition}>
               <img 
                 className="markerImg" 
-                src="http://bit.ly/2z49Auq" 
+                src={art.Artist.photourl} 
                 alt=""/>
             </DivIcon>)
   }
