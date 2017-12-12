@@ -7,9 +7,11 @@ import DivIcon from 'react-leaflet-div-icon';
 import './temp.css'
 import {data} from './tempData';
 import L from 'leaflet';
-import {loadSites} from '../../actions/sites';
+import {loadArtworks} from '../../actions/artworks';
 const myLatSet = new Set();
 const myLngSet = new Set();
+const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+const copyright = "<a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>____";
 
 
 
@@ -50,14 +52,20 @@ class MapView extends Component {
 
 
   eachMarker(art,i){
-    const markerPosition = [art.lat, art.long]
-    return(<DivIcon className="div-icon-marker" position={markerPosition}>
-            <img className="markerImg" src="http://bit.ly/2z49Auq" alt=""/>
-        </DivIcon>)
+    const markerPosition = [art.Site.lat, art.Site.long]
+    return( <DivIcon 
+              key={i} 
+              className="div-icon-marker" 
+              position={markerPosition}>
+              <img 
+                className="markerImg" 
+                src="http://bit.ly/2z49Auq" 
+                alt=""/>
+            </DivIcon>)
   }
 
   componentWillMount(){
-    this.props.loadSites();  
+    this.props.loadArtworks();  
   }
 
   componentDidMount(){
@@ -91,15 +99,15 @@ class MapView extends Component {
   render() {
     const position = [this.state.center.lat, this.state.center.lng];
     const markerPosition = [this.state.myLat, this.state.myLng];
-    const sites = this.props.sites !== [] ? this.props.sites : [];
+    const artworks = this.props.artworks === undefined ? []: this.props.artworks;
 
     return (
       <div className="temp-app-container">
         <div className="map-container" id="mapid">
           <Map center={position} zoom={this.state.zoom}>
         <TileLayer
-          attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>____"
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution={copyright}
+          url={url}
         />
         <Marker
               draggable={this.state.draggable}
@@ -110,7 +118,7 @@ class MapView extends Component {
               <span>HOLLLLa</span>
             </Tooltip>
         </Marker>
-        {sites.map(this.eachMarker)}
+        {artworks.map(this.eachMarker)}
       </Map>
         </div>
       </div>
@@ -121,13 +129,13 @@ class MapView extends Component {
 
 function mapStateToProps(state){
   return{
-    sites: state.sites
+    artworks: state.artworks
   }
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    loadSites: loadSites
+    loadArtworks: loadArtworks
   },dispatch)
 }
 
