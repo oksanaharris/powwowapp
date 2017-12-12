@@ -1,0 +1,23 @@
+body {
+  background-color: yellow;
+}
+
+.mainArtworkImage {
+  width: 100vw;
+  height: 66vw;
+  background-image: url('http://lorempixel.com/400/200/cats');
+  background-size: 100% 100%;
+}
+
+.interactions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.interaction {
+  width: 100px;
+  height: 100px;
+  border: solid 2px grey;
+  border-radius: 50%;
+}
