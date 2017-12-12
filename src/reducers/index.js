@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
 
-import comments from './comments';
-import events from './events';
+import areas from './areas';
+import artists from './artists';
+import artworks from './artworks';
+import checkins from './checkins';
 import likes from './likes';
-import photos from './photos';
+import sites from './sites';
 import users from './users';
 
 export default combineReducers({
-  comments,
-  events,
+  areas,
+  artists,
+  artworks,
+  checkins,
   likes,
-  photos,
+  sites,
   users
 });
