@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes) {
     title: {type: DataTypes.STRING, allowNull: false},
     description: {type: DataTypes.STRING},
     date_painted: {type: DataTypes.DATE},
-    date_removed: {type: DataTypes.DATE}
+    date_removed: {type: DataTypes.DATE},
+    featured: {type: DataTypes.BOOLEAN}
   }, {tableName: 'artworks'});
 
   Artworks.associate = function(models) {

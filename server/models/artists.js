@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes) {
     name: {type: DataTypes.STRING, allowNull: false},
     bio: {type: DataTypes.STRING, allowNull: false},
     photourl: {type: DataTypes.STRING},
-    websiteurl: {type: DataTypes.STRING}
+    websiteurl: {type: DataTypes.STRING},
+    featured: {type: DataTypes.BOOLEAN}
   }, {tableName: 'artists'});
 
   Artists.associate = function(models) {
