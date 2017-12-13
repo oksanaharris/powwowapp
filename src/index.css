@@ -6,6 +6,13 @@ body {
 
 
 .leaflet-container {
-    height: 400px;
-    width: 400px;
+    height: 600px;
+    width: 600px;
 }
+
+  .markerImg{
+    height: 30px;
+    widows: 30px;
+    border-radius: 100%;
+  }
+
