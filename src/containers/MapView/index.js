@@ -3,11 +3,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
-import DivIcon from 'react-leaflet-div-icon';
-import L from 'leaflet';
 import {loadArtworks} from '../../actions/artworks';
-const myLatSet = new Set();
-const myLngSet = new Set();
+import {MarkerIcon} from './Map.components';
+import {geoLocate} from './helpers';
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const copyright = "<a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>____";
 
@@ -50,38 +48,15 @@ class MapView extends Component {
 
 
   eachMarker(art,i){
-    const markerPosition = [art.Site.lat, art.Site.long]
-    return( <DivIcon 
-              key={i} 
-              className="div-icon-marker" 
-              position={markerPosition}>
-              <img 
-                className="markerImg" 
-                src={art.Artist.photourl} 
-                alt=""/>
-            </DivIcon>)
+    return(<MarkerIcon art={art} key={i}/> )
   }
 
   componentWillMount(){
     this.props.loadArtworks();  
   }
 
-  componentDidMount(){
-    
-    var map = document.getElementById('mapid')
-    let mymap = L.map(map);
-    let res = mymap.locate({watch: true}).on('locationfound', function(e){
-        var marker = L.marker([e.latitude, e.longitude]);
-    }).on('locationfound',function(marker){
-      myLatSet.add(marker.latitude);
-      myLngSet.add(marker.longitude);
-      var setLatIter = myLatSet[Symbol.iterator]();
-      var setLngIter = myLngSet[Symbol.iterator]();
-      let lat = setLatIter.next().value;
-      let lng = setLngIter.next().value;
-      localStorage.setItem('lat',lat);
-      localStorage.setItem('lng',lng);
-    })
+  componentDidMount(){   
+    geoLocate(document.getElementById('mapid'));
   }
 
   findMe(){
@@ -103,22 +78,19 @@ class MapView extends Component {
       <div className="temp-app-container">
         <div className="map-container" id="mapid">
           <Map center={position} zoom={this.state.zoom}>
-        <TileLayer
-          attribution={copyright}
-          url={url}
-        />
-        <Marker
-              onClick={this.findMe}
-              draggable={this.state.draggable}
-              onDragend={this.updatePosition}
-              position={markerPosition}
-              ref="marker">
-            <Tooltip hover>
-              <span>HOLLLLa</span>
-            </Tooltip>
-        </Marker>
-        {artworks.map(this.eachMarker)}
-      </Map>
+            <TileLayer attribution={copyright} url={url}/>
+            <Marker
+                  onClick={this.findMe}
+                  draggable={this.state.draggable}
+                  onDragend={this.updatePosition}
+                  position={markerPosition}
+                  ref="marker">
+                <Tooltip hover>
+                  <span>HOLLLLa</span>
+                </Tooltip>
+            </Marker>
+            {artworks.map(this.eachMarker)}
+          </Map>
         </div>
       </div>
     )
