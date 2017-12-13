@@ -20,5 +20,12 @@ body {
   width: 400px;
   height: 200px;
   background-color: grey;
+  display: flex;
+  justify-content: space-around;
+}
+
+.marker-artist-popup-details{
+  display: flex-wrap;
+  justify-content: center;
 }
 

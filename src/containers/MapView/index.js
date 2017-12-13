@@ -35,8 +35,8 @@ class MapView extends Component {
     });
   }
 
-  loadArt(e,card){
-    this.setState({popup: card})
+  loadArt(e,art){
+    this.setState({popup: art})
   }
 
   eachMarker(art,i){
@@ -68,7 +68,7 @@ class MapView extends Component {
           </Map>
         </div>
         {popup !== undefined ?
-          <MarkerPopup card={popup} />
+          <MarkerPopup art={popup} />
         : null }
       </div>
     )

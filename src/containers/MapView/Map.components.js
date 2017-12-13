@@ -14,10 +14,28 @@ export const MarkerIcon = ({art,handler}) => {
             </DivIcon>)
 }
 
-export const MarkerPopup = ({card}) => {
+export const MarkerPopup = ({art}) => {
+  console.log(art);
   return (
         <div className="marker-artist-popup">
-          ola!
+          <div className="marker-artist-popup-photo">
+            <img src={art.Artist.photourl} alt=""/>
+          </div>
+          <div className="marker-artist-popup-details">
+            <h4>{art.title}</h4>
+            <p>{art.Artist.name}</p>
+            <p>likes go here</p>
+            <p>{art.Site.cross_street_one}</p>
+          </div>
+          <div className="marker-artist-popup-directions-button">
+            <p>0.1 mi</p> {/*TODO: needs to be dynamic*/}
+            <button className="marker-artist-popup-directions-button">
+              Directions
+            </button>
+          </div>
+          
+          
+
         </div>
 
 
