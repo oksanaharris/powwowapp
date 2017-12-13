@@ -21,17 +21,6 @@ class MapView extends Component {
    this.findMe=this.findMe.bind(this);
   }
 
-  updatePosition = () => {
-    const { lat, lng } = this.refs.marker.leafletElement.getLatLng()
-    this.setState({
-      marker: { lat, lng },
-    })
-  }
-
-  eachMarker(art,i){
-    return(<MarkerIcon art={art} key={i}/> )
-  }
-
   componentWillMount(){
     this.props.loadArtworks();  
   }
@@ -45,6 +34,10 @@ class MapView extends Component {
       myLat: localStorage.lat,
       myLng: localStorage.lng
     });
+  }
+
+  eachMarker(art,i){
+    return(<MarkerIcon art={art} key={i}/> )
   }
 
 
@@ -62,8 +55,6 @@ class MapView extends Component {
             <TileLayer attribution={attribution} url={url}/>
             <Marker
               onClick={this.findMe}
-              draggable={true}
-              onDragend={this.updatePosition}
               position={markerPosition}
               ref="marker">
               <Tooltip hover>
