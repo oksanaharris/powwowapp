@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import {loadArtworks} from '../../actions/artworks';
-import {MarkerIcon} from './Map.components';
+import {MarkerIcon,MarkerPopup} from './Map.components';
 import {geoLocate,url,attribution,kakaako} from './helpers';
 
 class MapView extends Component {
@@ -12,10 +12,12 @@ class MapView extends Component {
 
     this.state = {
       myLat: kakaako.lat,
-      myLng: kakaako.lng
+      myLng: kakaako.lng,
+      popup: undefined
    }
    this.eachMarker=this.eachMarker.bind(this);
    this.findMe=this.findMe.bind(this);
+   this.loadArt=this.loadArt.bind(this);
   }
 
   componentWillMount(){
@@ -33,8 +35,12 @@ class MapView extends Component {
     });
   }
 
+  loadArt(e,card){
+    this.setState({popup: card})
+  }
+
   eachMarker(art,i){
-    return(<MarkerIcon art={art} key={i}/> )
+    return(<MarkerIcon art={art} key={i} handler={this.loadArt}/> )
   }
 
 
@@ -43,6 +49,7 @@ class MapView extends Component {
   render() {
     const yourLocation = [this.state.myLat, this.state.myLng];
     const artworks = this.props.artworks === undefined ? []: this.props.artworks;
+    const {popup} = this.state;
 
     return (
       <div className="temp-app-container">
@@ -60,6 +67,9 @@ class MapView extends Component {
             {artworks.map(this.eachMarker)}
           </Map>
         </div>
+        {popup !== undefined ?
+          <MarkerPopup card={popup} />
+        : null }
       </div>
     )
   }

@@ -1,10 +1,11 @@
 import React from 'react';
 import DivIcon from 'react-leaflet-div-icon';
 
-export const MarkerIcon = ({art}) => {
+export const MarkerIcon = ({art,handler}) => {
   const markerPosition = [art.Site.lat, art.Site.long]
   return(<DivIcon 
-              className="div-icon-marker" 
+              className="div-icon-marker"
+              onClick={(e) => handler(e,art)} 
               position={markerPosition}>
               <img 
                 className="markerImg" 
@@ -13,6 +14,26 @@ export const MarkerIcon = ({art}) => {
             </DivIcon>)
 }
 
+export const MarkerPopup = ({card}) => {
+  return (
+        <div className="marker-artist-popup">
+          ola!
+        </div>
+
+
+    )
+
+}
+
+
+
+
+
+
+
+
+
+/*UNUSED COMPONENTS*/
 export const HeaderTemp = () => {
   return(
       <div className="header-temp">
