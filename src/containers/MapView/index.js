@@ -5,38 +5,20 @@ import {bindActionCreators} from 'redux';
 import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import {loadArtworks} from '../../actions/artworks';
 import {MarkerIcon} from './Map.components';
-import {geoLocate} from './helpers';
-const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-const copyright = "<a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>____";
-
-
-
+import {geoLocate,url,attribution,kakaako} from './helpers';
 
 class MapView extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      center: {
-        lat: 21.296594,
-        lng: -157.855613,
-      },
-      marker: {
-        lat: 21.296594,
-        lng: -157.865613,
-      },
-      zoom: 15,
-      draggable: true,
-      myLat: 21.296594,
-      myLng: -157.865613,
-      artists: null
+      center: kakaako,
+      myLat: kakaako.lat,
+      myLng: kakaako.lng,
+      zoom: 15
    }
    this.eachMarker=this.eachMarker.bind(this);
    this.findMe=this.findMe.bind(this);
-  }
-
-  toggleDraggable = () => {
-    this.setState({ draggable: !this.state.draggable })
   }
 
   updatePosition = () => {
@@ -45,7 +27,6 @@ class MapView extends Component {
       marker: { lat, lng },
     })
   }
-
 
   eachMarker(art,i){
     return(<MarkerIcon art={art} key={i}/> )
@@ -78,16 +59,16 @@ class MapView extends Component {
       <div className="temp-app-container">
         <div className="map-container" id="mapid">
           <Map center={position} zoom={this.state.zoom}>
-            <TileLayer attribution={copyright} url={url}/>
+            <TileLayer attribution={attribution} url={url}/>
             <Marker
-                  onClick={this.findMe}
-                  draggable={this.state.draggable}
-                  onDragend={this.updatePosition}
-                  position={markerPosition}
-                  ref="marker">
-                <Tooltip hover>
-                  <span>HOLLLLa</span>
-                </Tooltip>
+              onClick={this.findMe}
+              draggable={true}
+              onDragend={this.updatePosition}
+              position={markerPosition}
+              ref="marker">
+              <Tooltip hover>
+                <span>Your Location</span>
+              </Tooltip>
             </Marker>
             {artworks.map(this.eachMarker)}
           </Map>
