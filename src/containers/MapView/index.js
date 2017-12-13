@@ -12,10 +12,8 @@ class MapView extends Component {
     super(props);
 
     this.state = {
-      center: kakaako,
       myLat: kakaako.lat,
-      myLng: kakaako.lng,
-      zoom: 15
+      myLng: kakaako.lng
    }
    this.eachMarker=this.eachMarker.bind(this);
    this.findMe=this.findMe.bind(this);
@@ -44,18 +42,17 @@ class MapView extends Component {
 
 
   render() {
-    const position = [this.state.center.lat, this.state.center.lng];
-    const markerPosition = [this.state.myLat, this.state.myLng];
+    const yourLocation = [this.state.myLat, this.state.myLng];
     const artworks = this.props.artworks === undefined ? []: this.props.artworks;
 
     return (
       <div className="temp-app-container">
         <div className="map-container" id="mapid">
-          <Map center={position} zoom={this.state.zoom}>
+          <Map center={kakaako} zoom={15}>
             <TileLayer attribution={attribution} url={url}/>
             <Marker
               onClick={this.findMe}
-              position={markerPosition}
+              position={yourLocation}
               ref="marker">
               <Tooltip hover>
                 <span>Your Location</span>
