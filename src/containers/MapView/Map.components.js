@@ -14,7 +14,7 @@ export const MarkerIcon = ({art,handler}) => {
             </DivIcon>)
 }
 
-export const MarkerPopup = ({art}) => {
+export const MarkerPopup = ({art,handler}) => {
   console.log(art);
   return (
         <div className="marker-artist-popup">
@@ -29,7 +29,9 @@ export const MarkerPopup = ({art}) => {
           </div>
           <div className="marker-artist-popup-directions-button">
             <p>0.1 mi</p> {/*TODO: needs to be dynamic*/}
-            <button className="marker-artist-popup-directions-button">
+            <button
+              onClick={(e)=>handler(e)} 
+              className="marker-artist-popup-directions-button">
               Directions
             </button>
           </div>

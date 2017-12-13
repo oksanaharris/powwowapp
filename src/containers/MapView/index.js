@@ -18,6 +18,7 @@ class MapView extends Component {
    this.eachMarker=this.eachMarker.bind(this);
    this.findMe=this.findMe.bind(this);
    this.loadArt=this.loadArt.bind(this);
+   this.getDirections=this.getDirections.bind(this);
   }
 
   componentWillMount(){
@@ -37,6 +38,10 @@ class MapView extends Component {
 
   loadArt(e,art){
     this.setState({popup: art})
+  }
+
+  getDirections(e){
+    console.log(e);
   }
 
   eachMarker(art,i){
@@ -68,7 +73,7 @@ class MapView extends Component {
           </Map>
         </div>
         {popup !== undefined ?
-          <MarkerPopup art={popup} />
+          <MarkerPopup art={popup} handler={this.getDirections} />
         : null }
       </div>
     )
