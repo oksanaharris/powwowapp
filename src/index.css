@@ -28,4 +28,6 @@ body {
   display: flex-wrap;
   justify-content: center;
 }
-
+.leaflet-top, leaflet-left{
+  visibility: hidden;
+}

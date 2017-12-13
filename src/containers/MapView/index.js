@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Map, TileLayer, Marker, Tooltip,Popup,Path,Polyline } from 'react-leaflet';
+import { Map, TileLayer, Marker, Tooltip,Popup} from 'react-leaflet';
 import L from 'leaflet';
+import 'leaflet-routing-machine';
 import {loadArtworks} from '../../actions/artworks';
 import {MarkerIcon,MarkerPopup,MyLocation} from './Map.components';
 import {url,attribution,kakaako} from './helpers';
@@ -14,6 +15,7 @@ class MapView extends Component {
   this.state = {
     hasLocation: false,
     popup: undefined,
+    map: undefined,
     latlng: {
       lat: kakaako.lat,
       lng: kakaako.lng,
@@ -38,13 +40,25 @@ class MapView extends Component {
   componentWillMount(){
     this.props.loadArtworks();  
   }
+  componentDidMount(){
+    const mymap = document.getElementById('map');
+    this.setState({map: mymap}); 
+  }
 
   loadArt(e,art){
     this.setState({popup: art})
   }
 
-  getDirections(e){
-    console.log(e);
+  getDirections(e,art){
+    let lat = art.Site.lat;
+    let lng = art.Site.long;
+    const map = L.map(this.state.map);
+    L.Routing.control({
+      waypoints: [
+          L.latLng(this.state.latlng),
+          L.latLng(lat, lng)
+      ]
+    }).addTo(map);
   }
 
   eachMarker(art,i){
@@ -57,10 +71,10 @@ class MapView extends Component {
     const artworks = this.props.artworks === undefined ? []: this.props.artworks;
     const {popup} = this.state;
     const {hasLocation} =this.state;
-    const polyline = [[kakaako.lat, kakaako.lng], [kakaako.lat, kakaako.lng], [21.2960919, -157.859673]]
 
     return (
       <div>
+        <div id="map">
         <Map
           center={this.state.latlng}
           length={4}
@@ -73,12 +87,14 @@ class MapView extends Component {
           {hasLocation ? 
           <MyLocation position={this.state.latlng} />
           : null }
-          <Polyline color="lime" positions={polyline} />
           {artworks.map(this.eachMarker)}
         </Map>
+        </div>
+        <div>
         {popup !== undefined ?
             <MarkerPopup art={popup} handler={this.getDirections} />
           : null }
+        </div>
       </div> 
     )
   }
