@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import DivIcon from 'react-leaflet-div-icon';
-import './temp.css'
-import {data} from './tempData';
 import L from 'leaflet';
 import {loadArtworks} from '../../actions/artworks';
 const myLatSet = new Set();
