@@ -10,9 +10,22 @@ body {
     width: 600px;
 }
 
-  .markerImg{
+.markerImg{
     height: 30px;
     widows: 30px;
     border-radius: 100%;
-  }
+}
+
+.marker-artist-popup{
+  width: 400px;
+  height: 200px;
+  background-color: grey;
+  display: flex;
+  justify-content: space-around;
+}
+
+.marker-artist-popup-details{
+  display: flex-wrap;
+  justify-content: center;
+}
 
