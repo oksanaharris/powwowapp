@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Map, TileLayer, Marker, Tooltip,Popup } from 'react-leaflet';
+import { Map, TileLayer, Marker, Tooltip,Popup,Path,Polyline } from 'react-leaflet';
+import L from 'leaflet';
 import {loadArtworks} from '../../actions/artworks';
 import {MarkerIcon,MarkerPopup,MyLocation} from './Map.components';
 import {url,attribution,kakaako} from './helpers';
-
 
 
 
@@ -57,6 +57,7 @@ class MapView extends Component {
     const artworks = this.props.artworks === undefined ? []: this.props.artworks;
     const {popup} = this.state;
     const {hasLocation} =this.state;
+    const polyline = [[kakaako.lat, kakaako.lng], [kakaako.lat, kakaako.lng], [21.2960919, -157.859673]]
 
     return (
       <div>
@@ -68,11 +69,11 @@ class MapView extends Component {
           ref="map"
           zoom={16}>
           <TileLayer attribution={attribution} url={url}/>
-          
+
           {hasLocation ? 
           <MyLocation position={this.state.latlng} />
           : null }
-
+          <Polyline color="lime" positions={polyline} />
           {artworks.map(this.eachMarker)}
         </Map>
         {popup !== undefined ?
