@@ -56,6 +56,7 @@ class MapView extends Component {
   render() {
     const artworks = this.props.artworks === undefined ? []: this.props.artworks;
     const {popup} = this.state;
+    const {hasLocation} =this.state;
 
     return (
       <div>
@@ -67,7 +68,11 @@ class MapView extends Component {
           ref="map"
           zoom={16}>
           <TileLayer attribution={attribution} url={url}/>
+          
+          {hasLocation ? 
           <MyLocation position={this.state.latlng} />
+          : null }
+
           {artworks.map(this.eachMarker)}
         </Map>
         {popup !== undefined ?
