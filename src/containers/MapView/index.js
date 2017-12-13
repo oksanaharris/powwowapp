@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
 import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import {loadArtworks} from '../../actions/artworks';
 import {MarkerIcon} from './Map.components';
@@ -66,18 +65,16 @@ class MapView extends Component {
   }
 }
 
-
-function mapStateToProps(state){
-  return{
+const mapStateToProps = (state) => {
+  return {
     artworks: state.artworks
-  }
+    }
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({
-    loadArtworks: loadArtworks
-  },dispatch)
-}
+const ConnectedMapView = connect(
+  mapStateToProps,
+  {loadArtworks}
+)(MapView)
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(MapView);
+export default ConnectedMapView;
