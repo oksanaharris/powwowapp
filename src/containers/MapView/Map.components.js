@@ -1,5 +1,6 @@
 import React from 'react';
 import DivIcon from 'react-leaflet-div-icon';
+import { Marker, Popup } from 'react-leaflet';
 
 export const MarkerIcon = ({art,handler}) => {
   const markerPosition = [art.Site.lat, art.Site.long]
@@ -14,8 +15,7 @@ export const MarkerIcon = ({art,handler}) => {
             </DivIcon>)
 }
 
-export const MarkerPopup = ({art}) => {
-  console.log(art);
+export const MarkerPopup = ({art,handler}) => {
   return (
         <div className="marker-artist-popup">
           <div className="marker-artist-popup-photo">
@@ -29,19 +29,23 @@ export const MarkerPopup = ({art}) => {
           </div>
           <div className="marker-artist-popup-directions-button">
             <p>0.1 mi</p> {/*TODO: needs to be dynamic*/}
-            <button className="marker-artist-popup-directions-button">
+            <button
+              onClick={(e)=>handler(e,art)} 
+              className="marker-artist-popup-directions-button">
               Directions
             </button>
           </div>
-          
-          
-
         </div>
-
-
     )
-
 }
+
+  export const MyLocation = ({position})=> {
+      return(<Marker position={position}>
+        <Popup>
+          <span>You are here</span>
+        </Popup>
+      </Marker>)
+    }
 
 
 
