@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {loadArtworks} from '../../actions/artworks';
+import {searchHelper} from './helpers';
 import _ from 'lodash';
 import './style.css';
  
@@ -17,16 +18,8 @@ class Search extends Component {
   }
 
     search(e) {
-      let data = this.props.artworks;
-      let query = e.target.value;
-      let m = data.map((elem)=>{
-        let x = _.mapValues(elem, _.method('toLowerCase'));
-        if(query.length > 4){
-          if(x.title.match(query)){
-            this.setState({input: [x]})
-          }
-        }
-      })    
+      let res = searchHelper(e,this.props.artworks); 
+      this.setState({input: [res]})  
   }
 
 
