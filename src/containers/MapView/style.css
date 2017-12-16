@@ -1,39 +1,10 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
 
-
-.leaflet-container {
-    height: 600px;
-    width: 600px;
-    visibility: hidden;
-}
-
-.markerImg{
-    height: 30px;
-    widows: 30px;
-    border-radius: 100%;
-}
-
-.marker-artist-popup{
-  width: 400px;
-  height: 200px;
-  background-color: grey;
-  display: flex;
-  justify-content: space-around;
-}
-
-.marker-artist-popup-details{
-  display: flex-wrap;
-  justify-content: center;
-}
-.leaflet-top, leaflet-left{
-  visibility: hidden;
-}
-
-
+  
+  body{
+    font-size: 62.5%;
+    margin: 0;
+    padding: 0;
+  }
 
   .header-temp{
     height: 3em;
@@ -73,8 +44,6 @@ body {
   .search-input-temp{
     background-color: #e2e4e7;
     border: transparent;
-    height: 30px;
-    font-size: 25px;
   }
 
   .map-container{

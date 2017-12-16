@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Map, TileLayer, Marker, Tooltip,Popup} from 'react-leaflet';
 import L from 'leaflet';
-import 'leaflet-routing-machine';
+//import 'leaflet-routing-machine';
 import {loadArtworks} from '../../actions/artworks';
 import {MarkerIcon,MarkerPopup,MyLocation} from './Map.components';
+import {HeaderTemp,FooterMenuTemp} from './Map.components';
+import Search from '../Search';
 import {url,attribution,kakaako} from './helpers';
+
 
 
 
@@ -74,6 +77,8 @@ class MapView extends Component {
 
     return (
       <div>
+        <HeaderTemp/>
+        <Search/>
         <div id="map">
         <Map
           center={this.state.latlng}
@@ -95,6 +100,7 @@ class MapView extends Component {
             <MarkerPopup art={popup} handler={this.getDirections} />
           : null }
         </div>
+        <FooterMenuTemp/>
       </div> 
     )
   }
