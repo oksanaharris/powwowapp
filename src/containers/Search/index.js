@@ -28,19 +28,7 @@ class Search extends Component {
 
    render () {
     let res = this.state.input;
-    console.log(res);
-    //console.log(data);
-    let data = this.props.artworks;
-    // let res = data.filter((elem)=>{
-    //   let artworks = _.mapValues(elem, _.method('toLowerCase'));
-    //   //let x = query.toLowerCase();
-    //   console.log(artworks);
-    //   //console.log(elem.title === x);
-    //   ///return artworks.title === x;
-    // })
-    
 
-    //console.log(res);
 
 
     return (
