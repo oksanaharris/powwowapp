@@ -12,7 +12,8 @@ class Search extends Component {
     super(props)
     this.state = {
       query: '',
-      input: []
+      input: [],
+      active: false
     }
     this.search = this.search.bind(this);
     this.searchResult = this.searchResult.bind(this);
@@ -23,6 +24,11 @@ class Search extends Component {
     this.setState({query: e.target.value})
     let res = searchHelper(e,this.props.artworks); 
     this.setState({input: res})  
+  }
+
+  showOnMap(e){
+    this.props.loadOnMap(e.target.id);
+    this.setState({query: '', input: [], active: true})
   }
 
 
@@ -44,19 +50,16 @@ class Search extends Component {
       )
   }
 
-  showOnMap(e){
-    this.props.loadOnMap(e.target.id);
-    this.setState({query: '', input: []})
-  }
-
 
   render () {
-    let res = this.state.input;
+    let {input} = this.state;
+    let {query} = this.state;
+    let {active} = this.state;
     return (
       <div>
-        <SearchField query={this.state.query} handler={this.search}/>
+        <SearchField query={query} active={active} handler={this.search}/>
         <div className="search-result" onClick={this.showOnMap}>
-          {res.map(this.searchResult)}  
+          {input.map(this.searchResult)}  
         </div>    
       </div>
     )

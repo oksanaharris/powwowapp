@@ -1,6 +1,12 @@
 import React from 'react';
 
 
+const sources = {
+  search: 'http://bit.ly/2ygeReT',
+  return: "http://bit.ly/2eSuUrX"
+}
+
+
 export const Result = ({id,i,val}) =>{
   if(val === Object(val)){
     return null;
@@ -10,9 +16,13 @@ export const Result = ({id,i,val}) =>{
   }
 };
 
-export const SearchField = ({handler,query}) => (
+export const SearchField = ({handler,query,active}) => {
+  const source = active ? sources.return : sources.search;
+
+  return (
         <div className="search-temp">
-          <img src="http://bit.ly/2ygeReT"  alt="icon"  className="search-icon-temp"/>
+          <img src={source}  alt="icon"  className="search-icon-temp"/>
           <input type="text" placeholder="Search" value={query} className="search-input-temp" onChange={handler}/>
         </div>
   )
+}
