@@ -5,7 +5,7 @@ import {searchHelper} from './helpers';
 import _ from 'lodash';
 import './style.css';
  
-const data = [{id: 1, title: 'match - 1'},{id: 2, title: 'not - 2'},{id: 3, title: 'match - 3'}]
+const data = [{id: 1, title: 'match - 1'},{id: 2, title: 'not - 2'},{id: 3, title: 'ch - mat'}]
 
 class Search extends Component {
   constructor (props) {
@@ -18,8 +18,7 @@ class Search extends Component {
   }
 
     search(e) {
-      let res = searchHelper(e,data); 
-      console.log(res);
+      let res = searchHelper(e,this.props.artworks); 
       this.setState({input: res})  
   }
 
@@ -39,10 +38,20 @@ class Search extends Component {
         <input type="text" placeholder="Search" className="search-input-temp" onChange={this.search}/>
       </div>
         
-      {res.map((term,i)=>{
+      {res.map((elem,i)=>{
+        let keys = Object.keys(elem);
         return(
-            <p key={i} className="search-result">{term.title}</p>
-
+          <div key={i}>
+            {keys.map((key) => {
+              if(key !== undefined){
+              return(<p id={elem.id} className="search-result">{elem[key]}</p>)
+              }
+              else{
+                return null;
+              }
+            })
+            }
+          </div>
           )
       })}
       
