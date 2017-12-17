@@ -7,7 +7,7 @@ export function searchHelper(e,data) {
       let split = data.map((elem)=>{
         all.push(elem.Artist,elem.Site,elem);
       })
-      console.log(all);
+      //console.log(all);
 
       let res = all.map((elem,i) => {
         return Object.keys(elem);
