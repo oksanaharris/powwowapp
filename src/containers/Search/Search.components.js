@@ -10,9 +10,9 @@ export const Result = ({id,i,val}) =>{
   }
 };
 
-export const SearchField = ({handler}) => (
+export const SearchField = ({handler,query}) => (
         <div className="search-temp">
           <img src="http://bit.ly/2ygeReT"  alt="icon"  className="search-icon-temp"/>
-          <input type="text" placeholder="Search" className="search-input-temp" onChange={handler}/>
+          <input type="text" placeholder="Search" value={query} className="search-input-temp" onChange={handler}/>
         </div>
   )
