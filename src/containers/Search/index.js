@@ -34,7 +34,7 @@ class Search extends Component {
 
   endSearch(){
     this.props.loadOnMap([]);
-    this.setState({active: false})
+    this.setState({query: '', input: [], active: false})
   }
 
 

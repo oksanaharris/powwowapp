@@ -3,7 +3,8 @@ import React from 'react';
 
 const sources = {
   search: 'http://bit.ly/2ygeReT',
-  return: "http://bit.ly/2eSuUrX"
+  return: "http://bit.ly/2eSuUrX",
+  end: "http://bit.ly/2BsFouX"
 }
 
 
@@ -22,7 +23,11 @@ export const SearchField = ({handler,query,active,goBack}) => {
   return (
         <div className="search-temp">
           <img src={source}  alt="icon" onClick={goBack}  className="search-icon-temp"/>
+
           <input type="text" placeholder="Search" value={query} className="search-input-temp" onChange={handler}/>
+          {query ?
+          <img src={sources.end} onClick={goBack} alt="icon" className="search-icon-temp"/>
+          : null }
         </div>
   )
 }

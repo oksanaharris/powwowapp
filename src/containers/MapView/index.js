@@ -73,7 +73,8 @@ class MapView extends Component {
   render() {
     const artworks = this.props.artworks === undefined ? []: this.props.artworks;
     let res = searchHelper(artworks,this.props.search);
-    const {popup} = this.state;
+    let search = searchHelper(artworks,this.props.search);
+    const popup = search.length === 1 ? search.pop() : this.state.popup;
     const {hasLocation} = this.state;
     
 
