@@ -18,6 +18,7 @@ class Search extends Component {
     this.search = this.search.bind(this);
     this.searchResult = this.searchResult.bind(this);
     this.showOnMap = this.showOnMap.bind(this);
+    this.endSearch = this.endSearch.bind(this);
   }
 
   search(e) {
@@ -29,6 +30,11 @@ class Search extends Component {
   showOnMap(e){
     this.props.loadOnMap(e.target.id);
     this.setState({query: '', input: [], active: true})
+  }
+
+  endSearch(){
+    this.props.loadOnMap([]);
+    this.setState({active: false})
   }
 
 
@@ -57,7 +63,7 @@ class Search extends Component {
     let {active} = this.state;
     return (
       <div>
-        <SearchField query={query} active={active} handler={this.search}/>
+        <SearchField goBack={this.endSearch} query={query} active={active} handler={this.search}/>
         <div className="search-result" onClick={this.showOnMap}>
           {input.map(this.searchResult)}  
         </div>    
