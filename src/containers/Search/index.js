@@ -5,7 +5,7 @@ import {searchHelper} from './helpers';
 import _ from 'lodash';
 import './style.css';
  
-const KEYS_TO_FILTERS = ['user.name', 'subject', 'dest.name', 'id']
+const data = [{id: 1, title: 'match - 1'},{id: 2, title: 'not - 2'},{id: 3, title: 'match - 3'}]
 
 class Search extends Component {
   constructor (props) {
@@ -18,8 +18,9 @@ class Search extends Component {
   }
 
     search(e) {
-      let res = searchHelper(e,this.props.artworks); 
-      this.setState({input: [res]})  
+      let res = searchHelper(e,data); 
+      console.log(res);
+      this.setState({input: res})  
   }
 
 
