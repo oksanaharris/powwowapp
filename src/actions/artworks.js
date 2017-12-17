@@ -17,14 +17,9 @@ export const loadArtworks = () => {
 }
 
 export const loadOnMap = (id) => {
-  return function(dispatch){
-    return axios.get(`/api/artworks/${id}`)
-    .then( artwork => {
-      dispatch({
-        type: SHOW_SEARCH,
-        artworks: artwork.data
-      });
-    });
+  return {
+    type: SHOW_SEARCH,
+    payload: id
   }
 }
 

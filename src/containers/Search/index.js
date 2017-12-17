@@ -45,7 +45,7 @@ class Search extends Component {
 
   showOnMap(e){
     this.props.loadOnMap(e.target.id);
-    this.setState({input: []})
+    this.setState({query: []})
   }
 
 

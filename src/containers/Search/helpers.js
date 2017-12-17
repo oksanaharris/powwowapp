@@ -32,10 +32,3 @@ export function searchHelper(e,data) {
   }
 
 
-export function showHelper(e,data){
-  let id = e.target.id;
-  let res = data.filter((elem)=>{
-      return elem.id === parseInt(id);
-    })
-  return res;
-}

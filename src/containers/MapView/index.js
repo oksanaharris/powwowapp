@@ -7,7 +7,7 @@ import {loadArtworks,loadOnMap} from '../../actions/artworks';
 import {MarkerIcon,MarkerPopup,MyLocation} from './Map.components';
 import {HeaderTemp,FooterMenuTemp} from './Map.components';
 import Search from '../Search';
-import {url,attribution,kakaako} from './helpers';
+import {url,attribution,kakaako,searchHelper} from './helpers';
 
 
 
@@ -72,8 +72,10 @@ class MapView extends Component {
 
   render() {
     const artworks = this.props.artworks === undefined ? []: this.props.artworks;
+    let res = searchHelper(artworks,this.props.search);
     const {popup} = this.state;
-    const {hasLocation} =this.state;
+    const {hasLocation} = this.state;
+    
 
     return (
       <div>
@@ -92,7 +94,7 @@ class MapView extends Component {
           {hasLocation ? 
           <MyLocation position={this.state.latlng} />
           : null }
-          {artworks.map(this.eachMarker)}
+          {res.map(this.eachMarker)}
         </Map>
         </div>
         <div>
@@ -109,7 +111,8 @@ class MapView extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    artworks: state.artworks
+    artworks: state.artworks,
+    search: state.search
     }
 }
 
