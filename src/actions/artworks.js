@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export const LOAD_ARTWORKS = 'LOAD_ARTWORKS';
-
+export const SHOW_SEARCH = 'SHOW_SEARCH';
 
 
 export const loadArtworks = () => {
@@ -15,4 +15,17 @@ export const loadArtworks = () => {
     });
   }
 }
+
+export const loadOnMap = (id) => {
+  return function(dispatch){
+    return axios.get(`/api/artworks/${id}`)
+    .then( artwork => {
+      dispatch({
+        type: SHOW_SEARCH,
+        artworks: artwork.data
+      });
+    });
+  }
+}
+
 

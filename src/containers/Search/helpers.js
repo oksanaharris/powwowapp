@@ -30,3 +30,12 @@ export function searchHelper(e,data) {
         let uni = [...new Set(local)]; //this makes it unique, which fixes the problem of the function been called on change, that way its live action.
         return uni; }
   }
+
+
+export function showHelper(e,data){
+  let id = e.target.id;
+  let res = data.filter((elem)=>{
+      return elem.id === parseInt(id);
+    })
+  return res;
+}

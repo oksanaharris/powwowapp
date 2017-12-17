@@ -1,4 +1,4 @@
-import { LOAD_ARTWORKS } from '../actions/artworks.js';
+import { LOAD_ARTWORKS} from '../actions/artworks.js';
 
 
 const artworks = (state = [], action) => {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Map, TileLayer, Marker, Tooltip,Popup} from 'react-leaflet';
 import L from 'leaflet';
 //import 'leaflet-routing-machine';
-import {loadArtworks} from '../../actions/artworks';
+import {loadArtworks,loadOnMap} from '../../actions/artworks';
 import {MarkerIcon,MarkerPopup,MyLocation} from './Map.components';
 import {HeaderTemp,FooterMenuTemp} from './Map.components';
 import Search from '../Search';
@@ -115,7 +115,7 @@ const mapStateToProps = (state) => {
 
 const ConnectedMapView = connect(
   mapStateToProps,
-  {loadArtworks}
+  {loadArtworks,loadOnMap}
 )(MapView)
 
 

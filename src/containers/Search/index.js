@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {loadArtworks} from '../../actions/artworks';
+import {loadArtworks,loadOnMap} from '../../actions/artworks';
 import {searchHelper} from './helpers';
 import {Result,SearchField} from './Search.components';
 
@@ -16,6 +16,7 @@ class Search extends Component {
     }
     this.search = this.search.bind(this);
     this.searchResult = this.searchResult.bind(this);
+    this.showOnMap = this.showOnMap.bind(this);
   }
 
   search(e) {
@@ -42,13 +43,18 @@ class Search extends Component {
       )
   }
 
+  showOnMap(e){
+    this.props.loadOnMap(e.target.id);
+    this.setState({input: []})
+  }
+
 
   render () {
     let res = this.state.input;
     return (
       <div>
         <SearchField handler={this.search}/>
-        <div className="search-result">
+        <div className="search-result" onClick={this.showOnMap}>
           {res.map(this.searchResult)}  
         </div>    
       </div>
@@ -64,7 +70,7 @@ const mapStateToProps = (state) => {
 
 const ConnectedSearch = connect(
   mapStateToProps,
-  {loadArtworks}
+  {loadArtworks,loadOnMap}
 )(Search)
 
 
