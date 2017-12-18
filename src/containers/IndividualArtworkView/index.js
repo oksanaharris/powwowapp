@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import {connect} from 'react-redux';
 import {InteractionButton} from '../../components/InteractionButton';
+import {loadArtworks} from '../../actions/artworks';
 // import {nextStageAction} from '../../actions';
 // import {previousStageAction} from '../../actions';
 
@@ -15,6 +16,9 @@ import {InteractionButton} from '../../components/InteractionButton';
 //so most of those things will be {this.title}, etc.
 //is that object passed in as props?
 //are the interactions consts that get something passed into them too?
+
+const selectedArtworkId = 3;
+
 const star = './assets/star_inactive.png';
 const comment = './assets/comment.png';
 const map = './assets/map.svg';
@@ -41,7 +45,22 @@ class IndividualArtworkView extends Component {
     console.log('handle map click method activated on the parent');
   }
 
+  componentWillMount(){
+    // this.props.loadArtworks();
+  }
+
+  componentDidMount(){
+    console.log("this.props.artworks upon mounting", this.props.artworks);
+  }
+
   render(){
+    const selectedArtwork = this.props.artworks
+    .filter(artwork => {
+      return artwork.id === selectedArtworkId;
+    });
+
+    console.log('this is our selected artwork', selectedArtwork);
+
     return(
       <div className="main-container">
         <div className="artworkview-main-image"></div>
@@ -51,9 +70,15 @@ class IndividualArtworkView extends Component {
           <InteractionButton className="artworkview-interaction" src={map} handleClick={this.handleMapClick}/>
         </div>
         <div className="artworkview-info-container">
-          <div className="artworkview-title artworkview-info-piece">Example Title</div>
-          <div className="artworkview-artist artworkview-info-piece">by Sample Artist</div>
-          <div className="artworkview-description artworkview-info-piece">Scream for no reason at 4 am annoy owner until he gives you food say meow repeatedly until belly rubs, feels good. Cough furball loves cheeseburgers and sit in window and stare oooh, a bird, yum but pushes butt to face. Hiss and stare at nothing then run suddenly away rub face on owner yet dream about hunting birds for sit on the laptop. Cats secretly make all the worlds muffins scream at teh bath but lick the curtain just to be annoying claw at curtains stretch and yawn nibble on tuna ignore human bite human hand for thinking longingly about tuna brine. Hiss at vacuum cleaner make meme, make cute face and chew iPad power cord, or put toy mouse in food bowl run out of litter box at full speed but vommit food and eat it again. </div>
+          <div className="artworkview-title artworkview-info-piece">
+          {!selectedArtwork ? selectedArtwork.title : "Title"}
+          </div>
+          <div className="artworkview-artist artworkview-info-piece">
+          {!selectedArtwork ? selectedArtwork.Artist.name : "Artist"}
+          </div>
+          <div className="artworkview-description artworkview-info-piece">
+          {!selectedArtwork ? selectedArtwork.description : "Description"}
+          </div>
         </div>
       </div>
     );
@@ -62,12 +87,15 @@ class IndividualArtworkView extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    // cards: state.cards
+    artworks: state.artworks
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    loadArtworks: () => {
+      dispatch(loadArtworks());
+    }
     // moveToColumn: (id, column) => {
     //   dispatch(moveToColumnAction(id, column));
     // },
@@ -85,9 +113,13 @@ const mapDispatchToProps = (dispatch) => {
 
 IndividualArtworkView = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
   )(IndividualArtworkView);
 
 
 
 export default IndividualArtworkView;
+
+
+
+// Scream for no reason at 4 am annoy owner until he gives you food say meow repeatedly until belly rubs, feels good. Cough furball loves cheeseburgers and sit in window and stare oooh, a bird, yum but pushes butt to face. Hiss and stare at nothing then run suddenly away rub face on owner yet dream about hunting birds for sit on the laptop. Cats secretly make all the worlds muffins scream at teh bath but lick the curtain just to be annoying claw at curtains stretch and yawn nibble on tuna ignore human bite human hand for thinking longingly about tuna brine. Hiss at vacuum cleaner make meme, make cute face and chew iPad power cord, or put toy mouse in food bowl run out of litter box at full speed but vommit food and eat it again.
