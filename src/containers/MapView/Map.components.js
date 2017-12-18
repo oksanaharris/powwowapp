@@ -66,16 +66,6 @@ export const HeaderTemp = () => {
     )
 }
 
-export const SearchTemp = () => {
-  return(
-      <div className="search-temp">
-        <img src="http://bit.ly/2ygeReT"  alt="icon"  className="search-icon-temp"/>
-        <input type="text" placeholder="Search" className="search-input-temp"/>
-        <img src="http://bit.ly/2C1wORz"  alt="icon"  className="boxview-icon-temp"/>
-        <img src="http://bit.ly/2AKsAgF"  alt="icon"  className="directions-icon-temp"/>
-      </div>
-    )
-}
 
 export const FooterMenuTemp = () => {
   return(

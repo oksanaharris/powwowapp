@@ -1,0 +1,98 @@
+
+  
+  body{
+    font-size: 62.5%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-temp{
+    height: 3em;
+    background-color: #f5f5f5; /* TODO: check for color palette from Oxsana */
+    display: grid;
+    grid-template-columns: 4em 30em 7em;
+    grid-template-rows: 3em;
+  }
+
+  .person-icon-temp, .header-menu-temp{
+    max-height: 3em;
+    max-width: 3em;
+    filter: grayscale(100%);
+  }
+
+  .app-title-temp{
+    text-align: center;
+    font-size: 2.5em;
+    color: #303540;
+  }
+
+  .search-temp{
+    height: 3em;
+    background-color: #e2e4e7; /* TODO: check for color palette from Oxsana */
+    display: grid;
+    grid-template-columns: 4em 27em 3em 3em;
+    grid-template-rows: 3em;
+    align-items: center;
+  }
+  .search-icon-temp, .boxview-icon-temp,.directions-icon-temp,.art-icon-temp, .community-icon-temp{
+    opacity: 0.5;
+    background-color: transparent;
+    max-width: 2em;
+    margin-left: 1em;
+
+  }
+  .search-input-temp{
+    background-color: #e2e4e7;
+    border: transparent;
+  }
+
+  .map-container{
+    height: 55em;
+    background-color: red;
+  }
+
+  .footer-menu-temp{
+    height: 6em;
+    background-color: #f5f5f5; /* TODO: check for color palette from Oxsana */
+    display: grid;
+    grid-template-columns: 18em 0.2em 18em;;
+    grid-template-rows: 3em 3em;
+    align-items: center;
+
+  }
+
+  .art-icon-temp, .community-icon-temp{
+    opacity: 0.5;
+    background-color: transparent;
+    max-width: 3em;
+    margin-left: 7.5em;
+    margin-top: 0.5em;
+  }
+  .temp-art-header{
+    text-align: center;
+    font-size: 1.5em;
+    color: gray;
+  }
+  .temp-community-header{
+    margin-left: 3.9em;
+    font-size: 1.5em;
+    color: gray;
+    margin-bottom: 1em;
+  }
+  .camera-icon-temp{
+    max-width: 5em;
+    position: absolute;
+    left: 15em;
+    top:58em;
+    padding: 1em;
+    background-color: #f5f5f5;
+    border-radius: 4em;
+    border: 0.2em solid grey;
+  }
+
+
+
+
+
+
+

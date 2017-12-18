@@ -5,3 +5,13 @@ export const kakaako = {
         lng: -157.855613,
       };
 
+export function searchHelper(data,id){
+  if(id.length === 0){
+    return data;
+  }else{
+    let res = data.filter((elem)=>{
+        return elem.id === parseInt(id);
+      })
+    return res;
+  }
+}

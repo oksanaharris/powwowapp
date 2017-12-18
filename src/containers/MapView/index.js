@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Map, TileLayer, Marker, Tooltip,Popup} from 'react-leaflet';
 import L from 'leaflet';
-import 'leaflet-routing-machine';
-import {loadArtworks} from '../../actions/artworks';
+//import 'leaflet-routing-machine';
+import {loadArtworks,loadOnMap} from '../../actions/artworks';
 import {MarkerIcon,MarkerPopup,MyLocation} from './Map.components';
-import {url,attribution,kakaako} from './helpers';
+import {HeaderTemp,FooterMenuTemp} from './Map.components';
+import Search from '../Search';
+import {url,attribution,kakaako,searchHelper} from './helpers';
+
 
 
 
@@ -69,11 +72,16 @@ class MapView extends Component {
 
   render() {
     const artworks = this.props.artworks === undefined ? []: this.props.artworks;
-    const {popup} = this.state;
-    const {hasLocation} =this.state;
+    let res = searchHelper(artworks,this.props.search);
+    let search = searchHelper(artworks,this.props.search);
+    const popup = search.length === 1 ? search.pop() : this.state.popup;
+    const {hasLocation} = this.state;
+    
 
     return (
       <div>
+        <HeaderTemp/>
+        <Search/>
         <div id="map">
         <Map
           center={this.state.latlng}
@@ -87,7 +95,7 @@ class MapView extends Component {
           {hasLocation ? 
           <MyLocation position={this.state.latlng} />
           : null }
-          {artworks.map(this.eachMarker)}
+          {res.map(this.eachMarker)}
         </Map>
         </div>
         <div>
@@ -95,6 +103,7 @@ class MapView extends Component {
             <MarkerPopup art={popup} handler={this.getDirections} />
           : null }
         </div>
+        <FooterMenuTemp/>
       </div> 
     )
   }
@@ -103,13 +112,14 @@ class MapView extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    artworks: state.artworks
+    artworks: state.artworks,
+    search: state.search
     }
 }
 
 const ConnectedMapView = connect(
   mapStateToProps,
-  {loadArtworks}
+  {loadArtworks,loadOnMap}
 )(MapView)
 
 
