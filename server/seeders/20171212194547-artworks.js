@@ -9,7 +9,9 @@ module.exports = {
   "date_removed": "10/17/2017",
   "featured": "t",
   "createdAt": "10/27/2017",
-  "updatedAt": "5/30/2017"
+  "updatedAt": "5/30/2017",
+  "artist_id": 1,
+  "site_id": 1
 }, {
   "title": "Hiding Place, The",
   "description": "description of artwork",
@@ -17,7 +19,9 @@ module.exports = {
   "date_removed": "7/2/2017",
   "featured": "t",
   "createdAt": "6/11/2017",
-  "updatedAt": "7/25/2017"
+  "updatedAt": "7/25/2017",
+  "artist_id": 1,
+  "site_id": 2
 }, {
   "title": "Pinocchio",
   "description": "description of artwork",
@@ -25,7 +29,9 @@ module.exports = {
   "date_removed": "7/2/2017",
   "featured": "t",
   "createdAt": "2/16/2017",
-  "updatedAt": "12/31/2016"
+  "updatedAt": "12/31/2016",
+  "artist_id": 1,
+  "site_id": 3
 }, {
   "title": "Steal This Film",
   "description": "description of artwork",
@@ -33,7 +39,9 @@ module.exports = {
   "date_removed": "5/9/2017",
   "featured": "f",
   "createdAt": "11/12/2017",
-  "updatedAt": "7/11/2017"
+  "updatedAt": "7/11/2017",
+  "artist_id": 1,
+  "site_id": 4
 }, {
   "title": "Last Chance Harvey",
   "description": "description of artwork",
@@ -41,7 +49,9 @@ module.exports = {
   "date_removed": "11/26/2017",
   "featured": "f",
   "createdAt": "1/22/2017",
-  "updatedAt": "8/30/2017"
+  "updatedAt": "8/30/2017",
+  "artist_id": 1,
+  "site_id": 5
 }], {});
 },
 
