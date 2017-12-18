@@ -15,6 +15,8 @@ import reducers from './reducers'
 import './index.css';
 //CONTAINERS----------------------------------
 import App from './containers/App';
+import IndividualArtworkView from './containers/IndividualArtworkView';
+import './containers/App/styles.css';
 
 
 //STORE--------------------
@@ -32,7 +34,7 @@ ReactDOM.render(
       <div>
 
         <Route exact path="/" component={App} />
-
+        <Route path="/artwork" component={IndividualArtworkView} />
       </div>
     </Router>
   </Provider>, document.getElementById('root'));
