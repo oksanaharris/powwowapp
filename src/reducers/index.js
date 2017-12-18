@@ -7,6 +7,7 @@ import checkins from './checkins';
 import likes from './likes';
 import sites from './sites';
 import users from './users';
+import search from './search';
 
 export default combineReducers({
   areas,
@@ -15,5 +16,6 @@ export default combineReducers({
   checkins,
   likes,
   sites,
-  users
+  users,
+  search
 });

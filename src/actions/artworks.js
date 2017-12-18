@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 export const LOAD_ARTWORKS = 'LOAD_ARTWORKS';
-
+export const SHOW_SEARCH = 'SHOW_SEARCH';
 
 
 export const loadArtworks = () => {
@@ -15,4 +15,12 @@ export const loadArtworks = () => {
     });
   }
 }
+
+export const loadOnMap = (id) => {
+  return {
+    type: SHOW_SEARCH,
+    payload: id
+  }
+}
+
 
