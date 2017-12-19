@@ -9,7 +9,7 @@ Terminal Window #2:
 cli: npm start - react app runs on localhost:3000 - it will automaticall open the browser and load for you. proxy is set to 9000 to connect with the server.
 
 Boiler-Plate setup:
-Looking at Oxana's models/routes - I inserted the following to match:
+Looking at Oksana's models/routes - I inserted the following to match:
 Actions - 1:1 for each route/model
 Reducers - 1:1 for each route/model/action
 
