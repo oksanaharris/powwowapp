@@ -2,6 +2,7 @@ module.exports = function(sequelize, DataTypes) {
   var Artworks = sequelize.define("Artworks", {
     title: {type: DataTypes.STRING, allowNull: false},
     description: {type: DataTypes.STRING},
+    url: {type: DataTypes.STRING},
     date_painted: {type: DataTypes.DATE},
     date_removed: {type: DataTypes.DATE},
     featured: {type: DataTypes.BOOLEAN}

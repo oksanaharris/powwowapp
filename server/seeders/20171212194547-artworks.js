@@ -5,6 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('artworks', [{
   "title": "Amityville II: The Possession",
   "description": "description of artwork",
+  "url":"http://powwowhawaii.com/wp-content/uploads/2017/03/pwh2017_TaraMcPherson_JasperWong.jpg",
   "date_painted": "3/7/2017",
   "date_removed": "10/17/2017",
   "featured": "t",
@@ -17,6 +18,7 @@ module.exports = {
 }, {
   "title": "Hiding Place, The",
   "description": "description of artwork",
+  "url":"http://powwowhawaii.com/wp-content/uploads/2017/03/pwh2017_WoodenWaveandGavinMurai_BrandonShigeta.jpg",
   "date_painted": "9/20/2017",
   "date_removed": "7/2/2017",
   "featured": "t",
@@ -29,6 +31,7 @@ module.exports = {
 }, {
   "title": "Pinocchio",
   "description": "description of artwork",
+  "url":"http://powwowhawaii.com/wp-content/uploads/2016/03/pwh2016-Wooden-Wave.jpg",
   "date_painted": "8/29/2017",
   "date_removed": "7/2/2017",
   "featured": "t",
@@ -41,6 +44,7 @@ module.exports = {
 }, {
   "title": "Steal This Film",
   "description": "description of artwork",
+  "url":"http://powwowhawaii.com/wp-content/uploads/2016/03/pwh2016-Luke-McCabe.jpg",
   "date_painted": "12/30/2016",
   "date_removed": "5/9/2017",
   "featured": "f",
@@ -53,6 +57,7 @@ module.exports = {
 }, {
   "title": "Last Chance Harvey",
   "description": "description of artwork",
+  "url":"http://powwowhawaii.com/wp-content/uploads/2016/03/pwh2016-Prime.jpg",
   "date_painted": "4/15/2017",
   "date_removed": "11/26/2017",
   "featured": "f",
