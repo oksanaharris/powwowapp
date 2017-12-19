@@ -46,20 +46,27 @@ class IndividualArtworkView extends Component {
   }
 
   componentWillMount(){
-    // this.props.loadArtworks();
+    this.props.loadArtworks();
   }
 
   componentDidMount(){
-    console.log("this.props.artworks upon mounting", this.props.artworks);
+
   }
 
   render(){
-    const selectedArtwork = this.props.artworks
-    .filter(artwork => {
-      return artwork.id === selectedArtworkId;
-    });
+    let title = "Title";
+    let artist = "Artist";
+    let description = "Description";
 
-    console.log('this is our selected artwork', selectedArtwork);
+    if (this.props.artworks.length > 0){
+      let artwork = this.props.artworks.filter(artwork => {
+        return artwork.id === selectedArtworkId;
+      })[0];
+
+      title = artwork.title;
+      artist = artwork.artist;
+      description = artwork.description;
+    }
 
     return(
       <div className="main-container">
@@ -71,13 +78,13 @@ class IndividualArtworkView extends Component {
         </div>
         <div className="artworkview-info-container">
           <div className="artworkview-title artworkview-info-piece">
-          {!selectedArtwork ? selectedArtwork.title : "Title"}
+          {title}
           </div>
           <div className="artworkview-artist artworkview-info-piece">
-          {!selectedArtwork ? selectedArtwork.Artist.name : "Artist"}
+          {artist}
           </div>
           <div className="artworkview-description artworkview-info-piece">
-          {!selectedArtwork ? selectedArtwork.description : "Description"}
+          {description}
           </div>
         </div>
       </div>
