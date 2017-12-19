@@ -15,8 +15,7 @@
 .artworkview-main-image{
   width: 100vw;
   height: 66vw;
-  background-image: url('http://lorempixel.com/400/200/cats');
-  background-size: 100% 100%;
+  /*background-size: 100% 100%;*/
 }
 
 .artworkview-info-container{

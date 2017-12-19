@@ -6,18 +6,12 @@ import {loadArtworks} from '../../actions/artworks';
 // import {nextStageAction} from '../../actions';
 // import {previousStageAction} from '../../actions';
 
+// id will need to be passed in on click from the previous view (map or gallery)
+// remaining questions:
+// how does router work?
+// given that, when/where is it best for us to run load_artworks, etc.?
 
-// what am I trying to do??
-// display the information that's needed
-// depending on which image was clicked on the page before (pass an id)
-// I need to do an api/artwork/get/:id that'll give me title, artist, link to artist's page, image, description
-// the interactions are assummed to be likes, comment, checkin/photo
-
-//so most of those things will be {this.title}, etc.
-//is that object passed in as props?
-//are the interactions consts that get something passed into them too?
-
-const selectedArtworkId = 3;
+const selectedArtworkId = 2;
 
 const star = './assets/star_inactive.png';
 const comment = './assets/comment.png';
@@ -54,6 +48,7 @@ class IndividualArtworkView extends Component {
   }
 
   render(){
+    let link = "http://lorempixel.com/400/200/cats";
     let title = "Title";
     let artist = "Artist";
     let description = "Description";
@@ -63,14 +58,17 @@ class IndividualArtworkView extends Component {
         return artwork.id === selectedArtworkId;
       })[0];
 
+      console.log('our artwork', artwork);
+
       title = artwork.title;
-      artist = artwork.artist;
+      artist = artwork.Artist.name;
       description = artwork.description;
+      link = artwork.url;
     }
 
     return(
       <div className="main-container">
-        <div className="artworkview-main-image"></div>
+        <img className="artworkview-main-image" src={link} />
         <div className="artworkview-interactions">
           <InteractionButton className="artworkview-interaction" src={star} handleClick={this.handleStarClick}/>
           <InteractionButton className="artworkview-interaction" src={comment} handleClick={this.handleCommentClick}/>
