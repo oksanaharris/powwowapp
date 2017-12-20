@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {InteractionButton} from '../../components/InteractionButton';
 import {loadArtworks} from '../../actions/artworks';
-// import {nextStageAction} from '../../actions';
+import {removeStarAction} from '../../actions/stars';
+import {addStarAction} from '../../actions/stars';
 // import {previousStageAction} from '../../actions';
 
 // id will need to be passed in on click from the previous view (map or gallery)
@@ -11,17 +12,23 @@ import {loadArtworks} from '../../actions/artworks';
 // how does router work?
 // given that, when/where is it best for us to run load_artworks, etc.?
 
-const selectedArtworkId = 3;
+const selectedArtworkId = 1;
 
-const star = './assets/star_inactive.png';
+const active_star = './assets/star_active.png';
+const inactive_star = './assets/star_inactive.png';
+let star = inactive_star;
+
 const comment = './assets/comment.png';
 const map = './assets/map.svg';
+
+let userId = 1;
 
 class IndividualArtworkView extends Component {
   constructor(props){
     super(props);
     this.state = {};
 
+    // no longer need this now that binding them in the props declaration, right?
     // this.handleStarClick = this.handleStarClick.bind(this);
     // this.handleCommentClick = this.handleCommentClick.bind(this);
     // this.handleMapClick = this.handleMapClick.bind(this);
@@ -29,6 +36,30 @@ class IndividualArtworkView extends Component {
 
   handleStarClick(e, id) {
     console.log('handle star click method activated on the indView parent from id', id);
+    // if star is active then we want it to be deactivated, and vice versa
+    // if star is active, it means that there is an entry in the Star table for this user and artwork
+
+    // this is already double filtering of all artworks;
+    // after the filter or just artwork, alternatively, we could look at the user's stars for matching artwork_id
+    let starId;
+
+    if (this.props.artworks.filter(artwork => {
+      return artwork.id === id;
+      })[0].Stars.filter(star => {
+        starId = star.id;
+        console.log('star id is', starId);
+        return star.user_id === userId;
+      }).length > 0)
+    {
+      console.log('executing remove star props');
+      this.props.removeStar(starId);
+    } else {
+      console.log('executing add star props');
+      this.props.addStar(id, userId);
+    }
+
+    //could also pass a different method
+
   }
 
   handleCommentClick(e, id) {
@@ -66,7 +97,15 @@ class IndividualArtworkView extends Component {
       description = artwork.description;
       link = artwork.url;
       artworkId = artwork.id;
+
+      if (artwork.Stars.some(star => {
+        return star.user_id === userId;
+      })){
+        star = active_star;
+      }
     }
+
+
 
     return(
       <div className="main-container">
@@ -102,10 +141,13 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadArtworks: () => {
       dispatch(loadArtworks());
+    },
+    removeStar: (id) => {
+      dispatch(removeStarAction(id));
+    },
+    addStar: (artwork_id, user_id) => {
+      dispatch(addStarAction(artwork_id, user_id));
     }
-    // moveToColumn: (id, column) => {
-    //   dispatch(moveToColumnAction(id, column));
-    // },
     // setToNextStage: (id) => {
     //   dispatch(nextStageAction(id));
     // },

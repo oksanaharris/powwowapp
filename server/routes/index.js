@@ -8,6 +8,7 @@ const authorizationRouter = require('./authorizations.js');
 const checkinRouter = require('./checkins.js');
 const likeRouter = require('./likes.js');
 const siteRouter = require('./sites.js');
+const starRouter = require('./stars.js');
 const userRouter = require('./users.js');
 
 router.use('/areas', areaRouter);
@@ -17,6 +18,7 @@ router.use('/authorizations', authorizationRouter);
 router.use('/checkins', checkinRouter);
 router.use('/likes', likeRouter);
 router.use('/sites', siteRouter);
+router.use('/stars', starRouter);
 router.use('/users', userRouter);
 
 module.exports = router;

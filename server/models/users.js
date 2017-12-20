@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     username: {type: DataTypes.STRING, allowNull: false, unique: true}, //for facebook
     facebookId: {type: DataTypes.STRING}, //new for facebook
     picture: {type: DataTypes.STRING}, //new for facebook - optional
-    firsname: {type: DataTypes.STRING},
+    firstname: {type: DataTypes.STRING},
     lastname: {type: DataTypes.STRING},
     password: {type: DataTypes.STRING, allowNull: false},
     email: {type: DataTypes.STRING, allowNull: false, unique: true}
@@ -15,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
   Users.associate = function(models) {
     Users.hasMany(models.Authorizations, {foreignKey: 'user_id'});
     Users.hasMany(models.Checkins, {foreignKey: 'user_id'});
+    Users.hasMany(models.Stars, {foreignKey: 'user_id'});
   };
 
   return Users;

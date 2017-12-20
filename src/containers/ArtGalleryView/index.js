@@ -4,10 +4,14 @@ import {connect} from 'react-redux';
 import {InteractionButton} from '../../components/InteractionButton';
 import {loadArtworks} from '../../actions/artworks';
 
-const star = './assets/star_inactive.png';
+const active_star = './assets/star_active.png';
+const inactive_star = './assets/star_inactive.png';
+
 const map = './assets/map.svg';
 
-const ArtComponent = ({src, title, artist, handleStarClick, handleMapClick}) => {
+const userId = 1;
+
+const ArtComponent = ({src, starIcon, title, artist, handleStarClick, handleMapClick}) => {
   return (
     <div>
       <img className="galleryview-image" src={src} />
@@ -17,7 +21,7 @@ const ArtComponent = ({src, title, artist, handleStarClick, handleMapClick}) => 
           <div>by {artist} </div>
         </div>
         <div className="galleryview-interactions">
-          <InteractionButton imgClass="galleryview-interaction" src={star} handleClick={handleStarClick}/>
+          <InteractionButton imgClass="galleryview-interaction" src={starIcon} handleClick={handleStarClick}/>
           <InteractionButton imgClass="galleryview-interaction" src={map} handleClick={handleMapClick}/>
         </div>
       </div>
@@ -56,9 +60,17 @@ class ArtGalleryView extends Component {
     if (this.props.artworks.length > 0){
       artworks = this.props.artworks;
       artworkList = artworks.map(artwork => {
+        let starIcon = inactive_star;
+
+        if (artwork.Stars.some(star => {
+          return star.user_id === userId;
+        })){
+          starIcon = active_star;
+        }
+
         return (
           <li key={artwork.id} className="galleryview-li">
-            <ArtComponent src={artwork.url} title={artwork.title} artist={artwork.Artist.name} handleStarClick={(e, id) => this.handleStarClick(e, artwork.id)} handleMapClick={(e, id) => this.handleMapClick(e, artwork.id)}/>
+            <ArtComponent src={artwork.url} starIcon={starIcon} title={artwork.title} artist={artwork.Artist.name} handleStarClick={(e, id) => this.handleStarClick(e, artwork.id)} handleMapClick={(e, id) => this.handleMapClick(e, artwork.id)}/>
           </li>
           );
       });

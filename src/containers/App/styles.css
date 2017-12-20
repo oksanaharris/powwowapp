@@ -47,6 +47,8 @@
   margin: 3px;
   border-radius: 50%;
   border: solid 1px grey;
+  box-shadow: 2px 4px 5px grey;
+  background-color: #f3eded;
 }
 
 .galleryview-info {
