@@ -16,6 +16,7 @@ import './index.css';
 //CONTAINERS----------------------------------
 import App from './containers/App';
 import IndividualArtworkView from './containers/IndividualArtworkView';
+import ArtGalleryView from './containers/ArtGalleryView';
 import './containers/App/styles.css';
 
 
@@ -38,6 +39,7 @@ ReactDOM.render(
 
         <Route exact path="/" component={App} />
         <Route path="/artwork" component={IndividualArtworkView} />
+        <Route path="/artgallery" component={ArtGalleryView} />
       </div>
     </Router>
   </Provider>, document.getElementById('root'));

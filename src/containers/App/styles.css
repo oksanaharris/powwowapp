@@ -21,3 +21,41 @@
 .artworkview-info-container{
   padding: 0 20px;
 }
+
+.galleryview-ul {
+  padding-left: 0;
+}
+
+.galleryview-li {
+  list-style: none;
+}
+
+.galleryview-image {
+  width: 100vw;
+  height: 66vw;
+}
+
+.galleryview-interactions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.galleryview-interaction {
+  width: 20px;
+  height: 20px;
+  margin: 3px;
+  border-radius: 50%;
+  border: solid 1px grey;
+}
+
+.galleryview-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  top: -50px;
+  padding: 0 20px;
+  background-color: rgba(206, 217, 234, .6);
+}
+

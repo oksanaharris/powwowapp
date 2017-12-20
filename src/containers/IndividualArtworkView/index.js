@@ -11,7 +11,7 @@ import {loadArtworks} from '../../actions/artworks';
 // how does router work?
 // given that, when/where is it best for us to run load_artworks, etc.?
 
-const selectedArtworkId = 2;
+const selectedArtworkId = 3;
 
 const star = './assets/star_inactive.png';
 const comment = './assets/comment.png';
@@ -22,21 +22,21 @@ class IndividualArtworkView extends Component {
     super(props);
     this.state = {};
 
-    this.handleStarClick = this.handleStarClick.bind(this);
-    this.handleCommentClick = this.handleCommentClick.bind(this);
-    this.handleMapClick = this.handleMapClick.bind(this);
+    // this.handleStarClick = this.handleStarClick.bind(this);
+    // this.handleCommentClick = this.handleCommentClick.bind(this);
+    // this.handleMapClick = this.handleMapClick.bind(this);
   }
 
-  handleStarClick() {
-    console.log('handle star click method activated on the parent');
+  handleStarClick(e, id) {
+    console.log('handle star click method activated on the indView parent from id', id);
   }
 
-  handleCommentClick() {
-    console.log('handle comment click method activated on the parent');
+  handleCommentClick(e, id) {
+    console.log('handle comment click method activated on indView parent from id', id);
   }
 
-  handleMapClick() {
-    console.log('handle map click method activated on the parent');
+  handleMapClick(e, id) {
+    console.log('handle map click method activated on the indView parent from id', id);
   }
 
   componentWillMount(){
@@ -52,6 +52,7 @@ class IndividualArtworkView extends Component {
     let title = "Title";
     let artist = "Artist";
     let description = "Description";
+    let artworkId;
 
     if (this.props.artworks.length > 0){
       let artwork = this.props.artworks.filter(artwork => {
@@ -64,15 +65,16 @@ class IndividualArtworkView extends Component {
       artist = artwork.Artist.name;
       description = artwork.description;
       link = artwork.url;
+      artworkId = artwork.id;
     }
 
     return(
       <div className="main-container">
         <img className="artworkview-main-image" src={link} />
         <div className="artworkview-interactions">
-          <InteractionButton className="artworkview-interaction" src={star} handleClick={this.handleStarClick}/>
-          <InteractionButton className="artworkview-interaction" src={comment} handleClick={this.handleCommentClick}/>
-          <InteractionButton className="artworkview-interaction" src={map} handleClick={this.handleMapClick}/>
+          <InteractionButton imgClass="artworkview-interaction" src={star} handleClick={(e, id) => this.handleStarClick(e, artworkId)} />
+          <InteractionButton imgClass="artworkview-interaction" src={comment} handleClick={(e, id) => this.handleCommentClick(e, artworkId)}/>
+          <InteractionButton imgClass="artworkview-interaction" src={map} handleClick={(e, id) => this.handleMapClick(e, artworkId)}/>
         </div>
         <div className="artworkview-info-container">
           <div className="artworkview-title artworkview-info-piece">
