@@ -5,7 +5,7 @@ const artworks = (state = [], action) => {
 
   switch(action.type){
     case LOAD_ARTWORKS:
-      return action.artworks;
+      return action.artworks.data;
     default:
       return state
   }

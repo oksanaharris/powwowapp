@@ -1,19 +1,18 @@
 const axios = require('axios');
+const Promise = require('bluebird');
 
 export const LOAD_ARTWORKS = 'LOAD_ARTWORKS';
 export const SHOW_SEARCH = 'SHOW_SEARCH';
 
 
+
 export const loadArtworks = () => {
-  return function(dispatch){
-    return axios.get('/api/artworks')
-    .then( artworks => {
-      dispatch({
-        type: LOAD_ARTWORKS,
-        artworks: artworks.data
-      });
-    });
-  }
+  return Promise.coroutine(function* (dispatch) {
+    dispatch({ 
+      type: LOAD_ARTWORKS, 
+      artworks: yield axios.get('/api/artworks') 
+    })
+  })
 }
 
 export const loadOnMap = (id) => {
