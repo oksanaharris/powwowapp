@@ -15,8 +15,6 @@ import reducers from './reducers'
 import './index.css';
 //CONTAINERS----------------------------------
 import App from './containers/App';
-import IndividualArtworkView from './containers/IndividualArtworkView';
-import ArtGalleryView from './containers/ArtGalleryView';
 import './containers/App/styles.css';
 
 
@@ -36,10 +34,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
-
-        <Route exact path="/" component={App} />
-        <Route path="/artwork" component={IndividualArtworkView} />
-        <Route path="/artgallery" component={ArtGalleryView} />
+        <App />
       </div>
     </Router>
   </Provider>, document.getElementById('root'));

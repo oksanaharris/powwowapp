@@ -5,6 +5,7 @@ import {InteractionButton} from '../../components/InteractionButton';
 import {loadArtworks} from '../../actions/artworks';
 import {removeStarAction} from '../../actions/artworks';
 import {addStarAction} from '../../actions/artworks';
+import {Link} from 'react-router-dom';
 
 const active_star = './assets/star_active.png';
 const inactive_star = './assets/star_inactive.png';
@@ -13,10 +14,14 @@ const map = './assets/map.svg';
 
 const userId = 1;
 
-const ArtComponent = ({src, starIcon, title, artist, handleImageClick, handleStarClick, handleMapClick}) => {
+const starredOnly = false;
+
+const ArtComponent = ({artworkid, src, starIcon, title, artist, handleImageClick, handleStarClick, handleMapClick}) => {
   return (
     <div>
-      <img className="galleryview-image" src={src} onClick={handleImageClick}/>
+      <Link to={`/artwork/${artworkid}`}>
+        <img className="galleryview-image" src={src} onClick={handleImageClick}/>
+      </Link>
       <div className="galleryview-info">
         <div className="galleryview-desc">
           <div>Title: {title} </div>
@@ -82,7 +87,20 @@ class ArtGalleryView extends Component {
     let artworks, artworkList = [];
 
     if (this.props.artworks.length > 0){
+
       artworks = this.props.artworks;
+
+      if (starredOnly === true){
+        console.log('starred only is true');
+        artworks = this.props.artworks.filter(artworks => {
+          console.log('filtering');
+          return artworks.Stars.some(star => {
+            console.log('checking stars');
+            return star.user_id === userId;
+          });
+        });
+      }
+
       artworkList = artworks.map(artwork => {
         let starIcon = inactive_star;
 
@@ -96,7 +114,7 @@ class ArtGalleryView extends Component {
 
         return (
           <li key={artwork.id} className="galleryview-li">
-            <ArtComponent src={artwork.url} starIcon={starIcon} title={artwork.title} artist={artwork.Artist.name} handleImageClick={(e, id) => this.handleImageClick(e, artwork.id)} handleStarClick={(e, id) => this.handleStarClick(e, artwork.id)} handleMapClick={(e, id) => this.handleMapClick(e, artwork.id)}/>
+            <ArtComponent artworkid={artwork.id} src={artwork.url} starIcon={starIcon} title={artwork.title} artist={artwork.Artist.name} handleImageClick={(e, id) => this.handleImageClick(e, artwork.id)} handleStarClick={(e, id) => this.handleStarClick(e, artwork.id)} handleMapClick={(e, id) => this.handleMapClick(e, artwork.id)}/>
           </li>
           );
       });

@@ -41,11 +41,11 @@ class MapView extends Component {
   }
 
   componentWillMount(){
-    this.props.loadArtworks();  
+    this.props.loadArtworks();
   }
   componentDidMount(){
     const mymap = document.getElementById('map');
-    this.setState({map: mymap}); 
+    this.setState({map: mymap});
   }
 
   loadArt(e,art){
@@ -76,23 +76,22 @@ class MapView extends Component {
     let search = searchHelper(artworks,this.props.search);
     const popup = search.length === 1 ? search.pop() : this.state.popup;
     const {hasLocation} = this.state;
-    
+
 
     return (
       <div>
-        <HeaderTemp/>
         <Search/>
         <div id="map">
         <Map
           center={this.state.latlng}
-          length={4}
+          length={3}
           onClick={this.handleClick}
           onLocationfound={this.handleLocationFound}
           ref="map"
           zoom={16}>
           <TileLayer attribution={attribution} url={url}/>
 
-          {hasLocation ? 
+          {hasLocation ?
           <MyLocation position={this.state.latlng} />
           : null }
           {res.map(this.eachMarker)}
@@ -103,8 +102,7 @@ class MapView extends Component {
             <MarkerPopup art={popup} handler={this.getDirections} />
           : null }
         </div>
-        <FooterMenuTemp/>
-      </div> 
+      </div>
     )
   }
 }

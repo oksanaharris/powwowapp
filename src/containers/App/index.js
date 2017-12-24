@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-import MapView from '../MapView';
+import {Header} from '../../components/Header';
+import {Footer} from '../../components/Footer';
+
+import {Main} from '../../components/Main';
 
 
 class App extends Component {
@@ -30,7 +33,9 @@ class App extends Component {
   render() {
     return (
       <div id="container">
-        <MapView/>
+        <Header />
+        <Main />
+        <Footer />
       </div>
     );
   }

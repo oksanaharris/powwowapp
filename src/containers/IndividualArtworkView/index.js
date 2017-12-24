@@ -5,6 +5,8 @@ import {InteractionButton} from '../../components/InteractionButton';
 import {loadArtworks} from '../../actions/artworks';
 import {removeStarAction} from '../../actions/artworks';
 import {addStarAction} from '../../actions/artworks';
+import {Link} from 'react-router-dom';
+import AddComment from '../AddComment';
 // import {previousStageAction} from '../../actions';
 
 // id will need to be passed in on click from the previous view (map or gallery)
@@ -12,26 +14,30 @@ import {addStarAction} from '../../actions/artworks';
 // how does router work?
 // given that, when/where is it best for us to run load_artworks, etc.?
 
-const selectedArtworkId = 1;
+// const selectedArtworkId = 1;
 
-const active_star = './assets/star_active.png';
-const inactive_star = './assets/star_inactive.png';
+
+const active_star = '/assets/star_active.png';
+const inactive_star = '/assets/star_inactive.png';
 let star = inactive_star;
 
-const comment = './assets/comment.png';
-const map = './assets/map.svg';
+const comment = '/assets/comment.png';
+const map = '/assets/map.svg';
 
 let userId = 1;
 
 class IndividualArtworkView extends Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      commentFormOpen: 'hidden'
+    };
 
     // no longer need this now that binding them in the props declaration, right?
     // this.handleStarClick = this.handleStarClick.bind(this);
     // this.handleCommentClick = this.handleCommentClick.bind(this);
     // this.handleMapClick = this.handleMapClick.bind(this);
+    this.cancelComment = this.cancelComment.bind(this);
   }
 
   handleStarClick(e, id) {
@@ -62,6 +68,14 @@ class IndividualArtworkView extends Component {
 
   handleCommentClick(e, id) {
     console.log('handle comment click method activated on indView parent from id', id);
+    this.setState({
+      commentFormOpen: 'visible'
+    })
+  }
+
+  cancelComment(e) {
+    console.log('running cancelComment method on IndArtwork');
+    this.setState({commentFormOpen: 'hidden'});
   }
 
   handleMapClick(e, id) {
@@ -77,6 +91,8 @@ class IndividualArtworkView extends Component {
   }
 
   render(){
+    console.log('params artwork id', this.props.match.params);
+
     let link = "http://lorempixel.com/400/200/cats";
     let title = "Title";
     let artist = "Artist";
@@ -85,8 +101,10 @@ class IndividualArtworkView extends Component {
 
     if (this.props.artworks.length > 0){
       let artwork = this.props.artworks.filter(artwork => {
-        return artwork.id === selectedArtworkId;
+        return artwork.id === parseFloat(this.props.match.params.artworkid);
       })[0];
+
+      if (!artwork) {return <div>No such artwork</div>;}
 
       console.log('our artwork', artwork);
 
@@ -106,7 +124,6 @@ class IndividualArtworkView extends Component {
     }
 
 
-
     return(
       <div className="main-container">
         <img className="artworkview-main-image" src={link} />
@@ -120,12 +137,13 @@ class IndividualArtworkView extends Component {
           {title}
           </div>
           <div className="artworkview-artist artworkview-info-piece">
-          {artist}
+          by {artist}
           </div>
           <div className="artworkview-description artworkview-info-piece">
           {description}
           </div>
         </div>
+        <AddComment shown={this.state.commentFormOpen} onCancelClick={this.cancelComment} />
       </div>
     );
   }
