@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+var sequelize = require('sequelize');
+
 const db = require('../models');
 
 const Areas = db.Areas;
@@ -15,7 +17,7 @@ const Users = db.Users;
 
 router.get('/', (req, res) => {
 
-  return Artworks.findAll({ include: [{ all: true }]})
+  return Artworks.findAll({ include: [{ all: true }], order: [['id', 'ASC']]})
   .then(artworks => {
     console.log('these are the artworks coming back', artworks);
     res.json(artworks);

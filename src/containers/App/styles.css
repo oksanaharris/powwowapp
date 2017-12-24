@@ -1,12 +1,146 @@
-.artworkview-interactions{
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+}
+
+.header-menu {
+  width: 100vw;
+  height: 40px;
+  /*border-top: solid 1px grey;*/
+  /*border-bottom: solid 1px grey;*/
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: middle;
+  position: fixed;
+  top: 0;
+  background-color: #e3e5e8;
+  box-shadow: 0 1px 4px #caccce;
+  z-index: 1;
+}
+
+.header-img {
+  width: 30px;
+  height: 30px;
+}
+
+.header-section {
+  vertical-align: middle;
+  line-height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-content: middle;
+  justify-content: center;
+  font-style: italic;
+}
+
+.header-menu-icon{
+  padding-right: 5px;
+}
+
+main {
+  margin-top: 40px;
+}
+
+.footer-menu {
+  width: 100vw;
+  height: 50px;
+  /*background-color: salmon;*/
+  /*overflow: hidden;*/
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 0;
+  /*border-top: solid 1px grey;*/
+  /*border-bottom: solid 1px grey;*/
+  box-shadow: 0 -1px 4px #b0b1b2;
+  box-sizing: content-box;
+}
+
+.footer-menu-row {
+  /*width: 100%;*/
+  display: flex;
+  flex-direction: row;
+  /*height: 50px;*/
+}
+
+.footer-menu-camera-row {
+  position: relative;
+  top: -50px;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  /*background-color: green;*/
+}
+
+.footer-menu-buttons-row {
+  /*background-color: blue;*/
+  /*height: 50px;*/
+  width: 100%;
+  position: relative;
+  top: 0;
+  /*border-top: solid 1px grey;*/
+  /*border-bottom: solid 1px grey;*/
+  /*border-left: solid 1px grey;*/
+}
+
+.footer-menu-section {
+  width: 25%;
+  border-right: solid 1px #caccce;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50px;
+  background: #e3e5e8;
+  text-align: center;
+  box-sizing: content-box;
+}
+
+.footer-menu-section:nth-child(4){
+  border-right: none;
+}
+
+.camera-section{
+  border-radius: 50%;
+  width: 50px;
+  border: solid 1px #b0b1b2;
+  box-shadow: 0 -1px 4px #b0b1b2;
+}
+
+.menu-img {
+  width: 30px;
+  height: 30px;
+  margin: auto;
+}
+
+.menu-header {
+  margin: 0;
+  padding: 0;
+}
+
+.menu-header {
+  padding-bottom: 1px;
+}
+.menu-community-header {
+  font-size: 15px;
+  padding-bottom: 1px;
+}
+
+.artworkview-interactions{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  padding-left: 15px;
+  padding-bottom: 20px;
 }
 
 .artworkview-interaction{
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   margin: 5px;
   border-radius: 50%;
   border: solid 2px grey;
@@ -20,4 +154,85 @@
 
 .artworkview-info-container{
   padding: 0 20px;
+}
+
+.artworkview-artist{
+  font-style: italic;
+}
+
+.galleryview-ul {
+  padding-left: 0;
+}
+
+.galleryview-li {
+  list-style: none;
+}
+
+.galleryview-image {
+  width: 100vw;
+  height: 66vw;
+}
+
+.galleryview-interactions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.galleryview-interaction {
+  width: 20px;
+  height: 20px;
+  margin: 3px;
+  border-radius: 50%;
+  border: solid 1px grey;
+  box-shadow: 2px 4px 5px grey;
+  background-color: #f3eded;
+}
+
+.galleryview-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  top: -50px;
+  padding: 0 20px;
+  background-color: rgba(206, 217, 234, .6);
+}
+
+
+.commentModal {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,.6);
+  padding-top: 200px;
+}
+
+.form-cntainer {
+  width: 300px;
+  height: 100px;
+  background-color: lightgrey;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  border-radius: 5px;
+}
+
+.comment-input {
+  margin: auto;
+}
+
+.addcomment-buttons {
+  margin: auto;
+}
+
+.add-comment-button {
+  border: solid 1px grey;
+  width: 60px;
+  height: 40px;
+  margin: 5px;
+  background-color: white;
 }
