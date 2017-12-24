@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {InteractionButton} from '../../components/InteractionButton';
 import {loadArtworks} from '../../actions/artworks';
-import {removeStarAction} from '../../actions/stars';
-import {addStarAction} from '../../actions/stars';
+import {removeStarAction} from '../../actions/artworks';
+import {addStarAction} from '../../actions/artworks';
 // import {previousStageAction} from '../../actions';
 
 // id will need to be passed in on click from the previous view (map or gallery)
@@ -58,8 +58,6 @@ class IndividualArtworkView extends Component {
       this.props.addStar(id, userId);
     }
 
-    //could also pass a different method
-
   }
 
   handleCommentClick(e, id) {
@@ -102,6 +100,8 @@ class IndividualArtworkView extends Component {
         return star.user_id === userId;
       })){
         star = active_star;
+      } else {
+        star = inactive_star;
       }
     }
 
