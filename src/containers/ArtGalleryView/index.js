@@ -6,6 +6,7 @@ import {loadArtworks} from '../../actions/artworks';
 import {removeStarAction} from '../../actions/artworks';
 import {addStarAction} from '../../actions/artworks';
 import {Link} from 'react-router-dom';
+import {ArtComponent} from './art.component.js';
 
 const active_star = './assets/star_active.png';
 const inactive_star = './assets/star_inactive.png';
@@ -15,26 +16,6 @@ const map = './assets/map.svg';
 const userId = 1;
 
 const starredOnly = false;
-
-const ArtComponent = ({artworkid, src, starIcon, title, artist, handleImageClick, handleStarClick, handleMapClick}) => {
-  return (
-    <div>
-      <Link to={`/artwork/${artworkid}`}>
-        <img className="galleryview-image" src={src} onClick={handleImageClick}/>
-      </Link>
-      <div className="galleryview-info">
-        <div className="galleryview-desc">
-          <div>Title: {title} </div>
-          <div>by {artist} </div>
-        </div>
-        <div className="galleryview-interactions">
-          <InteractionButton imgClass="galleryview-interaction" src={starIcon} handleClick={handleStarClick}/>
-          <InteractionButton imgClass="galleryview-interaction" src={map} handleClick={handleMapClick}/>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 class ArtGalleryView extends Component {
   constructor(props){

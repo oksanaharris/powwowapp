@@ -160,12 +160,25 @@ main {
   font-style: italic;
 }
 
-.galleryview-ul {
+ul {
   padding-left: 0;
+  margin: 0;
 }
 
-.galleryview-li {
+li {
   list-style: none;
+  margin: 0;
+}
+
+.galleryview-ul{
+  margin-top: 95px;
+}
+
+.galleryview-artwork-container{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  margin-top: -55px;
 }
 
 .galleryview-image {
@@ -190,27 +203,34 @@ main {
 }
 
 .galleryview-info {
+  /*width: 100vw;*/
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   position: relative;
-  top: -50px;
+  top: -54px;
   padding: 0 20px;
   background-color: rgba(206, 217, 234, .6);
+  /*margin-bottom: -50px;*/
 }
 
+.artworkview-main-container{
+  margin-bottom: 80px;
+}
 
 .commentModal {
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: rgba(0,0,0,.6);
   padding-top: 200px;
 }
 
-.form-cntainer {
+.comment-form-cotainer {
   width: 300px;
   height: 100px;
   background-color: lightgrey;
@@ -235,4 +255,121 @@ main {
   height: 40px;
   margin: 5px;
   background-color: white;
+}
+
+.artworkview-comments-section{
+  padding: 0 20px;
+  margin-top: 20px;
+}
+
+.artworkview-comments-section-header{
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.artworkview-comment-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: top;
+}
+
+.artworkview-userpic-container{
+  width: 20%;
+}
+
+.artworkview-comment-userpic {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+
+}
+
+.artworkview-comment-body-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  background-color: #eaf1fc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.artworkview-comment-body {
+  margin-bottom: 3px;
+
+}
+
+.artworkview-comment-info {
+  display: flex;
+  flex-direction: row;
+  font-size: 11px;
+  font-style: italic;
+  /*padding: 0 10px;*/
+  color: grey;
+}
+
+.artworkview-comment-date {
+  margin-left: 5px;
+}
+
+.communityview-main-container {
+  width: 100vw;
+  margin-bottom: 80px;
+  padding-top: 20px;
+}
+
+.communityview-comment-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: top;
+  padding: 0 15px;
+}
+
+.communityview-userpic-container{
+  /*width: 20%;*/
+}
+
+.communityview-artworkpic-container {
+  /*width: 20%;*/
+}
+
+.communityview-comment-userpic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.communityview-comment-artworkpic {
+  width: 55px;
+  height: 55px;
+}
+
+.communityview-comment-body-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  background-color: #eaf1fc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.communityview-comment-body {
+  margin-bottom: 3px;
+
+}
+
+.communityview-comment-info {
+  display: flex;
+  flex-direction: row;
+  font-size: 11px;
+  font-style: italic;
+  /*padding: 0 10px;*/
+  color: grey;
+}
+
+.communityview-comment-date {
+  margin-left: 5px;
 }

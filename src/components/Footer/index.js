@@ -18,8 +18,10 @@ export const Footer = () => {
             </Link>
           </div>
           <div className="footer-menu-section community-section">
-            <img src="/assets/comments_icon.png" alt="comments" className="menu-img menu-community-img" />
-            <p className="menu-header menu-community-header">Community</p>
+            <Link to='/community'>
+              <img src="/assets/comments_icon.png" alt="comments" className="menu-img menu-community-img" />
+              <p className="menu-header menu-community-header">Community</p>
+            </Link>
           </div>
           <div className="footer-menu-section artists-section">
             <img src="/assets/color_palette_icon.png" alt="artists" className="menu-img menu-artists-img" />

@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 
   return Artworks.findAll({ include: [{ all: true }], order: [['id', 'ASC']]})
   .then(artworks => {
-    console.log('these are the artworks coming back', artworks);
+    // console.log('these are the artworks coming back', artworks);
     res.json(artworks);
   })
   .catch(error => {
