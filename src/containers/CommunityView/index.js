@@ -45,6 +45,10 @@ class CommunityView extends Component {
 
     return(
       <div className="communityview-main-container">
+        <div className="community-worldmap-container">
+          <img className="communityview-worldmap" src="/assets/visitor_map.jpg" alt="world_map" />
+          <img className="heart" src="/assets/heart.png" alt="heart" />
+        </div>
         <ul className="communityview-comments-ul">{commentList}</ul>
       </div>
     );

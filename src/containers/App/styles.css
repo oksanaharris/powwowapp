@@ -316,7 +316,7 @@ li {
 .communityview-main-container {
   width: 100vw;
   margin-bottom: 80px;
-  padding-top: 20px;
+  /*padding-top: 20px;*/
 }
 
 .communityview-comment-container {
@@ -372,4 +372,53 @@ li {
 
 .communityview-comment-date {
   margin-left: 5px;
+}
+
+.communityview-worldmap {
+  width: 100vw;
+  height: 55vw;
+  margin-bottom: 20px;
+}
+
+.heart {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 95px;
+  left: 60px;
+  opacity: 1;
+  animation-name: love;
+  animation-duration: 6s;
+  transition: ease-in-out;
+  transition-property: top, left, opacity, width, height;
+  animation-iteration-count: infinite;
+}
+
+@keyframes love {
+  0% {top: 95px; left: 60px; width: 15px; height: 15px; opacity: .9;}
+  5% {top: 88px; left: 66px; width: 18px; height: 18px; opacity: .8;}
+  10% {top: 82px; left: 60px; width: 21px; height: 21px; opacity: .7;}
+  15% {top: 72px; left: 66px; width: 24px; height: 24px; opacity: .6;}
+  20% {top: 60px; left: 53px; width: 27px; height: 27px; opacity: .5;}
+  26% {top: 50px; left: 66px; width: 30px; height: 30px; opacity: .2;}
+  32% {top: 30px; left: 50px; width: 33px; height: 33px; opacity: 0;}
+
+  33% {top: 136px; left: 135px; width: 15px; height: 15px; opacity: 0;}
+  34% {top: 136px; left: 135px; width: 15px; height: 15px; opacity: 1;}
+  39% {top: 129px; left: 141px; width: 18px; height: 18px; opacity: .8;}
+  44% {top: 123px; left: 135px; width: 21px; height: 21px; opacity: .7;}
+  49% {top: 113px; left: 141px; width: 24px; height: 24px; opacity: .6;}
+  54% {top: 101px; left: 128px; width: 27px; height: 27px; opacity: .5;}
+  60% {top: 91px; left: 141px; width: 30px; height: 30px; opacity: .2;}
+  65% {top: 71px; left: 125px; width: 33px; height: 33px; opacity: 0;}
+
+  66% {top: 92px; left: 320px; width: 15px; height: 15px; opacity: 0;}
+  67% {top: 92px; left: 320px; width: 15px; height: 15px; opacity: 1;}
+  72% {top: 85px; left: 326px; width: 18px; height: 18px; opacity: .8;}
+  77% {top: 79px; left: 320px; width: 21px; height: 21px; opacity: .7;}
+  82% {top: 69px; left: 326px; width: 24px; height: 24px; opacity: .6;}
+  88% {top: 57px; left: 313px; width: 27px; height: 27px; opacity: .5;}
+  94% {top: 47px; left: 320px; width: 30px; height: 30px; opacity: .2;}
+  100% {top: 27px; left: 310px; width: 33px; height: 33px; opacity: 0;}
+
 }
