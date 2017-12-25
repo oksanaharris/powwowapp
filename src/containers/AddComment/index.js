@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {addCommentAction} from '../../actions/artworks.js';
+import {addCommentAction} from '../../actions/comments.js';
 
 
 class AddComment extends Component {
@@ -24,9 +24,15 @@ class AddComment extends Component {
   addComment(e){
     e.preventDefault();
 
-    // this.props.addTask({...this.state});
-    // // console.log('this is our new task from state', this.state);
-    // this.props.onAddClick();
+    let newComment = {
+      artwork_id: this.props.artworkId,
+      user_id: this.props.userId,
+      body: this.state.comment
+    }
+
+    this.props.addComment(newComment);
+    console.log('this is our new comment', newComment);
+    this.props.closeCommentForm();
     this.setState({
       comment: ''
     });
@@ -34,20 +40,21 @@ class AddComment extends Component {
 
   closeOnClickOutside(e){
     if(e.target.className.indexOf('commentModal') > -1){
-      this.props.onCancelClick();
+      this.props.closeCommentForm();
+      this.setState({comment: ''});
     }
   }
 
   render() {
     return (
       <div className="commentModal" style={{visibility: this.props.shown}} onClick={this.closeOnClickOutside}>
-        <form onSubmit={this.addComment.bind(this)} className="form-cntainer">
+        <form onSubmit={this.addComment.bind(this)} className="comment-form-cotainer">
           <div className="comment-input">
             <input type="text" name="comment" value={this.state.comment} onChange={this.handleChange}/>
           </div>
 
           <div className="addcomment-buttons">
-            <button type="button" className="add-comment-button cancelButton" onClick={this.props.onCancelClick}>Cancel</button>
+            <button type="button" className="add-comment-button cancelButton" onClick={this.props.closeCommentForm}>Cancel</button>
             <button type="submit" className="add-comment-button saveButton">Save</button>
           </div>
         </form>

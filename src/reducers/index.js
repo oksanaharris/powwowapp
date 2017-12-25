@@ -4,6 +4,7 @@ import areas from './areas';
 import artists from './artists';
 import artworks from './artworks';
 import checkins from './checkins';
+import comments from './comments';
 import likes from './likes';
 import sites from './sites';
 import users from './users';
@@ -15,6 +16,7 @@ export default combineReducers({
   artists,
   artworks,
   checkins,
+  comments,
   likes,
   sites,
   users,

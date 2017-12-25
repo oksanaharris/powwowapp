@@ -3,10 +3,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {InteractionButton} from '../../components/InteractionButton';
 import {loadArtworks} from '../../actions/artworks';
+import {loadCommentsByArtwork} from '../../actions/comments';
 import {removeStarAction} from '../../actions/artworks';
 import {addStarAction} from '../../actions/artworks';
 import {Link} from 'react-router-dom';
 import AddComment from '../AddComment';
+import {ArtworkComment} from './comment.component.js';
+
+import moment from 'moment';
 // import {previousStageAction} from '../../actions';
 
 // id will need to be passed in on click from the previous view (map or gallery)
@@ -24,7 +28,7 @@ let star = inactive_star;
 const comment = '/assets/comment.png';
 const map = '/assets/map.svg';
 
-let userId = 1;
+let userId = 2;
 
 class IndividualArtworkView extends Component {
   constructor(props){
@@ -37,7 +41,7 @@ class IndividualArtworkView extends Component {
     // this.handleStarClick = this.handleStarClick.bind(this);
     // this.handleCommentClick = this.handleCommentClick.bind(this);
     // this.handleMapClick = this.handleMapClick.bind(this);
-    this.cancelComment = this.cancelComment.bind(this);
+    this.closeCommentForm = this.closeCommentForm.bind(this);
   }
 
   handleStarClick(e, id) {
@@ -63,7 +67,6 @@ class IndividualArtworkView extends Component {
       console.log('executing add star props');
       this.props.addStar(id, userId);
     }
-
   }
 
   handleCommentClick(e, id) {
@@ -73,8 +76,8 @@ class IndividualArtworkView extends Component {
     })
   }
 
-  cancelComment(e) {
-    console.log('running cancelComment method on IndArtwork');
+  closeCommentForm(e) {
+    console.log('running closeCommentForm on IndArtwork');
     this.setState({commentFormOpen: 'hidden'});
   }
 
@@ -84,6 +87,8 @@ class IndividualArtworkView extends Component {
 
   componentWillMount(){
     this.props.loadArtworks();
+    this.props.loadCommentsByArtwork(parseFloat(this.props.match.params.artworkid));
+    // does this need to be a promise? can it?
   }
 
   componentDidMount(){
@@ -91,29 +96,33 @@ class IndividualArtworkView extends Component {
   }
 
   render(){
-    console.log('params artwork id', this.props.match.params);
 
+    //for alternate dislay beore this.props.artworks loads
     let link = "http://lorempixel.com/400/200/cats";
     let title = "Title";
     let artist = "Artist";
     let description = "Description";
     let artworkId;
+    let commentsSectionHeader = '';
+    let commentList = [];
 
+    //checks if this.props.artworks has loaded
     if (this.props.artworks.length > 0){
       let artwork = this.props.artworks.filter(artwork => {
         return artwork.id === parseFloat(this.props.match.params.artworkid);
       })[0];
 
+      //in case someone tries to access /artwork/1234875 random number uri
       if (!artwork) {return <div>No such artwork</div>;}
 
-      console.log('our artwork', artwork);
-
+      //handles artwork info display
       title = artwork.title;
       artist = artwork.Artist.name;
       description = artwork.description;
       link = artwork.url;
       artworkId = artwork.id;
 
+      //handles starred or not starred display
       if (artwork.Stars.some(star => {
         return star.user_id === userId;
       })){
@@ -121,11 +130,30 @@ class IndividualArtworkView extends Component {
       } else {
         star = inactive_star;
       }
+
+
+      //handles display of previously left comments
+      if (this.props.comments.length > 0){
+        commentsSectionHeader = 'Visitor Comments';
+
+        console.log('this props comments HERE', this.props.comments);
+        let comments = this.props.comments;
+
+        commentList = comments.map(comment => {
+          return(
+            <li key={comment.id} className="artworkview-comment-li">
+              <ArtworkComment commentUserPic={comment.User.picture} commentBody={comment.body} commentUserName={comment.User.username} commentDate={moment(comment.createdAt).fromNow()} />
+            </li>
+          );
+        });
+      }
+
     }
 
 
     return(
-      <div className="main-container">
+      <div className="artworkview-main-container">
+        <AddComment shown={this.state.commentFormOpen} closeCommentForm={this.closeCommentForm} artworkId={artworkId} userId={userId}/>
         <img className="artworkview-main-image" src={link} />
         <div className="artworkview-interactions">
           <InteractionButton imgClass="artworkview-interaction" src={star} handleClick={(e, id) => this.handleStarClick(e, artworkId)} />
@@ -143,7 +171,10 @@ class IndividualArtworkView extends Component {
           {description}
           </div>
         </div>
-        <AddComment shown={this.state.commentFormOpen} onCancelClick={this.cancelComment} />
+        <div className="artworkview-comments-section">
+          <div className="artworkview-comments-section-header">{commentsSectionHeader}</div>
+          <ul className="artworkview-comments-ul">{commentList}</ul>
+        </div>
       </div>
     );
   }
@@ -151,7 +182,8 @@ class IndividualArtworkView extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    artworks: state.artworks
+    artworks: state.artworks,
+    comments: state.comments
   };
 }
 
@@ -165,10 +197,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     addStar: (artwork_id, user_id) => {
       dispatch(addStarAction(artwork_id, user_id));
+    },
+    loadCommentsByArtwork: (artwork_id) => {
+      dispatch(loadCommentsByArtwork(artwork_id));
     }
-    // setToNextStage: (id) => {
-    //   dispatch(nextStageAction(id));
-    // },
     // setToPreviousStage: (id) => {
     //   dispatch(previousStageAction(id));
     // },

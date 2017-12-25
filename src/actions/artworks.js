@@ -71,22 +71,3 @@ export const removeStarAction = (id) => {
 }
 
 
-export const addCommentAction = (commentObj) => {
-  console.log('running the addComment');
-  return function(dispatch){
-
-    // console.log('this is newStar', newStar);
-
-    // return axios.post('/api/stars/', querystring.stringify(newStar))
-    // .then( stars => {
-    //   console.log('coming back from addStarAction in then', stars);
-    //   return axios.get('/api/artworks');
-    // })
-    // .then( artworks => {
-    //   dispatch({
-    //     type: LOAD_ARTWORKS,
-    //     artworks: artworks.data
-    //   });
-    // });
-  }
-}

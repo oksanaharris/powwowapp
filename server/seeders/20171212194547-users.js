@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('users', [{
   "username": "bob",
   "facebookId": "facebookId1",
-  "picture":"http://lorempixel.com/400/200/cats",
+  "picture":"/assets/face1.jpg",
   "firstname": "Bob",
   "lastname": "Burgers",
   "password": "psst",
@@ -15,7 +15,7 @@ module.exports = {
 }, {
   "username": "stacy",
   "facebookId": "facebookId2",
-  "picture":"http://lorempixel.com/400/200/cats",
+  "picture":"/assets/face2.jpg",
   "firstname": "Stacy",
   "lastname": "Mom",
   "password": "psst",
