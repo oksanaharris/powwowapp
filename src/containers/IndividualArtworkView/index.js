@@ -2,10 +2,14 @@ import React, {Component} from 'react';
 
 import {connect} from 'react-redux';
 import {InteractionButton} from '../../components/InteractionButton';
+import {TopBar} from './topBar.component.js';
+import {Hearts} from './hearts.component.js';
 import {loadArtworks} from '../../actions/artworks';
 import {loadCommentsByArtwork} from '../../actions/comments';
 import {removeStarAction} from '../../actions/artworks';
 import {addStarAction} from '../../actions/artworks';
+import {removeLikeAction} from '../../actions/artworks';
+import {addLikeAction} from '../../actions/artworks';
 import {Link} from 'react-router-dom';
 import AddComment from '../AddComment';
 import {ArtworkComment} from './comment.component.js';
@@ -25,6 +29,10 @@ const active_star = '/assets/star_active.png';
 const inactive_star = '/assets/star_inactive.png';
 let star = inactive_star;
 
+const active_like = '/assets/active_like.png';
+const inactive_like ='/assets/inactive_like.png';
+let like = inactive_like;
+
 const comment = '/assets/comment.png';
 const map = '/assets/map.svg';
 
@@ -34,7 +42,8 @@ class IndividualArtworkView extends Component {
   constructor(props){
     super(props);
     this.state = {
-      commentFormOpen: 'hidden'
+      commentFormOpen: 'hidden',
+      heartsAnimation: 'hidden'
     };
 
     // no longer need this now that binding them in the props declaration, right?
@@ -44,13 +53,38 @@ class IndividualArtworkView extends Component {
     this.closeCommentForm = this.closeCommentForm.bind(this);
   }
 
+  handleLikeClick (e, id){
+    console.log('handle like click method activated on the indView parent from id', id);
+
+    let likeId;
+
+    if (this.props.artworks.filter(artwork => {
+      return artwork.id === id;
+      })[0].Likes.filter(like => {
+        likeId = like.id;
+        console.log('like id is', likeId);
+        return like.user_id === userId;
+      }).length > 0)
+    {
+      console.log('executing remove like props');
+      this.props.removeLike(likeId);
+      this.setState({
+        heartsAnimation: 'hidden'
+      });
+    } else {
+      console.log('executing add like props');
+      this.props.addLike(id, userId);
+      this.setState({
+        heartsAnimation: 'visible'
+      });
+      setTimeout(function() { this.setState({heartsAnimation: 'hidden'}); }.bind(this), 1000);
+    }
+  }
+
+
   handleStarClick(e, id) {
     console.log('handle star click method activated on the indView parent from id', id);
-    // if star is active then we want it to be deactivated, and vice versa
-    // if star is active, it means that there is an entry in the Star table for this user and artwork
 
-    // this is already double filtering of all artworks;
-    // after the filter or just artwork, alternatively, we could look at the user's stars for matching artwork_id
     let starId;
 
     if (this.props.artworks.filter(artwork => {
@@ -131,6 +165,14 @@ class IndividualArtworkView extends Component {
         star = inactive_star;
       }
 
+      if (artwork.Likes.some(like => {
+        return like.user_id === userId;
+      })){
+        like = active_like;
+      } else {
+        like = inactive_like;
+      }
+
 
       //handles display of previously left comments
       if (this.props.comments.length > 0){
@@ -147,16 +189,20 @@ class IndividualArtworkView extends Component {
           );
         });
       }
-
     }
 
 
     return(
       <div className="artworkview-main-container">
         <AddComment shown={this.state.commentFormOpen} closeCommentForm={this.closeCommentForm} artworkId={artworkId} userId={userId}/>
-        <img className="artworkview-main-image" src={link} />
+        <TopBar star={star} handleStarClick={(e, id) => this.handleStarClick(e, artworkId)} />
+        <div className="artworkview-image-container">
+          <img className="artworkview-main-image" src={link} />
+          <Hearts shown={this.state.heartsAnimation}/>
+        </div>
         <div className="artworkview-interactions">
-          <InteractionButton imgClass="artworkview-interaction" src={star} handleClick={(e, id) => this.handleStarClick(e, artworkId)} />
+          <InteractionButton imgClass="artworkview-interaction" src={like} handleClick={(e, id) => this.handleLikeClick(e, artworkId)} />
+          {/*<InteractionButton imgClass="artworkview-interaction" src={star} handleClick={(e, id) => this.handleStarClick(e, artworkId)} />*/}
           <InteractionButton imgClass="artworkview-interaction" src={comment} handleClick={(e, id) => this.handleCommentClick(e, artworkId)}/>
           <InteractionButton imgClass="artworkview-interaction" src={map} handleClick={(e, id) => this.handleMapClick(e, artworkId)}/>
         </div>
@@ -200,6 +246,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     loadCommentsByArtwork: (artwork_id) => {
       dispatch(loadCommentsByArtwork(artwork_id));
+    },
+    removeLike: (id) => {
+      dispatch(removeLikeAction(id));
+    },
+    addLike: (artwork_id, user_id) => {
+      dispatch(addLikeAction(artwork_id, user_id));
     }
     // setToPreviousStage: (id) => {
     //   dispatch(previousStageAction(id));
