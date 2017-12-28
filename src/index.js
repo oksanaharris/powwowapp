@@ -16,6 +16,7 @@ import './index.css';
 //CONTAINERS----------------------------------
 import App from './containers/App';
 import './containers/App/styles.css';
+import './containers/App/hearts.styles.css';
 
 
 //STORE--------------------

@@ -2,10 +2,6 @@ const axios = require('axios');
 const querystring = require('querystring');
 
 export const LOAD_STARS = 'LOAD_STARS';
-export const ADD_STAR = 'ADD_STAR';
-export const REMOVE_STAR = 'REMOVE_STAR';
-
-
 
 export const loadStars = () => {
   return function(dispatch){

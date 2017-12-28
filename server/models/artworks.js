@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     Artworks.belongsTo(models.Sites, {foreignKey: 'site_id'});
     Artworks.hasMany(models.Checkins, {foreignKey: 'artwork_id'});
     Artworks.hasMany(models.Comments, {foreignKey: 'artwork_id'});
+    Artworks.hasMany(models.Likes, {foreignKey: 'artwork_id'});
     Artworks.hasMany(models.Stars, {foreignKey: 'artwork_id'});
   };
 

@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     Users.hasMany(models.Authorizations, {foreignKey: 'user_id'});
     Users.hasMany(models.Checkins, {foreignKey: 'user_id'});
     Users.hasMany(models.Comments, {foreignKey: 'user_id'});
+    Users.hasMany(models.Likes, {foreignKey: 'user_id'});
     Users.hasMany(models.Stars, {foreignKey: 'user_id'});
   };
 

@@ -1,6 +1,6 @@
 import { LOAD_STARS} from '../actions/stars.js';
-import { ADD_STAR} from '../actions/stars.js';
-import { REMOVE_STAR} from '../actions/stars.js';
+import { ADD_STAR} from '../actions/artworks.js';
+import { REMOVE_STAR} from '../actions/artworks.js';
 
 
 const stars = (state = [], action) => {

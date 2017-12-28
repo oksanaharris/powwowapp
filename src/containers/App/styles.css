@@ -220,6 +220,42 @@ li {
   margin-bottom: 80px;
 }
 
+.artworkview-topbar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  padding: 0 5px;
+  /*background-color: #e3e5e8;*/
+  /*box-shadow: 0 1px 4px #caccce;*/
+}
+
+.artworkview-topbar-back-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: middle;
+}
+
+.artworkview-topbar-back-arrow{
+  width: 25px;
+  height: 25px;
+}
+
+.artworkview-topbar-back-word {
+  font-size: 13px;
+  line-height: 25px;
+  vertical-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.artworkview-topbar-interaction {
+  width: 20px;
+  height: 20px;
+}
+
 .commentModal {
   width: 100vw;
   height: 100vh;
@@ -380,21 +416,21 @@ li {
   margin-bottom: 20px;
 }
 
-.heart {
+.heart-map {
   width: 15px;
   height: 15px;
   position: absolute;
   top: 95px;
   left: 60px;
   opacity: 1;
-  animation-name: love;
+  animation-name: lovemap;
   animation-duration: 6s;
   transition: ease-in-out;
   transition-property: top, left, opacity, width, height;
   animation-iteration-count: infinite;
 }
 
-@keyframes love {
+@keyframes lovemap {
   0% {top: 95px; left: 60px; width: 15px; height: 15px; opacity: .9;}
   5% {top: 88px; left: 66px; width: 18px; height: 18px; opacity: .8;}
   10% {top: 82px; left: 60px; width: 21px; height: 21px; opacity: .7;}
