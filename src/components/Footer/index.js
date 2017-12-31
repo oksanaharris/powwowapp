@@ -24,8 +24,10 @@ export const Footer = () => {
             </Link>
           </div>
           <div className="footer-menu-section artists-section">
-            <img src="/assets/color_palette_icon.png" alt="artists" className="menu-img menu-artists-img" />
-            <p className="menu-header menu-artists-header">Artists</p>
+            <Link to='/artistlist'>
+              <img src="/assets/color_palette_icon.png" alt="artists" className="menu-img menu-artists-img" />
+              <p className="menu-header menu-artists-header">Artists</p>
+            </Link>
           </div>
         </div>
 
