@@ -4,10 +4,11 @@ import {connect} from 'react-redux';
 import {TopBarNoStar} from './topBarNoStar.component.js';
 import {loadArtists} from '../../actions/artists';
 import {Link} from 'react-router-dom';
+import {ArtworkByArtist} from './artwork.component.js';
+
+import moment from 'moment';
 
 let userId = 2;
-
-
 
 class IndividualArtistView extends Component {
   constructor(props){
@@ -30,11 +31,11 @@ class IndividualArtistView extends Component {
     let homebase = "Homebase";
     let bio = "Bio";
     let artistId;
+    let artworkList = [];
 
     //checks if this.props.artists has loaded
     if (this.props.artists.length > 0){
       let artist = this.props.artists.filter(artist => {
-        console.log('filtering on artists');
         return artist.id === parseFloat(this.props.match.params.artistid);
       })[0];
 
@@ -50,6 +51,13 @@ class IndividualArtistView extends Component {
       photo = artist.photourl;
       artistId = artist.id;
 
+      artworkList = artist.Artworks.map(artwork => {
+        return (
+          <li key = {artwork.id}>
+            <ArtworkByArtist artworkid={artwork.id} title={artwork.title} artworkpic={artwork.url} yearPainted={moment(artwork.date_painted).year()}/>
+          </li>
+        )
+      });
     }
 
 
@@ -66,10 +74,11 @@ class IndividualArtistView extends Component {
           <div className="artistview-homebase artistview-info-piece">
           from {homebase}
           </div>
-          <div className="artistview-bio artistview-info-piece">
-          {bio}
-          </div>
         </div>
+        <div className="artistview-artworklist-container">
+          <ul className="artistview-artworklist-ul">{artworkList}</ul>
+        </div>
+        <div className="artistview-bio">{bio}</div>
       </div>
     );
   }
