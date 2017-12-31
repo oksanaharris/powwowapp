@@ -37,7 +37,7 @@ class CommunityView extends Component {
       commentList = comments.map(comment => {
         return(
           <li key={comment.id} className="artworkview-comment-li">
-            <CommunityComment commentUserPic={comment.User.picture} commentBody={comment.body} commentUserName={comment.User.username} commentDate={moment(comment.createdAt).fromNow()} commentArtworkPic={comment.Artwork.url} />
+            <CommunityComment commentUserPic={comment.User.picture} commentBody={comment.body} commentUserName={comment.User.username} commentDate={moment(comment.createdAt).fromNow()} commentArtworkPic={comment.Artwork.url} artworkid={comment.Artwork.id}/>
           </li>
         );
       });

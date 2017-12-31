@@ -20,7 +20,7 @@ a:visited {
   top: 0;
   background-color: #e3e5e8;
   box-shadow: 0 1px 4px #caccce;
-  z-index: 1;
+  z-index: 1000;
 }
 
 .header-img {
@@ -59,6 +59,7 @@ main {
   /*border-bottom: solid 1px grey;*/
   box-shadow: 0 -1px 4px #b0b1b2;
   box-sizing: content-box;
+  z-index: 900;
 }
 
 .footer-menu-row {
@@ -457,4 +458,109 @@ li {
   94% {top: 47px; left: 320px; width: 30px; height: 30px; opacity: .2;}
   100% {top: 27px; left: 310px; width: 33px; height: 33px; opacity: 0;}
 
+}
+
+
+
+.artistlistview-ul{
+  margin-top: 95px;
+}
+
+.artistlistview-artist-container{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  margin-top: -55px;
+}
+
+.artistlistview-artist-image {
+  width: 100vw;
+  height: 66vw;
+}
+
+.artistlistview-artist-info {
+  /*width: 100vw;*/
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  top: -54px;
+  padding: 0 20px;
+  background-color: rgba(206, 217, 234, .6);
+  /*margin-bottom: -50px;*/
+}
+
+.artistlistview-artist-desc{
+  display: flex;
+  flex-direction: column;
+}
+
+.artistview-topbar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  height: 30px;
+  padding: 0 5px;
+}
+
+.artistview-artworklist-ul{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.artistview-artworkpic{
+  width: 80px;
+  height: 60px;
+  margin: 5px;
+}
+
+.myprofile-menu{
+  margin-top: 40px;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.myprofile-menu-section{
+  background-color: lightgrey;
+  height: 35px;
+  line-height: 35px;
+  background-color: #e3e5e8;
+  box-shadow: 0 1px 4px #caccce;
+  width: 40%;
+  text-align: center;
+}
+
+.mainmenu{
+  margin-top: 40px;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.mainmenu-section{
+  background-color: lightgrey;
+  height: 35px;
+  line-height: 35px;
+  background-color: #e3e5e8;
+  box-shadow: 0 1px 4px #caccce;
+  width: 40%;
+  text-align: center;
+  float: right;
+}
+
+.mainmenu-section-p, .myprofile-menu-section-p{
+  padding: 0;
+  margin: 0;
 }

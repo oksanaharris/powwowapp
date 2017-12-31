@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
-export const CommunityComment = ({commentUserPic, commentBody, commentUserName, commentDate, commentArtworkPic}) => {
+export const CommunityComment = ({artworkid, commentUserPic, commentBody, commentUserName, commentDate, commentArtworkPic}) => {
   return (
     <div className="communityview-comment-container">
       <div className="communityview-userpic-container">
@@ -14,7 +15,9 @@ export const CommunityComment = ({commentUserPic, commentBody, commentUserName, 
         </div>
       </div>
       <div className="communityview-artworkpic-container">
-        <img className="communityview-comment-artworkpic" src={commentArtworkPic} />
+        <Link to={`/artwork/${artworkid}`}>
+          <img className="communityview-comment-artworkpic" src={commentArtworkPic} />
+        </Link>
       </div>
     </div>
   );
