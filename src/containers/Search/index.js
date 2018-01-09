@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {loadArtworks,loadOnMap} from '../../actions/artworks';
 import {searchHelper} from './helpers';
-import {Result,SearchField} from './Search.components';
+import {Result,SearchField, MarkerPopup} from './Search.components';
 
 
 
@@ -43,13 +43,7 @@ class Search extends Component {
     return (
         <div key={i}>
           {keys.map((key,i)=>{
-            return (<Result
-                      key={i}
-                      id={elem.id}
-                      i={i}
-                      val={elem[key]}>
-                    </Result>
-                    )
+            return (<MarkerPopup key={key} art={elem} />)
                 })
               }
         </div>
