@@ -19,13 +19,12 @@ export const MarkerPopup = ({art,handler}) => {
   return (
         <div className="marker-artist-popup">
           <div className="marker-artist-popup-photo">
-            <img src={art.Artist.photourl} alt=""/>
+            <img src={art.url} alt=""/>
           </div>
           <div className="marker-artist-popup-details">
             <h4>{art.title}</h4>
-            <p>{art.Artist.name}</p>
+            <p>{art.artistName}</p>
             <p>likes go here</p>
-            <p>{art.Site.cross_street_one}</p>
           </div>
           <div className="marker-artist-popup-directions-button">
             <p>0.1 mi</p> {/*TODO: needs to be dynamic*/}

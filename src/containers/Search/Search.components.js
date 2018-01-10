@@ -17,9 +17,9 @@ export const Result = ({id,i,val}) =>{
   }
 };
 
-export const SearchField = ({handler,query,active,goBack}) => {
+export const SearchField = ({handler,query,active,goBack,beginSearch}) => {
   const source = active ? sources.return : sources.search;
-
+  console.log(active);
   return (
         <div className="search-temp">
           <img src={source}  alt="icon" onClick={goBack}  className="search-icon-temp"/>
@@ -34,22 +34,16 @@ export const SearchField = ({handler,query,active,goBack}) => {
 
 
 export const MarkerPopup = ({art,handler}) => {
-  const url = art.url || "src";
-  const photourl = art.Artist.photourl === undefined ? "src" : 'love'
-  const src = url || photourl;
-  console.log(src);
-  console.log(art);
-
+  console.log(art.name);
   return (
         <div className="marker-artist-popup">
           <div className="marker-artist-popup-photo">
-            <img src="" alt=""/>
+            <img src={art.url} alt=""/>
           </div>
           <div className="marker-artist-popup-details">
-            <h4>{/*TODO: needs to be dynamic*/}</h4>
-            <p>{/*TODO: needs to be dynamic*/}</p>
+            <h4>{art.title}</h4>
+            <p>{art.artistName}</p>
             <p>likes go here</p>
-            <p>{/*TODO: needs to be dynamic*/}</p>
           </div>
           <div className="marker-artist-popup-directions-button">
             <p>0.1 mi</p> {/*TODO: needs to be dynamic*/}

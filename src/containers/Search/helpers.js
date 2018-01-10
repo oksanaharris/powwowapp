@@ -2,13 +2,20 @@ import _ from 'lodash';
 
 export function searchHelper(e,data) {
       let local = [];
-      let all = [];
       let query = e.target.value.toLowerCase();
-      let split = data.map((elem)=>{
-        all.push(elem.Artist,elem.Site,elem);
+      let all = data.map((elem)=>{
+        let all = [];
+        let obj = {};
+        obj.title = elem.title;
+        obj.artistName = elem.Artist.name;
+        obj.url = elem.url;
+        obj.lat = elem.Site.lat;
+        obj.long = elem.Site.long;
+        obj.description = elem.description;
+        //@oksana - if you need any addition data on the marker-pop, just declare here and it will become available.
+        all.push(obj);
+        return obj;
       })
-      //console.log(all);
-
       let res = all.map((elem,i) => {
         return Object.keys(elem);
       }).reduce((prev,curr) => {
@@ -27,8 +34,8 @@ export function searchHelper(e,data) {
       if(data === undefined){ 
         return []; }
       else{
-        let uni = [...new Set(local)]; //this makes it unique, which fixes the problem of the function been called on change, that way its live action.
-        return uni; }
+        let unique = [...new Set(local)]; //this makes it unique, which fixes the problem of the function been called on change, that way its live action.
+        return unique; }
   }
 
 

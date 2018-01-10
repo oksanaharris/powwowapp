@@ -13,18 +13,26 @@ class Search extends Component {
     this.state = {
       query: '',
       input: [],
+      popup: undefined,
       active: false
     }
     this.search = this.search.bind(this);
     this.searchResult = this.searchResult.bind(this);
     this.showOnMap = this.showOnMap.bind(this);
     this.endSearch = this.endSearch.bind(this);
+    this.submitSearch = this.submitSearch.bind(this);
+    this.loadArt=this.loadArt.bind(this);
   }
 
   search(e) {
-    this.setState({query: e.target.value})
+    this.setState({query: e.target.value}) 
     let res = searchHelper(e,this.props.artworks); 
-    this.setState({input: res})  
+    this.setState({input: res, active: false}) 
+  }
+
+
+  submitSearch(e){
+     
   }
 
   showOnMap(e){
@@ -37,13 +45,17 @@ class Search extends Component {
     this.setState({query: '', input: [], active: false})
   }
 
+  loadArt(e,art){
+    this.setState({popup: art})
+  }
+
 
   searchResult(elem,i){
     let keys = Object.keys(elem);
     return (
         <div key={i}>
           {keys.map((key,i)=>{
-            return (<MarkerPopup key={key} art={elem} />)
+            return (<MarkerPopup key={key} art={elem} handler={this.loadArt} />)
                 })
               }
         </div>
