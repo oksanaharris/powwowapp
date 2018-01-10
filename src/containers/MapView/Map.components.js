@@ -4,7 +4,7 @@ import { Marker, Popup } from 'react-leaflet';
 
 export const MarkerIcon = ({art,handler}) => {
   const markerPosition = [art.Site.lat, art.Site.long]
-  return(<DivIcon 
+  return(<Marker 
               className="div-icon-marker"
               onClick={(e) => handler(e,art)} 
               position={markerPosition}>
@@ -12,7 +12,7 @@ export const MarkerIcon = ({art,handler}) => {
                 className="markerImg" 
                 src={art.Artist.photourl} 
                 alt="marker"/>
-            </DivIcon>)
+            </Marker>)
 }
 
 export const MarkerPopup = ({art,handler}) => {
