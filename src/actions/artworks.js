@@ -11,7 +11,7 @@ export const REMOVE_LIKE = 'REMOVE_LIKE';
 
 export function loadArtworks(){
   return function(dispatch){
-    return axios.get('/api/artworks')
+    return axios.get('http://192.168.0.1:9000/api/artworks')
     .then( artworks => {
       dispatch({
         type: LOAD_ARTWORKS,
@@ -42,10 +42,10 @@ export const addStarAction = (artwork_id, user_id) => {
 
     console.log('this is newStar', newStar);
 
-    return axios.post('/api/stars/', querystring.stringify(newStar))
+    return axios.post('http://192.168.0.1:9000/api/stars/', querystring.stringify(newStar))
     .then( stars => {
       console.log('coming back from addStarAction in then', stars);
-      return axios.get('/api/artworks');
+      return axios.get('http://192.168.0.1:9000/api/artworks');
     })
     .then( artworks => {
       dispatch({
@@ -59,11 +59,11 @@ export const addStarAction = (artwork_id, user_id) => {
 export const removeStarAction = (id) => {
   console.log('running the removeStarAction on id', id);
   return function(dispatch){
-    return axios.delete('/api/stars/' + id)
+    return axios.delete('http://192.168.0.1:9000/api/stars/' + id)
     // is this the right notation?
     .then( stars => {
       console.log('coming back from removeStarAction in then', stars);
-      return axios.get('/api/artworks');
+      return axios.get('http://192.168.0.1:9000/api/artworks');
     })
     .then( artworks => {
       dispatch({
@@ -87,10 +87,10 @@ export const addLikeAction = (artwork_id, user_id) => {
 
     console.log('this is newLike', newLike);
 
-    return axios.post('/api/likes/', querystring.stringify(newLike))
+    return axios.post('http://192.168.0.1:9000/api/likes/', querystring.stringify(newLike))
     .then( likes => {
       console.log('coming back from addLikeAction in then', likes);
-      return axios.get('/api/artworks');
+      return axios.get('http://192.168.0.1:9000/api/artworks');
     })
     .then( artworks => {
       dispatch({
@@ -104,11 +104,11 @@ export const addLikeAction = (artwork_id, user_id) => {
 export const removeLikeAction = (id) => {
   console.log('running the removeLikeAction on id', id);
   return function(dispatch){
-    return axios.delete('/api/likes/' + id)
+    return axios.delete('http://192.168.0.1:9000/api/likes/' + id)
     // is this the right notation?
     .then( likes => {
       console.log('coming back from removeLikeAction in then', likes);
-      return axios.get('/api/artworks');
+      return axios.get('http://192.168.0.1:9000/api/artworks');
     })
     .then( artworks => {
       dispatch({
