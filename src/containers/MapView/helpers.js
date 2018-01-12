@@ -51,8 +51,10 @@ export function queryHelper(e,data) {
       })
 
       if(data === undefined){ 
-        return []; }
+        let noneFound = {status: 0}
+        return [...noneFound]; }
       else{
         let unique = [...new Set(local)]; //this makes it unique, which fixes the problem of the function been called on change, that way its live action.
+
         return unique; }
   }

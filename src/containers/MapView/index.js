@@ -20,6 +20,7 @@ class MapView extends Component {
     query: '',
     active: false,
     popup: undefined,
+    leaf: undefined,
     map: undefined,
     latlng: {
       lat: kakaako.lat,
@@ -50,7 +51,8 @@ class MapView extends Component {
   }
   componentDidMount(){
     const mymap = document.getElementById('map');
-    this.setState({map: mymap});
+    const leaf = document.getElementsByClassName('leaflet-container');
+    this.setState({map: mymap, leaf: leaf});
   }
 
   loadArt(e,art){
@@ -81,11 +83,17 @@ class MapView extends Component {
     let res = queryHelper(this.state.query,this.props.artworks); 
     let art = res.pop();
     this.loadArt(e,art);
+    let {leaf} = this.state;
+    leaf[0].style.height = 100;
   }
 
   endSearch(){
     this.setState({query: '', active: false})
   }
+
+
+
+
 
 
 
