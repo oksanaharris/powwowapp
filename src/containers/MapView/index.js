@@ -68,6 +68,10 @@ class MapView extends Component {
     return(<MarkerIcon art={art} key={i} handler={this.loadArt}/> )
   }
 
+  searchResults(){
+    console.log('e')
+  }
+
 
 
   render() {
@@ -80,7 +84,7 @@ class MapView extends Component {
 
     return (
       <div>
-        <Search/>
+        <Search searchResults={this.searchResults}/>
         <div id="map">
         <Map
           center={this.state.latlng}
