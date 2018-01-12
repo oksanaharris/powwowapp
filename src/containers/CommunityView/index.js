@@ -4,11 +4,15 @@ import {connect} from 'react-redux';
 
 import {loadComments} from '../../actions/comments';
 
+import {loadPhotoUploads} from '../../actions/photoUploads';
+
 import {Link} from 'react-router-dom';
 import AddComment from '../AddComment';
 import {CommunityComment} from './comment.component.js';
 
 import moment from 'moment';
+
+import {Carousel} from 'react-responsive-carousel';
 
 let userId = 2;
 
@@ -20,6 +24,7 @@ class CommunityView extends Component {
 
   componentWillMount(){
     this.props.loadComments();
+    this.props.loadPhotoUploads();
   }
 
   componentDidMount(){
@@ -36,18 +41,52 @@ class CommunityView extends Component {
 
       commentList = comments.map(comment => {
         return(
-          <li key={comment.id} className="artworkview-comment-li">
-            <CommunityComment commentUserPic={comment.User.picture} commentBody={comment.body} commentUserName={comment.User.username} commentDate={moment(comment.createdAt).fromNow()} commentArtworkPic={comment.Artwork.url} />
+          <li key={comment.id} className="communityview-comment-li">
+            <CommunityComment commentUserPic={comment.User.picture} commentBody={comment.body} commentUserName={comment.User.username} commentDate={moment(comment.createdAt).fromNow()} commentArtworkPic={comment.Artwork.url} artworkid={comment.Artwork.id}/>
           </li>
+        );
+      });
+    }
+
+    let photoList = [];
+
+    if (this.props.photoUploads.length > 0){
+
+      console.log('this props photoUploads HERE', this.props.photoUploads);
+      let photos = this.props.photoUploads;
+
+      photoList = photos.map(photo => {
+        return(
+          <div key={photo.id} className="artworkview-photo-li">
+            <img src={photo.url} />
+          </div>
         );
       });
     }
 
     return(
       <div className="communityview-main-container">
-        <div className="community-worldmap-container">
+        {/*<div className="community-worldmap-container">
           <img className="communityview-worldmap" src="/assets/visitor_map.jpg" alt="world_map" />
           <img className="heart-map" src="/assets/heart.png" alt="heart" />
+        </div>*/}
+        <Carousel showArrows={false} showStatus={false} showIndicators={false} showThumbs={false} infiniteLoop={true} autoPlay={true} interval={900}>
+          {/*<div>
+            <img src="/assets/face1.jpg" />
+            <p className="legend">Legend 1</p>
+          </div>
+          <div>
+            <img src="/assets/face2.jpg" />
+            <p className="legend">Legend 2</p>
+          </div>
+          <div>
+            <img src="/assets/artist1.jpg" />
+            <p className="legend">Legend 3</p>
+          </div>*/}
+          {photoList}
+        </Carousel>
+        <div className="slider-container">
+          <div className="slider-photo"></div>
         </div>
         <ul className="communityview-comments-ul">{commentList}</ul>
       </div>
@@ -57,7 +96,8 @@ class CommunityView extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    comments: state.comments
+    comments: state.comments,
+    photoUploads: state.photoUploads
   };
 }
 
@@ -65,6 +105,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadComments: () => {
       dispatch(loadComments());
+    },
+    loadPhotoUploads: () => {
+      dispatch(loadPhotoUploads());
     }
     // removeStar: (id) => {
     //   dispatch(removeStarAction(id));

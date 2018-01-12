@@ -15,7 +15,7 @@ const Users = db.Users;
 
 router.get('/', (req, res) => {
 
-  return Artists.findAll()
+  return Artists.findAll({ include: [{ all: true }], order: [['id', 'ASC']]})
   .then(artists => {
     console.log('these are the artists coming back', artists);
     res.json(artists);
