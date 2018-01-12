@@ -2,6 +2,13 @@ import React from 'react';
 import DivIcon from 'react-leaflet-div-icon';
 import { Marker, Popup } from 'react-leaflet';
 
+const sources = {
+  search: 'http://bit.ly/2ygeReT',
+  return: "http://bit.ly/2eSuUrX",
+  end: "http://bit.ly/2BsFouX",
+  go: "https://cdn3.iconfinder.com/data/icons/line/36/arrow_right-512.png"
+}
+
 export const MarkerIcon = ({art,handler}) => {
   const markerPosition = [art.Site.lat, art.Site.long]
   return(<Marker 
@@ -47,7 +54,19 @@ export const MarkerPopup = ({art,handler}) => {
     }
 
 
+export const SearchField = ({handler,query,active,begin,goBack}) => {
+  const source = active ? sources.return : sources.search;
+  return (
+        <div className="search-temp">
+          <img src={source}  alt="icon" onClick={goBack}  className="search-icon-temp"/>
 
+          <input type="text" placeholder="Search" value={query} className="search-input-temp" onChange={handler}/>
+          {query ?
+          <img src={sources.go} onClick={begin} alt="icon" className="search-icon-temp"/>
+          : null }
+        </div>
+  )
+}
 
 
 

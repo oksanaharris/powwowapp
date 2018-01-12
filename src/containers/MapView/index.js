@@ -4,10 +4,10 @@ import { Map, TileLayer, Marker, Tooltip,Popup} from 'react-leaflet';
 import L from 'leaflet';
 //import 'leaflet-routing-machine';
 import {loadArtworks,loadOnMap} from '../../actions/artworks';
-import {MarkerIcon,MarkerPopup,MyLocation} from './Map.components';
+import {MarkerIcon,MarkerPopup,MyLocation, SearchField} from './Map.components';
 import {HeaderTemp,FooterMenuTemp} from './Map.components';
 import Search from '../Search';
-import {url,attribution,kakaako,searchHelper} from './helpers';
+import {url,attribution,kakaako,searchHelper,queryHelper} from './helpers';
 
 
 
@@ -17,6 +17,8 @@ class MapView extends Component {
     super();
   this.state = {
     hasLocation: false,
+    query: '',
+    active: false,
     popup: undefined,
     map: undefined,
     latlng: {
@@ -27,6 +29,8 @@ class MapView extends Component {
     this.eachMarker=this.eachMarker.bind(this);
     this.loadArt=this.loadArt.bind(this);
     this.getDirections=this.getDirections.bind(this);
+    this.search = this.search.bind(this);
+    this.beginSearch = this.beginSearch.bind(this);
 }
 
   handleClick = () => {
@@ -68,8 +72,14 @@ class MapView extends Component {
     return(<MarkerIcon art={art} key={i} handler={this.loadArt}/> )
   }
 
-  searchResults(){
-    console.log('e')
+  search(e){
+    this.setState({query: e.target.value, active: true})
+  }
+
+  beginSearch(e){
+    let res = queryHelper(this.state.query,this.props.artworks); 
+    let art = res.pop();
+    this.loadArt(e,art);
   }
 
 
@@ -80,11 +90,13 @@ class MapView extends Component {
     let search = searchHelper(artworks,this.props.search);
     const popup = search.length === 1 ? search.pop() : this.state.popup;
     const {hasLocation} = this.state;
+    let {query} = this.state;
+    let {active} = this.state;
 
 
     return (
       <div>
-        <Search searchResults={this.searchResults}/>
+        <SearchField begin={this.beginSearch} query={query} active={active} handler={this.search} />
         <div id="map">
         <Map
           center={this.state.latlng}
