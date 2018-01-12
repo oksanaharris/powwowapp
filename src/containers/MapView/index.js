@@ -82,9 +82,8 @@ class MapView extends Component {
   beginSearch(e){
     let res = queryHelper(this.state.query,this.props.artworks); 
     let art = res.pop();
+    console.log(res);
     this.loadArt(e,art);
-    let {leaf} = this.state;
-    leaf[0].style.height = 100;
   }
 
   endSearch(){

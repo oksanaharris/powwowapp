@@ -23,6 +23,15 @@ export const MarkerIcon = ({art,handler}) => {
 }
 
 export const MarkerPopup = ({art,handler}) => {
+  if(art.status === 0){
+    return (
+      <div className="marker-artist-popup-noresults">
+          <h4>No results found...</h4>
+      </div>
+
+
+      )
+  }
   return (
         <div className="marker-artist-popup">
           <div className="marker-artist-popup-photo">

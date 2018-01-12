@@ -24,6 +24,15 @@ body {
   justify-content: space-around;
 }
 
+.marker-artist-popup-noresults{
+    width: 400px;
+    height: 40px;
+    background-color: grey;
+    opacity: 0.5;
+    display: flex;
+    justify-content: space-around;
+  }
+
 .marker-artist-popup-details{
   display: flex-wrap;
   justify-content: center;
