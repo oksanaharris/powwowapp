@@ -141,6 +141,18 @@ body {
   width: 10em;
 }
 
+.location img{
+  z-index: 1000;
+  background-color: grey;
+  height: 2em;
+  width: 2em;
+  float: right;
+}
+
+.mylocation{
+  color: red;
+}
+
 
 
 

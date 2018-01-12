@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Map, TileLayer, Marker, Tooltip,Popup} from 'react-leaflet';
 import L from 'leaflet';
-//import 'leaflet-routing-machine';
+import 'leaflet-routing-machine';
 import {loadArtworks,loadOnMap} from '../../actions/artworks';
 import {MarkerIcon,MarkerPopup,MyLocation, SearchField} from './Map.components';
 import {HeaderTemp,FooterMenuTemp} from './Map.components';
 import Search from '../Search';
 import {url,attribution,kakaako,searchHelper,queryHelper} from './helpers';
 
+const locationSrc = "https://cdn4.iconfinder.com/data/icons/map-and-location-7/256/Location-7-512.png";
 
 
 
@@ -35,7 +36,7 @@ class MapView extends Component {
     this.endSearch = this.endSearch.bind(this);
 }
 
-  handleClick = () => {
+  findMe = () => {
     this.refs.map.leafletElement.locate()
   }
 
@@ -53,6 +54,7 @@ class MapView extends Component {
     const mymap = document.getElementById('map');
     const leaf = document.getElementsByClassName('leaflet-container');
     this.setState({map: mymap, leaf: leaf});
+    this.refs.map.leafletElement.locate()
   }
 
   loadArt(e,art){
@@ -87,7 +89,7 @@ class MapView extends Component {
   }
 
   endSearch(){
-    this.setState({query: '', active: false})
+    this.setState({query: '', active: false, popup: undefined})
   }
 
 
@@ -113,7 +115,6 @@ class MapView extends Component {
         <Map
           center={this.state.latlng}
           length={3}
-          onClick={this.handleClick}
           onLocationfound={this.handleLocationFound}
           ref="map"
           zoom={16}>
@@ -123,13 +124,18 @@ class MapView extends Component {
           <MyLocation position={this.state.latlng} />
           : null }
           {res.map(this.eachMarker)}
+
         </Map>
+        <div className="location" >
+          <img onClick={this.findMe}  src={locationSrc} alt=""/>
+        </div>
         </div>
         <div>
         {popup !== undefined ?
             <MarkerPopup art={popup} handler={this.getDirections} />
           : null }
         </div>
+          
       </div>
     )
   }

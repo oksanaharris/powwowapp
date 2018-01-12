@@ -1,13 +1,25 @@
 import React from 'react';
 import DivIcon from 'react-leaflet-div-icon';
 import { Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
 
 const sources = {
   search: 'http://bit.ly/2ygeReT',
   return: "http://bit.ly/2eSuUrX",
   end: "http://bit.ly/2BsFouX",
-  go: "https://cdn3.iconfinder.com/data/icons/line/36/arrow_right-512.png"
+  go: "https://cdn3.iconfinder.com/data/icons/line/36/arrow_right-512.png",
+  icon: "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|e85141&chf=a,s,ee00FFFF"
 }
+
+var myIcon = L.icon({
+    iconUrl: sources.icon,
+    iconSize: [32, 48],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    shadowUrl: '',
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+});
 
 export const MarkerIcon = ({art,handler}) => {
   const markerPosition = [art.Site.lat, art.Site.long]
@@ -55,7 +67,7 @@ export const MarkerPopup = ({art,handler}) => {
 }
 
   export const MyLocation = ({position})=> {
-      return(<Marker position={position}>
+      return(<Marker icon={myIcon}className="mylocation" position={position}>
         <Popup>
           <span>You are here</span>
         </Popup>
