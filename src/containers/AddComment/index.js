@@ -65,7 +65,6 @@ class AddComment extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
     addCommentVisibility: state.addCommentVisibility
