@@ -31,6 +31,7 @@ class MapView extends Component {
     this.getDirections=this.getDirections.bind(this);
     this.search = this.search.bind(this);
     this.beginSearch = this.beginSearch.bind(this);
+    this.endSearch = this.endSearch.bind(this);
 }
 
   handleClick = () => {
@@ -82,6 +83,10 @@ class MapView extends Component {
     this.loadArt(e,art);
   }
 
+  endSearch(){
+    this.setState({query: '', active: false})
+  }
+
 
 
   render() {
@@ -96,7 +101,7 @@ class MapView extends Component {
 
     return (
       <div>
-        <SearchField begin={this.beginSearch} query={query} active={active} handler={this.search} />
+        <SearchField end={this.endSearch} begin={this.beginSearch} query={query} active={active} handler={this.search} />
         <div id="map">
         <Map
           center={this.state.latlng}

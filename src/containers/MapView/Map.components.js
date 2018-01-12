@@ -54,11 +54,11 @@ export const MarkerPopup = ({art,handler}) => {
     }
 
 
-export const SearchField = ({handler,query,active,begin,goBack}) => {
+export const SearchField = ({handler,query,active,begin,end}) => {
   const source = active ? sources.return : sources.search;
   return (
         <div className="search-temp">
-          <img src={source}  alt="icon" onClick={goBack}  className="search-icon-temp"/>
+          <img src={source}  alt="icon" onClick={end}  className="search-icon-temp"/>
 
           <input type="text" placeholder="Search" value={query} className="search-input-temp" onChange={handler}/>
           {query ?
