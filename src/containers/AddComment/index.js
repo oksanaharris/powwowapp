@@ -48,14 +48,16 @@ class AddComment extends Component {
   render() {
     return (
       <div className="commentModal" style={{visibility: this.props.shown}} onClick={this.closeOnClickOutside}>
-        <form onSubmit={this.addComment.bind(this)} className="comment-form-cotainer">
-          <div className="comment-input">
-            <input type="text" name="comment" value={this.state.comment} onChange={this.handleChange}/>
-          </div>
 
-          <div className="addcomment-buttons">
-            <button type="button" className="add-comment-button cancelButton" onClick={this.props.closeCommentForm}>Cancel</button>
-            <button type="submit" className="add-comment-button saveButton">Save</button>
+        <form onSubmit={this.addComment.bind(this)} className="comment-form-cotainer">
+                    <div className="add-comment-close-input">
+              <button type="button" className="add-comment-cancelButton" onClick={this.props.closeCommentForm}>x</button>
+            </div>
+          <div className="comment-input">
+
+            <img className="comment-addphoto-icon" src="/assets/camera_icon.png" />
+            <input type="text" className="comment-input-box" name="comment" value={this.state.comment} onChange={this.handleChange} />
+            <button type="submit" className="add-comment-saveButton">Post</button>
           </div>
         </form>
       </div>

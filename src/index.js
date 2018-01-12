@@ -17,6 +17,9 @@ import './index.css';
 import App from './containers/App';
 import './containers/App/styles.css';
 import './containers/App/hearts.styles.css';
+import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
+
+
 
 
 //STORE--------------------
