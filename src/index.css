@@ -154,7 +154,38 @@ body {
 }
 
 
+.register-container{
+  display: flex-wrap;
+  justify-content: center;
+}
 
+
+.facebook-register img{
+  margin-top: 4em;
+  width: 24em;
+
+}
+
+.internal-register img{
+  margin-top: 4em;
+  width: 24em;
+}
+
+.goback-registration{
+  border: 1px solid black;
+  background-color: black;
+  color: white;
+}
+
+.register-container-facebook{
+  background-color: cornflowerblue;
+
+}
+
+.register-container-internal{
+  background-color: grey;
+  
+}
 
 
 
