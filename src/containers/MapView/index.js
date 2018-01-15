@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Map, TileLayer, Marker, Tooltip,Popup} from 'react-leaflet';
 import L from 'leaflet';
-//import 'leaflet-routing-machine';
+import 'leaflet-routing-machine';
 import {loadArtworks,loadOnMap} from '../../actions/artworks';
-import {MarkerIcon,MarkerPopup,MyLocation} from './Map.components';
+import {MarkerIcon,MarkerPopup,MyLocation, SearchField} from './Map.components';
 import {HeaderTemp,FooterMenuTemp} from './Map.components';
 import Search from '../Search';
-import {url,attribution,kakaako,searchHelper} from './helpers';
+import {url,attribution,kakaako,searchHelper,queryHelper} from './helpers';
 
+const locationSrc = "https://cdn4.iconfinder.com/data/icons/map-and-location-7/256/Location-7-512.png";
 
 
 
@@ -17,7 +18,10 @@ class MapView extends Component {
     super();
   this.state = {
     hasLocation: false,
+    query: '',
+    active: false,
     popup: undefined,
+    leaf: undefined,
     map: undefined,
     latlng: {
       lat: kakaako.lat,
@@ -27,9 +31,12 @@ class MapView extends Component {
     this.eachMarker=this.eachMarker.bind(this);
     this.loadArt=this.loadArt.bind(this);
     this.getDirections=this.getDirections.bind(this);
+    this.search = this.search.bind(this);
+    this.beginSearch = this.beginSearch.bind(this);
+    this.endSearch = this.endSearch.bind(this);
 }
 
-  handleClick = () => {
+  findMe = () => {
     this.refs.map.leafletElement.locate()
   }
 
@@ -45,7 +52,9 @@ class MapView extends Component {
   }
   componentDidMount(){
     const mymap = document.getElementById('map');
-    this.setState({map: mymap});
+    const leaf = document.getElementsByClassName('leaflet-container');
+    this.setState({map: mymap, leaf: leaf});
+    this.refs.map.leafletElement.locate()
   }
 
   loadArt(e,art){
@@ -68,6 +77,25 @@ class MapView extends Component {
     return(<MarkerIcon art={art} key={i} handler={this.loadArt}/> )
   }
 
+  search(e){
+    this.setState({query: e.target.value, active: true})
+  }
+
+  beginSearch(e){
+    let res = queryHelper(this.state.query,this.props.artworks); 
+    let art = res.pop();
+    console.log(res);
+    this.loadArt(e,art);
+  }
+
+  endSearch(){
+    this.setState({query: '', active: false, popup: undefined})
+  }
+
+
+
+
+
 
 
   render() {
@@ -76,16 +104,17 @@ class MapView extends Component {
     let search = searchHelper(artworks,this.props.search);
     const popup = search.length === 1 ? search.pop() : this.state.popup;
     const {hasLocation} = this.state;
+    let {query} = this.state;
+    let {active} = this.state;
 
 
     return (
       <div>
-        <Search/>
+        <SearchField end={this.endSearch} begin={this.beginSearch} query={query} active={active} handler={this.search} />
         <div id="map">
         <Map
           center={this.state.latlng}
           length={3}
-          onClick={this.handleClick}
           onLocationfound={this.handleLocationFound}
           ref="map"
           zoom={16}>
@@ -95,13 +124,18 @@ class MapView extends Component {
           <MyLocation position={this.state.latlng} />
           : null }
           {res.map(this.eachMarker)}
+
         </Map>
+        <div className="location" >
+          <img onClick={this.findMe}  src={locationSrc} alt=""/>
+        </div>
         </div>
         <div>
         {popup !== undefined ?
             <MarkerPopup art={popup} handler={this.getDirections} />
           : null }
         </div>
+          
       </div>
     )
   }

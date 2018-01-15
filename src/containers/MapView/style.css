@@ -92,6 +92,13 @@
 
 
 
+.location img{
+  z-index: 1000;
+  background-color: grey;
+  height: 50;
+  width: 50;
+}
+
 
 
 
