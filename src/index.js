@@ -15,6 +15,7 @@ import reducers from './reducers'
 import './index.css';
 //CONTAINERS----------------------------------
 import App from './containers/App';
+import Register from './containers/Register';
 import './containers/App/styles.css';
 import './containers/App/hearts.styles.css';
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -38,7 +39,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
-        <App />
+        <Route path="/" component={App} />
+        <Route path="/register" component={Register} />
       </div>
     </Router>
   </Provider>, document.getElementById('root'));

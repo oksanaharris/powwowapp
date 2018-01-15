@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Map, TileLayer, Marker, Tooltip,Popup} from 'react-leaflet';
 import L from 'leaflet';
-import 'leaflet-routing-machine';
+//import 'leaflet-routing-machine';
 import {loadArtworks,loadOnMap} from '../../actions/artworks';
 import {MarkerIcon,MarkerPopup,MyLocation, SearchField} from './Map.components';
 import {HeaderTemp,FooterMenuTemp} from './Map.components';
-import Search from '../Search';
 import {url,attribution,kakaako,searchHelper,queryHelper} from './helpers';
 
 const locationSrc = "https://cdn4.iconfinder.com/data/icons/map-and-location-7/256/Location-7-512.png";
@@ -54,7 +53,7 @@ class MapView extends Component {
     const mymap = document.getElementById('map');
     const leaf = document.getElementsByClassName('leaflet-container');
     this.setState({map: mymap, leaf: leaf});
-    this.refs.map.leafletElement.locate()
+    //this.refs.map.leafletElement.locate()
   }
 
   loadArt(e,art){
