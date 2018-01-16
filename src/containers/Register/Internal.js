@@ -79,8 +79,10 @@ class Internal extends Component {
 
     render() {
       const {err} = this.state;
+      const {userExists} = this.props;
       return(
         <div>
+        {userExists ? <div>Error found</div> : null}
         <form className="internal-form" onSubmit={this.handleSubmit}>
           <input 
             type="text"

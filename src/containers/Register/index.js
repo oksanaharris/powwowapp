@@ -33,14 +33,13 @@ class Register extends Component {
   registerUser(email,password){
     let local = { email: email, password: password }
     this.props.registerNewUser(local); 
-    setTimeout(()=>{
+    setTimeout(()=>{ //using this to wait for server response
       const {users} = this.props;
       if(users === 200){
       this.setState({registrationChoice: 'login'})
       }
       else if(users === 302){
         this.setState({err: true})
-        console.log('302');
       }
       else if(users === 400){
         alert('server error');
@@ -62,7 +61,7 @@ class Register extends Component {
 
 
     render() {
-    const {registrationChoice} = this.state;
+    const {registrationChoice,err} = this.state;
     
 
       switch (registrationChoice) {
@@ -84,7 +83,7 @@ class Register extends Component {
           <div className="register-container">
           <GoBack choice={this.registrationChoice} />
             <div className="register-container-internal">
-              <Internal registerUser={this.registerUser} />
+              <Internal userExists={err} registerUser={this.registerUser} />
             </div>
           </div>)
         case "login":
