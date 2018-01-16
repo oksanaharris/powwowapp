@@ -24,21 +24,18 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req,res) => {
-  console.log(req.body);
-  res.json(200);
-})
+
 
 
 
 router.post('/register', (req, res) => {
-  console.log(req.body);
   let {firstname, lastname, password, email} = req.body;
   //fields are TBD - pending password facebook OAuth strategy
   
   return Users.findOne({where: {email:email}})
   .then(user => {
     if(user){
+      console.log('exists')
       res.json(302);
     }
     else{
@@ -52,7 +49,7 @@ router.post('/register', (req, res) => {
         email: email
       })
       .then(user => {
-        console.log('comment coming back from post to api/users', user);
+        console.log('user new');
         res.json(200);
       })
       .catch(error => {

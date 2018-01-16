@@ -7,7 +7,7 @@ const users = (state = [], action) => {
 
     case ADD_USER:
     console.log(action.status);
-      return state;
+      return action.status.data;
     default:
       return state
   }

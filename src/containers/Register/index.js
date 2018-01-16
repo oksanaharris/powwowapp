@@ -32,12 +32,25 @@ class Register extends Component {
 
   registerUser(email,password){
     let local = { email: email, password: password }
-    this.props.registerNewUser(local);
+    this.props.registerNewUser(local); 
     setTimeout(()=>{
+      const {users} = this.props;
+      if(users === 200){
       this.setState({registrationChoice: 'login'})
+      }
+      else if(users === 302){
+        this.setState({err: true})
+        console.log('302');
+      }
+      else if(users === 400){
+        alert('server error');
+      }
     },500)
-    
+       
   }
+
+  
+
 
 
 
@@ -50,6 +63,8 @@ class Register extends Component {
 
     render() {
     const {registrationChoice} = this.state;
+    
+
       switch (registrationChoice) {
         case "undefined":
         return(
@@ -82,10 +97,15 @@ class Register extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    users: state.users
+    }
+}
 
 
 const ConnectedRegister = connect(
-  null,
+  mapStateToProps,
   {registerNewUser}
 )(Register)
 
