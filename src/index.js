@@ -16,6 +16,7 @@ import './index.css';
 //CONTAINERS----------------------------------
 import App from './containers/App';
 import Register from './containers/Register';
+import Login from './containers/Login';
 import './containers/App/styles.css';
 import './containers/App/hearts.styles.css';
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -41,6 +42,7 @@ ReactDOM.render(
       <div>
         <Route path="/" component={App} />
         <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
       </div>
     </Router>
   </Provider>, document.getElementById('root'));

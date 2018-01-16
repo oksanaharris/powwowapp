@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RegisterChoice, GoBack, FaceBook } from './register.components.js';
 import Internal from './Internal';
-import Login from './Login';
+import Login from '../Login';
 import { registerNewUser,loginUser } from '../../actions/users';
 
 
@@ -14,7 +14,7 @@ class Register extends Component {
 
     this.state = {
       isLoggedIn: false,
-      registrationChoice: "login",
+      registrationChoice: "undefined",
       email: '',
       password: '',
       err: false
