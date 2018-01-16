@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/users';
 
 
 
@@ -10,7 +12,8 @@ class Login extends Component {
       email: '',
       password: '',
       emailError: false,
-      passwordError: false
+      passwordError: false,
+      err: false
     }
     this.handleEmail=this.handleEmail.bind(this);
     this.handlePassword=this.handlePassword.bind(this);
@@ -47,9 +50,20 @@ class Login extends Component {
     let emailInput = document.getElementsByClassName('register-email-input')[0];
     let submitButton = document.getElementsByClassName('register-submit-input')[0];
     let {email, password, emailError,passwordError} = this.state;
-    this.props.loginUser(email,password)
-
-
+    let local = { email: email, password: password }
+    this.props.loginUser(local); 
+    setTimeout(()=>{ //using this to wait for server response
+      const {users} = this.props;
+      if(users === 'success'){
+        console.log('redirect needs to happen')
+      }
+      else if(users === 302){
+        this.setState({err: true })
+      }
+      else if(users === 400){
+        alert('server error');
+      }
+    },500)
   }
 
 
@@ -62,8 +76,10 @@ class Login extends Component {
 
     render() {
       const {err} = this.state;
+
       return(
         <div>
+        {err ? <div>User Not Found</div> : null }
         <form className="internal-form" onSubmit={this.handleSubmit}>
           <input 
             type="text"
@@ -88,4 +104,17 @@ class Login extends Component {
 
 
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    users: state.users
+    }
+}
+
+
+const ConnectedLogin = connect(
+  mapStateToProps,
+  {loginUser}
+)(Login)
+
+
+export default ConnectedLogin;
