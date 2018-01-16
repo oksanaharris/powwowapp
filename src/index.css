@@ -172,8 +172,11 @@ body {
 }
 
 .goback-registration{
+  margin-top: 3em;
+  text-align: center;
+  width: 28em;
+  height: 5em;
   border: 1px solid black;
-  background-color: black;
   color: white;
 }
 
@@ -183,8 +186,45 @@ body {
 }
 
 .register-container-internal{
-  background-color: grey;
+  display: flex;
+  justify-content: center;
   
+}
+
+.internal-form{
+  display: flex-wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.register-email-input{
+  margin-top: 3em;
+  text-align: center;
+  width: 24em;
+  height: 5em;
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  background-color: transparent;
+}
+
+.register-password-input{
+  margin-top: 3em;
+  text-align: center;
+  width: 24em;
+  height: 5em;
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  background-color: transparent;
+}
+
+.register-submit-input{
+  margin-top: 3em;
+  text-align: center;
+  width: 24em;
+  height: 5em;
+  border: 1px solid black;
 }
 
 

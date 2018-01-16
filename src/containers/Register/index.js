@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { RegisterChoice, GoBack, FaceBook, Internal } from './register.components.js';
+import { RegisterChoice, GoBack, FaceBook } from './register.components.js';
+import Internal from './Internal';
+
+const validator = require("email-validator");
 
 
 
@@ -10,15 +13,13 @@ class Register extends Component {
 
     this.state = {
       isLoggedIn: false,
-      registrationChoice: "undefined",
+      registrationChoice: "internal",
       email: '',
-      password: ''
+      password: '',
+      err: false
     }
 
     this.registrationChoice=this.registrationChoice.bind(this);
-    this.handleEmail=this.handleEmail.bind(this);
-    this.handlePassword=this.handlePassword.bind(this);
-    this.handleSubmit=this.handleSubmit.bind(this);
   }
 
 
@@ -27,23 +28,6 @@ class Register extends Component {
     this.setState({registrationChoice: name})
   }
 
-  handleEmail(e){
-    let {value} = e.target;
-    this.setState({email: value})
-  }
-
-  handlePassword(e){
-    let {value} = e.target;
-    this.setState({password: value})
-  }
-
-  handleSubmit(e){
-    e.preventDefault();
-    let {email, password} = this.state;
-    console.log(email);
-    console.log(password);
-
-  }
 
 
 
@@ -74,10 +58,7 @@ class Register extends Component {
           <div className="register-container">
           <GoBack choice={this.registrationChoice} />
             <div className="register-container-internal">
-              <Internal 
-                handleEmail={this.handleEmail}
-                handlePassword={this.handlePassword}
-                handleSubmit={this.handleSubmit} />
+              <Internal />
             </div>
           </div>)
       }
