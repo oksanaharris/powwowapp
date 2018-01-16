@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { RegisterChoice } from './register.components.js';
+import { RegisterChoice, GoBack, FaceBook, Internal } from './register.components.js';
+
 
 
 
@@ -9,18 +10,48 @@ class Register extends Component {
 
     this.state = {
       isLoggedIn: false,
-      registrationChoice: "undefined"
+      registrationChoice: "undefined",
+      email: '',
+      password: ''
     }
 
     this.registrationChoice=this.registrationChoice.bind(this);
+    this.handleEmail=this.handleEmail.bind(this);
+    this.handlePassword=this.handlePassword.bind(this);
+    this.handleSubmit=this.handleSubmit.bind(this);
   }
 
 
   registrationChoice(e){
     let {name} = e.target;
     this.setState({registrationChoice: name})
+  }
+
+  handleEmail(e){
+    let {value} = e.target;
+    this.setState({email: value})
+  }
+
+  handlePassword(e){
+    let {value} = e.target;
+    this.setState({password: value})
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    let {email, password} = this.state;
+    console.log(email);
+    console.log(password);
 
   }
+
+
+
+
+
+
+
+
 
     render() {
     const {registrationChoice} = this.state;
@@ -33,17 +64,20 @@ class Register extends Component {
         case 'facebook':
         return (
           <div className="register-container">
-          <button onClick={(e)=>this.registrationChoice(e)} name="undefined" className="goback-registration">goback</button>
+          <GoBack choice={this.registrationChoice} />
             <div className="register-container-facebook">
-              facebook
+              <FaceBook />
             </div>
           </div>)
         case "internal":
         return (
           <div className="register-container">
-          <button onClick={(e)=>this.registrationChoice(e)} name="undefined" className="goback-registration">goback</button>
+          <GoBack choice={this.registrationChoice} />
             <div className="register-container-internal">
-              internal
+              <Internal 
+                handleEmail={this.handleEmail}
+                handlePassword={this.handlePassword}
+                handleSubmit={this.handleSubmit} />
             </div>
           </div>)
       }

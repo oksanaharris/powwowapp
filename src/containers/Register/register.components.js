@@ -13,3 +13,26 @@ export const RegisterChoice = ({choice}) => {
       </div>
       )
 }
+
+export const GoBack = ({choice}) => {
+  return ( <button onClick={(e)=>choice(e)} name="undefined" className="goback-registration">goback</button>)
+}
+
+export const FaceBook = () => {
+  return (<div>FaceBook</div>)
+}
+
+export const Internal = ({handleEmail,handlePassword, handleSubmit}) => {
+  return (
+      <div className="internal-form">
+        <form onSubmit={handleSubmit}>
+          <input type="text" onChange={handleEmail} placeholder="email"/>
+          <input type="password" onChange={handlePassword} placeholder="password"/>
+          <input
+            type="submit"
+            className="button"
+            value="register"/>
+        </form>
+      </div>
+    )
+}
