@@ -52,7 +52,8 @@ class Internal extends Component {
     e.preventDefault();
     let passwordInput = document.getElementsByClassName('register-password-input')[0];
     let emailInput = document.getElementsByClassName('register-email-input')[0];
-    let {email, password, err} = this.state;
+    let submitButton = document.getElementsByClassName('register-submit-input')[0];
+    let {email, password, err, emailError,passwordError} = this.state;
     let validEmail = validator.validate(email);
     let validPassword = schema.validate(password)
     if(!validEmail){ 
@@ -63,10 +64,9 @@ class Internal extends Component {
       this.setState({ passwordError: true })
       passwordInput.style.borderColor = 'red'
     }
-
-
-
-
+    if(validEmail && validPassword){
+      this.props.registerUser(email,password);
+    }
   }
 
 

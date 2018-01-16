@@ -20,12 +20,21 @@ class Register extends Component {
     }
 
     this.registrationChoice=this.registrationChoice.bind(this);
+    this.registerUser=this.registerUser.bind(this);
   }
 
 
   registrationChoice(e){
     let {name} = e.target;
     this.setState({registrationChoice: name})
+  }
+
+  registerUser(email,password){
+    //this.props.registerNewUser(email,password);
+    setTimeout(()=>{
+      this.setState({registrationChoice: 'login'})
+    },500)
+    
   }
 
 
@@ -58,9 +67,15 @@ class Register extends Component {
           <div className="register-container">
           <GoBack choice={this.registrationChoice} />
             <div className="register-container-internal">
-              <Internal />
+              <Internal registerUser={this.registerUser} />
             </div>
           </div>)
+        case "login":
+        return (
+          <div className="register-container">
+          LOGIN PAGE
+          </div>
+          )
       }
   }
 }
