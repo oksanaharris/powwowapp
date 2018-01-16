@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RegisterChoice, GoBack, FaceBook } from './register.components.js';
 import Internal from './Internal';
-import { registerNewUser } from '../../actions/users';
-const validator = require("email-validator");
+import Login from './Login';
+import { registerNewUser,loginUser } from '../../actions/users';
 
 
 
@@ -14,7 +14,7 @@ class Register extends Component {
 
     this.state = {
       isLoggedIn: false,
-      registrationChoice: "internal",
+      registrationChoice: "login",
       email: '',
       password: '',
       err: false
@@ -22,6 +22,7 @@ class Register extends Component {
 
     this.registrationChoice=this.registrationChoice.bind(this);
     this.registerUser=this.registerUser.bind(this);
+    this.loginUser=this.loginUser.bind(this);
   }
 
 
@@ -48,6 +49,24 @@ class Register extends Component {
        
   }
 
+  loginUser(email,password){
+    let local = { email: email, password: password }
+    this.props.loginUser(local); 
+    setTimeout(()=>{ //using this to wait for server response
+      const {users} = this.props;
+      if(users === 'success'){
+      this.setState({registrationChoice: 'loggedin'})
+      }
+      else if(users === 302){
+        this.setState({err: true, registrationChoice: 'login'})
+      }
+      else if(users === 400){
+        alert('server error');
+      }
+    },500)
+
+  }
+
   
 
 
@@ -62,6 +81,7 @@ class Register extends Component {
 
     render() {
     const {registrationChoice,err} = this.state;
+
     
 
       switch (registrationChoice) {
@@ -89,7 +109,14 @@ class Register extends Component {
         case "login":
         return (
           <div className="register-container">
-          LOGIN PAGE
+          {err ? <div>User Not Found</div> : null }
+            <Login loginUser={this.loginUser} />
+          </div>
+          )
+        case "loggedin":
+        return (
+          <div className="register-container">
+            User Logged In - have to setup redirect to home page
           </div>
           )
       }
@@ -105,7 +132,7 @@ const mapStateToProps = (state) => {
 
 const ConnectedRegister = connect(
   mapStateToProps,
-  {registerNewUser}
+  {registerNewUser,loginUser}
 )(Register)
 
 

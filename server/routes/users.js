@@ -57,11 +57,7 @@ router.post('/register', (req, res) => {
         res.json(400);
       });  
     }
-  })
-
-
-
-  
+  }) 
 });
 
 //move all of the password stuff to api/users/
@@ -82,20 +78,22 @@ router.get('/:id', (req, res) => {
 router.post('/login', (req, res) => {
   let {firstname, lastname, password, email} = req.body;
   //fields are TBD - pending password facebook OAuth strategy
-
-  return Users.create({
-    firstname: firstname,
-    lastname: lastname,
-    password: password,
-    email: email
-  })
+  
+  return Users.findOne({where: {email:email, password:password}})
   .then(user => {
-    console.log('comment coming back from post to api/users', user);
-    res.json(user);
+    if(user){
+      console.log('accepted')
+      res.json('success');
+    }
+    else{
+      console.log('not accepted')
+      res.json(302);
+    }
   })
   .catch(error => {
-    console.log('an error occurred on post to api/users');
-  });
+    console.log('server error');
+    res.json(400);
+  }) 
 });
 
 
