@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { RegisterChoice, GoBack, FaceBook } from './register.components.js';
 import Internal from './Internal';
-
+import { registerNewUser } from '../../actions/users';
 const validator = require("email-validator");
 
 
@@ -30,7 +31,8 @@ class Register extends Component {
   }
 
   registerUser(email,password){
-    //this.props.registerNewUser(email,password);
+    let local = { email: email, password: password }
+    this.props.registerNewUser(local);
     setTimeout(()=>{
       this.setState({registrationChoice: 'login'})
     },500)
@@ -81,4 +83,11 @@ class Register extends Component {
 }
 
 
-export default Register;
+
+const ConnectedRegister = connect(
+  null,
+  {registerNewUser}
+)(Register)
+
+
+export default ConnectedRegister;

@@ -10,7 +10,7 @@ const Users = db.Users;
 const apiRouter = require('./routes');
 
 app.use(express.static('public'));
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({extended: true}));
 
