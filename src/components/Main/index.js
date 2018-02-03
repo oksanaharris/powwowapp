@@ -8,6 +8,7 @@ import IndividualArtistView from '../../containers/IndividualArtistView';
 import ArtGalleryView from '../../containers/ArtGalleryView';
 import ArtistListView from '../../containers/ArtistListView';
 import CommunityView from '../../containers/CommunityView';
+import CameraComponent from '../../containers/Camera';
 
 export const Main = () => (
   <main>
@@ -18,6 +19,7 @@ export const Main = () => (
       <Route path="/artist/:artistid" component={IndividualArtistView} />
       <Route path="/artistlist" component={ArtistListView} />
       <Route path="/community" component={CommunityView} />
+      <Route path="/camera" component={CameraComponent} />
     </Switch>
   </main>
 )

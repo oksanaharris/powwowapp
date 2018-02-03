@@ -11,7 +11,7 @@ import {addStarAction} from '../../actions/artworks';
 import {removeLikeAction} from '../../actions/artworks';
 import {addLikeAction} from '../../actions/artworks';
 import {Link} from 'react-router-dom';
-import AddComment from '../AddComment';
+import AddComment from './addComment.js';
 import {ArtworkComment} from './comment.component.js';
 
 import moment from 'moment';

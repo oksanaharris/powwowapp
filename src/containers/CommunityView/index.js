@@ -7,19 +7,23 @@ import {loadComments} from '../../actions/comments';
 import {loadPhotoUploads} from '../../actions/photoUploads';
 
 import {Link} from 'react-router-dom';
-import AddComment from '../AddComment';
+
 import {CommunityComment} from './comment.component.js';
 
 import moment from 'moment';
 
 import {Carousel} from 'react-responsive-carousel';
 
+import {IntroBlurb} from './intro.component.js';
+
 let userId = 2;
 
 class CommunityView extends Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      introBlurbOpen: 'hidden'
+    };
   }
 
   componentWillMount(){
@@ -70,6 +74,7 @@ class CommunityView extends Component {
           <img className="communityview-worldmap" src="/assets/visitor_map.jpg" alt="world_map" />
           <img className="heart-map" src="/assets/heart.png" alt="heart" />
         </div>*/}
+        <IntroBlurb shown={this.state.introBlurbOpen} />
         <Carousel showArrows={false} showStatus={false} showIndicators={false} showThumbs={false} infiniteLoop={true} autoPlay={true} interval={900}>
           {/*<div>
             <img src="/assets/face1.jpg" />
