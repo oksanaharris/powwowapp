@@ -1,11 +1,14 @@
-import { LOAD_USERS } from '../actions/users.js';
+import { ADD_USER, LOGIN_USER } from '../actions/users.js';
 
 
 const users = (state = [], action) => {
 
   switch(action.type){
-    case LOAD_USERS:
-      return state;
+
+    case ADD_USER:
+      return action.status.data;
+    case LOGIN_USER:
+      return action.status.data;
     default:
       return state
   }

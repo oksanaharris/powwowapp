@@ -154,7 +154,78 @@ body {
 }
 
 
+.register-container{
+  display: flex-wrap;
+  justify-content: center;
+}
 
+
+.facebook-register img{
+  margin-top: 4em;
+  width: 24em;
+
+}
+
+.internal-register img{
+  margin-top: 4em;
+  width: 24em;
+}
+
+.goback-registration{
+  margin-top: 3em;
+  text-align: center;
+  width: 28em;
+  height: 5em;
+  border: 1px solid black;
+  color: white;
+}
+
+.register-container-facebook{
+  background-color: cornflowerblue;
+
+}
+
+.register-container-internal{
+  display: flex;
+  justify-content: center;
+  
+}
+
+.internal-form{
+  display: flex-wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.register-email-input{
+  margin-top: 3em;
+  text-align: center;
+  width: 24em;
+  height: 5em;
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  background-color: transparent;
+}
+
+.register-password-input{
+  margin-top: 3em;
+  text-align: center;
+  width: 24em;
+  height: 5em;
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  background-color: transparent;
+}
+
+.register-submit-input{
+  margin-top: 3em;
+  text-align: center;
+  width: 24em;
+  height: 5em;
+  border: 1px solid black;
+}
 
 
 

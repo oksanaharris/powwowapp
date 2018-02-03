@@ -14,10 +14,9 @@ const Users = db.Users;
 
 
 router.get('/', (req, res) => {
-  //this includes authorizations likes and checkins
   return Users.findAll({ include: [{ all: true }]})
   .then(users => {
-    console.log('these are the users coming back', users);
+    //console.log('these are the users coming back', users);
     res.json(users);
   })
   .catch(error => {
@@ -25,6 +24,43 @@ router.get('/', (req, res) => {
   });
 });
 
+
+
+
+
+router.post('/register', (req, res) => {
+  let {firstname, lastname, password, email} = req.body;
+  //fields are TBD - pending password facebook OAuth strategy
+  
+  return Users.findOne({where: {email:email}})
+  .then(user => {
+    if(user){
+      console.log('exists')
+      res.json(302);
+    }
+    else{
+      return Users.create({
+        username: email,
+        firstname: "testfirstname",
+        lastname: "testlastname",
+        facebookId: "null",
+        picture: "picture",
+        password: password,
+        email: email
+      })
+      .then(user => {
+        console.log('user new');
+        res.json(200);
+      })
+      .catch(error => {
+        console.log('an error occurred on post on register');
+        res.json(400);
+      });  
+    }
+  }) 
+});
+
+//move all of the password stuff to api/users/
 
 router.get('/:id', (req, res) => {
   let {id} = req.params;
@@ -39,46 +75,25 @@ router.get('/:id', (req, res) => {
   });
 });
 
-
-router.post('/register', (req, res) => {
-  let {firstname, lastname, password, email} = req.body;
-  //fields are TBD - pending password facebook OAuth strategy
-
-  return Users.create({
-    firstname: firstname,
-    lastname: lastname,
-    password: password,
-    email: email
-  })
-  .then(user => {
-    console.log('comment coming back from post to api/users', user);
-    res.json(user);
-  })
-  .catch(error => {
-    console.log('an error occurred on post to api/users');
-  });
-});
-
-//move all of the password stuff to api/users/
-
-
 router.post('/login', (req, res) => {
   let {firstname, lastname, password, email} = req.body;
   //fields are TBD - pending password facebook OAuth strategy
-
-  return Users.create({
-    firstname: firstname,
-    lastname: lastname,
-    password: password,
-    email: email
-  })
+  
+  return Users.findOne({where: {email:email, password:password}})
   .then(user => {
-    console.log('comment coming back from post to api/users', user);
-    res.json(user);
+    if(user){
+      console.log('accepted')
+      res.json('success');
+    }
+    else{
+      console.log('not accepted')
+      res.json(302);
+    }
   })
   .catch(error => {
-    console.log('an error occurred on post to api/users');
-  });
+    console.log('server error');
+    res.json(400);
+  }) 
 });
 
 
