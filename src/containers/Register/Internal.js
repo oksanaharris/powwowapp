@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-
-const validator = require("email-validator");
-const passwordValidator = require('password-validator');
-let schema = new passwordValidator();
-schema
-.is().min(3)
-.has().uppercase()
-.has().not().spaces()
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/users';
+import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import LoaderButton from '../../components/LoaderButton';
+import './Register.css';
 
 
 class Internal extends Component {
@@ -14,64 +11,29 @@ class Internal extends Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
-      emailError: false,
-      passwordError: false
-    }
-    this.handleEmail=this.handleEmail.bind(this);
-    this.handlePassword=this.handlePassword.bind(this);
-    this.handleSubmit=this.handleSubmit.bind(this);
+      isLoading: false,
+      email: "",
+      password: ""
+    };
+  }
+
+  validateForm() {
+    return this.state.email.length > 0 && this.state.password.length > 0;
+  }
+
+  handleChange = e => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
   }
 
 
-  registrationChoice(e){
-    let {name} = e.target;
-    this.props.registrationChoice(name);
-  }
 
-  handleEmail(e){
-    let {value, style} = e.target;
-    this.setState({email: value})
-    style.backgroundColor = "lightgreen";
-    window.addEventListener('click', () => {
-      style.backgroundColor = "transparent";
-    })
-  }
-
-  handlePassword(e){
-    let {value, style} = e.target;
-    this.setState({password: value})
-    style.backgroundColor = "lightgreen";
-    window.addEventListener('click', () => {
-      style.backgroundColor = "transparent";
-    })
-  }
-
-  handleSubmit(e){
+   handleSubmit = async e => {
     e.preventDefault();
-    let passwordInput = document.getElementsByClassName('register-password-input')[0];
-    let emailInput = document.getElementsByClassName('register-email-input')[0];
-    let submitButton = document.getElementsByClassName('register-submit-input')[0];
-    let {email, password, err, emailError,passwordError} = this.state;
-    let validEmail = validator.validate(email);
-    let validPassword = schema.validate(password)
-    if(!validEmail){ 
-      this.setState({ emailError: true })
-      emailInput.style.borderColor = 'red'
-    }
-    if(!validPassword){
-      this.setState({ passwordError: true })
-      passwordInput.style.borderColor = 'red'
-    }
-    if(validEmail && validPassword){
-      this.props.registerUser(email,password);
-    }
+    this.setState({ isLoading: true })
+    this.props.registerUser(e,this.state.email,this.state.password);
   }
-
-
-
-
 
 
 
@@ -79,25 +41,36 @@ class Internal extends Component {
 
     render() {
       const {err} = this.state;
-      const {userExists} = this.props;
+
       return(
-        <div>
-        {userExists ? <div>Error found</div> : null}
-        <form className="internal-form" onSubmit={this.handleSubmit}>
-          <input 
-            type="text"
-            className="register-email-input" 
-            onChange={this.handleEmail} 
-            placeholder="email"/>
-          <input 
-            type="password"
-            className="register-password-input"
-            onChange={this.handlePassword} 
-            placeholder="password"/>
-          <input
-            type="submit"
-            className="register-submit-input"
-            value="register"/>
+        <div className="Login">
+        <form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="email" bsSize="large">
+            <ControlLabel>Email</ControlLabel>
+            <FormControl
+              autoFocus
+              type="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup controlId="password" bsSize="large">
+            <ControlLabel>Password</ControlLabel>
+            <FormControl
+              value={this.state.password}
+              onChange={this.handleChange}
+              type="password"
+            />
+          </FormGroup>
+          <LoaderButton
+              block
+              bsSize="large"
+              disabled={!this.validateForm()}
+              type="submit"
+              isLoading={this.state.isLoading}
+              text="Register"
+              loadingText="Registering new user…"
+            />
         </form>
       </div>
       )
@@ -105,4 +78,19 @@ class Internal extends Component {
 }
 
 
-export default Internal;
+
+
+const mapStateToProps = (state) => {
+  return {
+    users: state.users
+    }
+}
+
+
+const ConnectedInternal = connect(
+  mapStateToProps,
+  {loginUser}
+)(Internal)
+
+
+export default ConnectedInternal;

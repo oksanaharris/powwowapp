@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/users';
-
+import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import LoaderButton from '../../components/LoaderButton';
+import './Login.css';
 
 
 class Login extends Component {
@@ -9,66 +11,46 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
-      emailError: false,
-      passwordError: false,
-      err: false
-    }
-    this.handleEmail=this.handleEmail.bind(this);
-    this.handlePassword=this.handlePassword.bind(this);
-    this.handleSubmit=this.handleSubmit.bind(this);
+      isLoading: false,
+      email: "",
+      password: ""
+    };
   }
 
-
-  registrationChoice(e){
-    let {name} = e.target;
-    this.props.registrationChoice(name);
+  validateForm() {
+    return this.state.email.length > 0 && this.state.password.length > 0;
   }
 
-  handleEmail(e){
-    let {value, style} = e.target;
-    this.setState({email: value})
-    style.backgroundColor = "lightgreen";
-    window.addEventListener('click', () => {
-      style.backgroundColor = "transparent";
-    })
+  handleChange = e => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
   }
 
-  handlePassword(e){
-    let {value, style} = e.target;
-    this.setState({password: value})
-    style.backgroundColor = "lightgreen";
-    window.addEventListener('click', () => {
-      style.backgroundColor = "transparent";
-    })
-  }
-
-  handleSubmit(e){
+  handleSubmit = async e => {
     e.preventDefault();
-    let passwordInput = document.getElementsByClassName('register-password-input')[0];
-    let emailInput = document.getElementsByClassName('register-email-input')[0];
-    let submitButton = document.getElementsByClassName('register-submit-input')[0];
-    let {email, password, emailError,passwordError} = this.state;
-    let local = { email: email, password: password }
-    this.props.loginUser(local); 
-    setTimeout(()=>{ //using this to wait for server response
-      const {users} = this.props;
-      if(users === 'success'){
-        console.log('redirect needs to happen')
-      }
-      else if(users === 302){
-        this.setState({err: true })
-      }
-      else if(users === 400){
-        alert('server error');
-      }
-    },500)
+
+    this.setState({ isLoading: true })
+
+    try {
+      let local = { email: this.state.email, password: this.state.password }
+      await this.props.loginUser(local);
+        const {users} = this.props;
+        if(users === 'success'){
+          console.log('redirect needs to happen')
+          this.props.history.push("/");
+        }
+        else if(users === 302){
+          console.log('redirect to register, no user found')
+          this.props.history.push("/register");
+          this.setState({err: true })
+        }
+      
+    } catch(e) {
+      alert(e);
+      this.setState({ isLoading: false })
+    }
   }
-
-
-
-
 
 
 
@@ -78,23 +60,34 @@ class Login extends Component {
       const {err} = this.state;
 
       return(
-        <div>
-        {err ? <div>User Not Found</div> : null }
-        <form className="internal-form" onSubmit={this.handleSubmit}>
-          <input 
-            type="text"
-            className="register-email-input" 
-            onChange={this.handleEmail} 
-            placeholder="email"/>
-          <input 
-            type="password"
-            className="register-password-input"
-            onChange={this.handlePassword} 
-            placeholder="password"/>
-          <input
-            type="submit"
-            className="register-submit-input"
-            value="login"/>
+        <div className="Login">
+        <form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="email" bsSize="large">
+            <ControlLabel>Email</ControlLabel>
+            <FormControl
+              autoFocus
+              type="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup controlId="password" bsSize="large">
+            <ControlLabel>Password</ControlLabel>
+            <FormControl
+              value={this.state.password}
+              onChange={this.handleChange}
+              type="password"
+            />
+          </FormGroup>
+          <LoaderButton
+              block
+              bsSize="large"
+              disabled={!this.validateForm()}
+              type="submit"
+              isLoading={this.state.isLoading}
+              text="Login"
+              loadingText="Logging in…"
+            />
         </form>
       </div>
       )

@@ -30,22 +30,28 @@ class Register extends Component {
     this.setState({registrationChoice: name})
   }
 
-  registerUser(email,password){
-    let local = { email: email, password: password }
-    this.props.registerNewUser(local); 
-    setTimeout(()=>{ //using this to wait for server response
-      const {users} = this.props;
-      if(users === 200){
-      this.setState({registrationChoice: 'login'})
-      }
-      else if(users === 302){
-        this.setState({err: true})
-      }
-      else if(users === 400){
-        alert('server error');
-      }
-    },500)
-       
+  registerUser = async (e, email,password) => {
+    e.preventDefault();
+
+    this.setState({ isLoading: true })
+
+    try {
+      let local = { email: email, password: password }
+      await this.props.registerNewUser(local);
+        const {users} = this.props;
+        console.log(users);
+        if(users === 200){
+          this.props.history.push("/login");
+        }
+        else if(users === 302){
+          console.log('redirect to register, no user found')
+          this.setState({err: true })
+        }
+      
+    } catch(e) {
+      alert(e);
+      this.setState({ isLoading: false })
+    }
   }
 
   
