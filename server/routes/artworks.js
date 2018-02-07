@@ -16,10 +16,24 @@ const Users = db.Users;
 
 
 router.get('/', (req, res) => {
-
+  let arr = [];
+  let local = {};
   return Artworks.findAll({ include: [{ all: true }], order: [['id', 'ASC']]})
   .then(artworks => {
-    // console.log('these are the artworks coming back', artworks);
+    artworks.map(elem => {
+      local.id = elem.id;
+      local.url = elem.url;
+      local.name = elem.Artist.name;
+      local.bio = elem.Artist.bio;
+      local.website = elem.Artist.websiteurl;
+      local.featured = elem.featured;
+      local.description = elem.description;
+      local.title = elem.title;
+      local.lat = elem.Site.lat;
+      local.lng = elem.Site.long;
+
+      arr.push(local);
+    })
     res.json(artworks);
   })
   .catch(error => {
