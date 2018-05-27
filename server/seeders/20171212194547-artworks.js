@@ -3,6 +3,19 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('artworks', [{
+  "title": "General Artwork",
+  "description": "For non-artwork-specific comment posts to tie to",
+  "url":"http://powwowhawaii.com/wp-content/uploads/2017/03/pwh2017_TaraMcPherson_JasperWong.jpg",
+  "date_painted": "3/7/2017",
+  "date_removed": "10/17/2017",
+  "featured": "t",
+  "artist_id": 1,
+  "site_id": 1,
+  "createdAt": "10/27/2017",
+  "updatedAt": "5/30/2017",
+  "artist_id": 1,
+  "site_id": 1
+}, {
   "title": "Amityville II: The Possession",
   "description": "description of artwork",
   "url":"http://powwowhawaii.com/wp-content/uploads/2017/03/pwh2017_TaraMcPherson_JasperWong.jpg",

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {loadComments} from '../../actions/comments';
 
-import {loadPhotoUploads} from '../../actions/photoUploads';
+// import {loadPhotoUploads} from '../../actions/photoUploads';
 
 import {Link} from 'react-router-dom';
 
@@ -28,7 +28,7 @@ class CommunityView extends Component {
 
   componentWillMount(){
     this.props.loadComments();
-    this.props.loadPhotoUploads();
+    // this.props.loadPhotoUploads();
   }
 
   componentDidMount(){
@@ -37,6 +37,7 @@ class CommunityView extends Component {
 
   render(){
     let commentList = [];
+    let photoList = [];
 
     if (this.props.comments.length > 0){
 
@@ -46,27 +47,25 @@ class CommunityView extends Component {
       commentList = comments.map(comment => {
         return(
           <li key={comment.id} className="communityview-comment-li">
-            <CommunityComment commentUserPic={comment.User.picture} commentBody={comment.body} commentUserName={comment.User.username} commentDate={moment(comment.createdAt).fromNow()} commentArtworkPic={comment.Artwork.url} artworkid={comment.Artwork.id}/>
+            <CommunityComment commentUserPic={comment.User.picture} commentBody={comment.body} commentPic={comment.photourl} commentUserName={comment.User.username} commentDate={moment(comment.createdAt).fromNow()} commentArtworkPic={comment.Artwork.url} artworkid={comment.Artwork.id}/>
           </li>
         );
       });
-    }
 
-    let photoList = [];
-
-    if (this.props.photoUploads.length > 0){
-
-      console.log('this props photoUploads HERE', this.props.photoUploads);
-      let photos = this.props.photoUploads;
-
-      photoList = photos.map(photo => {
+      photoList = this.props.comments.filter(comment => {
+        return comment.photourl;
+      })
+      .map(comment => {
         return(
-          <div key={photo.id} className="artworkview-photo-li">
-            <img src={photo.url} />
+          <div key={comment.id} className="artworkview-photo-li">
+            <img src={comment.photourl} />
           </div>
         );
       });
+
     }
+
+
 
     return(
       <div className="communityview-main-container">
@@ -110,10 +109,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadComments: () => {
       dispatch(loadComments());
-    },
-    loadPhotoUploads: () => {
-      dispatch(loadPhotoUploads());
     }
+    // loadPhotoUploads: () => {
+    //   dispatch(loadPhotoUploads());
+    // }
     // removeStar: (id) => {
     //   dispatch(removeStarAction(id));
     // },

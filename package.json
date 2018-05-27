@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "aws-sdk": "^2.224.1",
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "connect-redis": "^3.3.2",

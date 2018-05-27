@@ -1,0 +1,13 @@
+* conditional display of images in comments on artwork page
+* conditional display of images in comments on community page
+* slider on community page pulling images from comments table instead of photo uploads table
+* removing photouploads from models, database, reducers, actions
+* adding photos using the photo button from comment input form on individual artwork
+* dealing with integer (no empty string) for artist_id foreign key in comment table when adding from community camera icon
+* when adding from community camera icon, restyle comment component to not display empty " " for comment body - conditional
+* image inside comment looks stretched on artwork page
+* resizing images or controlling the upload size of images (medium or small) to optimize loading
+* deleting or editing your own uploads and comments
+* tracking you own uploads or comments inside your profile
+* restyle comment order of info and post and background to look more modern and match others out there
+* check out Baseem's multer plug in from https://github.com/ba5eem/consume-more-stuff

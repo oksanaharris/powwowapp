@@ -69,7 +69,9 @@ class ArtGalleryView extends Component {
 
     if (this.props.artworks.length > 0){
 
-      artworks = this.props.artworks;
+      artworks = this.props.artworks.filter(artwork => {
+        return artwork.id !== 1;
+      });
 
       if (starredOnly === true){
         console.log('starred only is true');

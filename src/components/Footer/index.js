@@ -1,47 +1,62 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import { Route, Redirect } from 'react-router';
+import { withRouter } from 'react-router';
+import {addCommentAction} from '../../actions/comments.js';
+import {connect} from 'react-redux';
 
-export default class Footer extends Component{
+let userId = 1;
+
+class Footer extends Component{
   constructor(props){
     super(props);
     this.state = {
       // showCamera: 'hidden'
-      file: '',
-      url: ''
+      imageData: ''
     };
 
     this.uploadImage = this.uploadImage.bind(this);
   }
 
-  // openCamera(){
-  //   this.setState({
-  //     showCamera: 'visible'
-  //   });
-  // }
-
   uploadImage(e){
-   e.preventDefault();
-   let reader = new FileReader();
-   // let file = e.target.files[0];
-
-   reader.onloadend = () => {
-    console.log(e.target.file);
+    console.log('running upload image method');
+    e.preventDefault();
+    let reader = new FileReader();
     let file = e.target.files[0];
 
-    this.setState({
-       file: file,
-       url: reader.result
-    });
+    reader.onloadend = () => {
 
-     console.log('state file', this.state.file);
-     console.log('state url', this.state.url);
-   }
+      this.setState({
+         imageData: reader.result
+      });
 
-   // if(file){
-   //   reader.readAsDataURL(file);
-   // }
+      // var formData = new FormData();
+      // formData.append('capturedImage', this.state.file);
 
- }
+      let newComment = {
+        artwork_id: 1,
+        user_id: userId,
+        body: '',
+        imageData: this.state.imageData,
+      }
+
+      // console.log('this is our new comment', newComment);
+
+      this.props.addComment(newComment);
+
+      this.setState({
+        imageData: '',
+      });
+
+      // handle pressing Cancel - don't always run this - only if they selected an image
+      // this.props.history.push('/community');
+    }
+
+    if(file){
+      reader.readAsDataURL(file);
+    }
+  }
+
 
   render(){
     return(
@@ -76,7 +91,7 @@ export default class Footer extends Component{
         <div className="footer-menu-row footer-menu-camera-row">
           <div className="footer-menu-section camera-section">
             <div className="camera-icon-div" >
-              <label for="files" className="camera-button-label"></label>
+              <label htmlFor="files" className="camera-button-label"></label>
               <input id="files" className="camera-button-input" type="file" accept="image/*" onChange={this.uploadImage}></input>
             {/*<Link to='/camera'>*/}
              {/* <img src="/assets/camera_icon.png" alt="gallery" className="menu-img menu-camera-img" />*/}
@@ -88,3 +103,24 @@ export default class Footer extends Component{
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addComment: (commentObj) => {
+      dispatch(addCommentAction(commentObj));
+    }
+  }
+}
+
+Footer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+  )(Footer);
+
+export default withRouter(Footer);

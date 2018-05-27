@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
   //this includes artworks and users
   return Checkins.findAll({ include: [{ all: true }]})
   .then(checkins => {
-    console.log('these are the checkins coming back', checkins);
+    // console.log('these are the checkins coming back', checkins);
     res.json(checkins);
   })
   .catch(error => {
@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
 
   return Checkins.findOne({where: {id: id}}, {include: [{ all: true }]})
   .then(checkin => {
-    console.log('this is the checkin coming back', checkin);
+    // console.log('this is the checkin coming back', checkin);
     res.json(checkin);
   })
   .catch(error => {
@@ -48,7 +48,7 @@ router.post('/', (req, res) => {
     checked_in: checked_in
   })
   .then(checkin => {
-    console.log('comment coming back from post to api/checkins', checkin);
+    // console.log('comment coming back from post to api/checkins', checkin);
     res.json(checkin);
   })
   .catch(error => {
@@ -70,7 +70,7 @@ router.put('/:id', (req, res) => {
     });
   })
   .then(result => {
-    console.log('an update made to checkin with id ', id,  result);
+    // console.log('an update made to checkin with id ', id,  result);
     res.json(result);
   })
   .catch(error => {
@@ -91,7 +91,7 @@ router.delete('/:id', (req, res) => {
       return checkin.destroy();
   })
   .then(result => {
-    console.log('this is what we get back from delete to api/checkins/:id for id ', id, result);
+    // console.log('this is what we get back from delete to api/checkins/:id for id ', id, result);
     res.json(result);
     // returns an empty array if successful and undefined if record not found - it works
   })

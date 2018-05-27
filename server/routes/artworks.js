@@ -36,7 +36,7 @@ router.get('/:id', (req, res) => {
 
   return Artworks.findOne({where: {id: id}}, {include: [{ all: true }]})
   .then(artwork => {
-    console.log('this is the artwork coming back', artwork);
+    // console.log('this is the artwork coming back', artwork);
     res.json(artwork);
   })
   .catch(error => {
@@ -58,7 +58,7 @@ router.post('/', (req, res) => {
     site_id: site_id
   })
   .then(artwork => {
-    console.log('comment coming back from post to api/artworks', artwork);
+    // console.log('comment coming back from post to api/artworks', artwork);
     res.json(artwork);
   })
   .catch(error => {
@@ -82,7 +82,7 @@ router.put('/:id', (req, res) => {
     });
   })
   .then(result => {
-    console.log('an update made to artwork with id ', id,  result);
+    // console.log('an update made to artwork with id ', id,  result);
     res.json(result);
   })
   .catch(error => {
@@ -103,7 +103,7 @@ router.delete('/:id', (req, res) => {
       return artwork.destroy();
   })
   .then(result => {
-    console.log('this is what we get back from delete to api/artworks/:id for id ', id, result);
+    // console.log('this is what we get back from delete to api/artworks/:id for id ', id, result);
     res.json(result);
     // returns an empty array if successful and undefined if record not found - it works
   })

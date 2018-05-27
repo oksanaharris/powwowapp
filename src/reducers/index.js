@@ -6,7 +6,6 @@ import artworks from './artworks';
 import checkins from './checkins';
 import comments from './comments';
 import likes from './likes';
-import photoUploads from './photoUploads';
 import sites from './sites';
 import users from './users';
 import search from './search';
@@ -19,7 +18,6 @@ export default combineReducers({
   checkins,
   comments,
   likes,
-  photoUploads,
   sites,
   users,
   search,

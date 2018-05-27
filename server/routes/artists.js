@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 
   return Artists.findAll({ include: [{ all: true }], order: [['id', 'ASC']]})
   .then(artists => {
-    console.log('these are the artists coming back', artists);
+    // console.log('these are the artists coming back', artists);
     res.json(artists);
   })
   .catch(error => {
@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
 
   return Artists.findOne({where: {id: id}, include: [Artworks]})
   .then(artist => {
-    console.log('this is the artist coming back', artist);
+    // console.log('this is the artist coming back', artist);
     res.json(artist);
   })
   .catch(error => {
@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
     featured: featured
   })
   .then(artist => {
-    console.log('comment coming back from post to api/artists', artist);
+    // console.log('comment coming back from post to api/artists', artist);
     res.json(artist);
   })
   .catch(error => {
@@ -77,7 +77,7 @@ router.put('/:id', (req, res) => {
     });
   })
   .then(result => {
-    console.log('an update made to artist with id ', id,  result);
+    // console.log('an update made to artist with id ', id,  result);
     res.json(result);
   })
   .catch(error => {
@@ -97,7 +97,7 @@ router.delete('/:id', (req, res) => {
       return artist.destroy();
   })
   .then(result => {
-    console.log('this is what we get back from delete to api/artists/:id for id ', id, result);
+    // console.log('this is what we get back from delete to api/artists/:id for id ', id, result);
     res.json(result);
     // returns an empty array if successful and undefined if record not found - it works
   })

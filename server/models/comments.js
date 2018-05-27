@@ -1,6 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   var Comments = sequelize.define("Comments", {
-    body: {type: DataTypes.STRING}
+    body: {type: DataTypes.STRING},
+    photourl: {type: DataTypes.STRING}
   }, {tableName: 'comments'});
 
   Comments.associate = function(models) {

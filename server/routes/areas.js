@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
   return Areas.findAll({include: [Authorizations]})
   .then(areas => {
-    console.log('these are the areas coming back', areas);
+    // console.log('these are the areas coming back', areas);
     res.json(areas);
   })
   .catch(error => {
@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
 
   return Areas.findOne({where: {id: id}, include: [Authorizations]})
   .then(area => {
-    console.log('this is the area coming back', area);
+    // console.log('this is the area coming back', area);
     res.json(area);
   })
   .catch(error => {
@@ -48,7 +48,7 @@ router.post('/', (req, res) => {
     state: state
   })
   .then(area => {
-    console.log('comment coming back from post to api/areas', area);
+    // console.log('comment coming back from post to api/areas', area);
     res.json(area);
   })
   .catch(error => {
@@ -66,7 +66,7 @@ router.put('/:id', (req, res) => {
     return area.update({name: name, city: city, state: state});
   })
   .then(result => {
-    console.log('an update made to area with id ', id,  result);
+    // console.log('an update made to area with id ', id,  result);
     res.json(result);
   })
   .catch(error => {
@@ -86,7 +86,7 @@ router.delete('/:id', (req, res) => {
       return area.destroy();
   })
   .then(result => {
-    console.log('this is what we get back from delete to api/areas/:id for id ', id, result);
+    // console.log('this is what we get back from delete to api/areas/:id for id ', id, result);
     res.json(result);
     // returns an empty array if successful and undefined if record not found - it works
   })

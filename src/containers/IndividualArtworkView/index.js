@@ -184,7 +184,7 @@ class IndividualArtworkView extends Component {
         commentList = comments.map(comment => {
           return(
             <li key={comment.id} className="artworkview-comment-li">
-              <ArtworkComment commentUserPic={comment.User.picture} commentBody={comment.body} commentUserName={comment.User.username} commentDate={moment(comment.createdAt).fromNow()} />
+              <ArtworkComment commentUserPic={comment.User.picture} commentBody={comment.body} commentPic={comment.photourl} commentUserName={comment.User.username} commentDate={moment(comment.createdAt).fromNow()} />
             </li>
           );
         });
